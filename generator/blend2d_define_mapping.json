@@ -1,0 +1,41 @@
+{
+      "BL_CLASS_INHERITS" : null
+    , "BL_DEFINE_OBJECT_DETAIL" : null
+    , "BL_DEFINE_OBJECT_DCAST" : null
+    , "BL_DEFINE_VIRT_BASE" : null
+    , "BL_DEFINE_OBJECT_PROPERTY_API" : null
+    , "BL_MAKE_VERSION" : null
+    , "BL_VERSION" : null
+    , "BL_BUILD_DEBUG" : null
+    , "BL_BYTE_ORDER" : null
+    , "BL_API" : null
+    , "BL_CDECL" : null
+    , "BL_INLINE" : null
+    , "BL_INLINE_NODEBUG" : null
+    , "BL_NORETURN" : null
+    , "BL_NODISCARD" : null
+    , "BL_NOEXCEPT" : null
+    , "BL_NOEXCEPT_C" : null
+    , "BL_PURE" : null
+    , "BL_ALIGN_TYPE" : null
+    , "BL_ASSUME" : null
+    , "BL_LIKELY" : null
+    , "BL_UNLIKELY" : null
+    , "BL_ASSERT" : null
+    , "BL_PROPAGATE" : null
+    , "BL_MAKE_TAG" : null
+    , "BL_DEFINE_CONST" : null
+    , "BL_DEFINE_ENUM" : null
+    , "BL_FORCE_ENUM_UINT32" : null
+    , "BL_BEGIN_C_DECLS" : null
+    , "BL_END_C_DECLS" : null
+    , "BL_DIAGNOSTIC_PUSH" : null
+    , "BL_DIAGNOSTIC_POP" : null
+    , "BL_DIAGNOSTIC_NO_UNUSED_FUNCTIONS" : null
+    , "BL_DIAGNOSTIC_NO_UNUSED_PARAMETERS" : null
+    , "BL_DIAGNOSTIC_NO_EXTRA_WARNINGS" : null
+    , "BL_FORWARD_DECLARE_STRUCT" : null
+    , "BL_FORWARD_DECLARE_UNION" : null
+    , "BL_FORWARD_DECLARE_ENUM" : null
+    , "BL_DEFINE_ARRAY_VIEW" : null
+}

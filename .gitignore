@@ -1,0 +1,5 @@
+generator/blend2d/*
+blend2d_dll/build/*
+blend2d_dll/build_x86_64/*
+blend2d_dll/build_arm64/*
+generator/__pycache__/
