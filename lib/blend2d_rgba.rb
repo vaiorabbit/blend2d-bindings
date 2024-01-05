@@ -23,12 +23,26 @@ module Blend2D
     layout(
       :value, :uint,
     )
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_value_)
+      instance = BLRgba32.new
+      instance[:value] = _value_
+      instance
+    end
   end
 
   class BLRgba64 < FFI::Struct
     layout(
       :value, :ulong_long,
     )
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_value_)
+      instance = BLRgba64.new
+      instance[:value] = _value_
+      instance
+    end
   end
 
   class BLRgba < FFI::Struct
@@ -38,6 +52,22 @@ module Blend2D
       :b, :float,
       :a, :float,
     )
+    def r = self[:r]
+    def r=(v) self[:r] = v end
+    def g = self[:g]
+    def g=(v) self[:g] = v end
+    def b = self[:b]
+    def b=(v) self[:b] = v end
+    def a = self[:a]
+    def a=(v) self[:a] = v end
+    def self.create_as(_r_, _g_, _b_, _a_)
+      instance = BLRgba.new
+      instance[:r] = _r_
+      instance[:g] = _g_
+      instance[:b] = _b_
+      instance[:a] = _a_
+      instance
+    end
   end
 
 

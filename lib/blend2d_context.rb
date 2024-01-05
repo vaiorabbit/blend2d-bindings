@@ -165,18 +165,252 @@ module Blend2D
       :pixelOrigin, BLPointI,
       :reserved, :uint,
     )
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def threadCount = self[:threadCount]
+    def threadCount=(v) self[:threadCount] = v end
+    def cpuFeatures = self[:cpuFeatures]
+    def cpuFeatures=(v) self[:cpuFeatures] = v end
+    def commandQueueLimit = self[:commandQueueLimit]
+    def commandQueueLimit=(v) self[:commandQueueLimit] = v end
+    def savedStateLimit = self[:savedStateLimit]
+    def savedStateLimit=(v) self[:savedStateLimit] = v end
+    def pixelOrigin = self[:pixelOrigin]
+    def pixelOrigin=(v) self[:pixelOrigin] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def self.create_as(_flags_, _threadCount_, _cpuFeatures_, _commandQueueLimit_, _savedStateLimit_, _pixelOrigin_, _reserved_)
+      instance = BLContextCreateInfo.new
+      instance[:flags] = _flags_
+      instance[:threadCount] = _threadCount_
+      instance[:cpuFeatures] = _cpuFeatures_
+      instance[:commandQueueLimit] = _commandQueueLimit_
+      instance[:savedStateLimit] = _savedStateLimit_
+      instance[:pixelOrigin] = _pixelOrigin_
+      instance[:reserved] = _reserved_
+      instance
+    end
   end
 
   class BLContextCookie < FFI::Struct
     layout(
       :data, [:ulong_long, 2],
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def self.create_as(_data_)
+      instance = BLContextCookie.new
+      instance[:data] = _data_
+      instance
+    end
   end
 
   class BLContextCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blContextInit(self)
+    def self.create()
+      instance = BLContextCore.new
+      blContextInit(instance)
+      instance
+    end
+    def initMove(other) = blContextInitMove(self, other)
+    def initWeak(other) = blContextInitWeak(self, other)
+    def initAs(image, cci) = blContextInitAs(self, image, cci)
+    def self.create_as(image, cci)
+      instance = BLContextCore.new
+      blContextInitAs(instance, image, cci)
+      instance
+    end
+    def destroy() = blContextDestroy(self)
+    def reset() = blContextReset(self)
+    def assignMove(other) = blContextAssignMove(self, other)
+    def assignWeak(other) = blContextAssignWeak(self, other)
+    def getType() = blContextGetType(self)
+    def getTargetSize(targetSizeOut) = blContextGetTargetSize(self, targetSizeOut)
+    def getTargetImage() = blContextGetTargetImage(self)
+    def begin(image, cci) = blContextBegin(self, image, cci)
+    def end() = blContextEnd(self)
+    def flush(flags) = blContextFlush(self, flags)
+    def save(cookie) = blContextSave(self, cookie)
+    def restore(cookie) = blContextRestore(self, cookie)
+    def getMetaTransform(transformOut) = blContextGetMetaTransform(self, transformOut)
+    def getUserTransform(transformOut) = blContextGetUserTransform(self, transformOut)
+    def getFinalTransform(transformOut) = blContextGetFinalTransform(self, transformOut)
+    def userToMeta() = blContextUserToMeta(self)
+    def applyTransformOp(opType, opData) = blContextApplyTransformOp(self, opType, opData)
+    def getHint(hintType) = blContextGetHint(self, hintType)
+    def setHint(hintType, value) = blContextSetHint(self, hintType, value)
+    def getHints(hintsOut) = blContextGetHints(self, hintsOut)
+    def setHints(hints) = blContextSetHints(self, hints)
+    def setFlattenMode(mode) = blContextSetFlattenMode(self, mode)
+    def setFlattenTolerance(tolerance) = blContextSetFlattenTolerance(self, tolerance)
+    def setApproximationOptions(options) = blContextSetApproximationOptions(self, options)
+    def getFillStyle(styleOut) = blContextGetFillStyle(self, styleOut)
+    def getTransformedFillStyle(styleOut) = blContextGetTransformedFillStyle(self, styleOut)
+    def setFillStyle(style) = blContextSetFillStyle(self, style)
+    def setFillStyleWithMode(style, transformMode) = blContextSetFillStyleWithMode(self, style, transformMode)
+    def setFillStyleRgba(rgba) = blContextSetFillStyleRgba(self, rgba)
+    def setFillStyleRgba32(rgba32) = blContextSetFillStyleRgba32(self, rgba32)
+    def setFillStyleRgba64(rgba64) = blContextSetFillStyleRgba64(self, rgba64)
+    def disableFillStyle() = blContextDisableFillStyle(self)
+    def getFillAlpha() = blContextGetFillAlpha(self)
+    def setFillAlpha(alpha) = blContextSetFillAlpha(self, alpha)
+    def getStrokeStyle(styleOut) = blContextGetStrokeStyle(self, styleOut)
+    def getTransformedStrokeStyle(styleOut) = blContextGetTransformedStrokeStyle(self, styleOut)
+    def setStrokeStyle(style) = blContextSetStrokeStyle(self, style)
+    def setStrokeStyleWithMode(style, transformMode) = blContextSetStrokeStyleWithMode(self, style, transformMode)
+    def setStrokeStyleRgba(rgba) = blContextSetStrokeStyleRgba(self, rgba)
+    def setStrokeStyleRgba32(rgba32) = blContextSetStrokeStyleRgba32(self, rgba32)
+    def setStrokeStyleRgba64(rgba64) = blContextSetStrokeStyleRgba64(self, rgba64)
+    def disableStrokeStyle() = blContextDisableStrokeStyle(self)
+    def getStrokeAlpha() = blContextGetStrokeAlpha(self)
+    def setStrokeAlpha(alpha) = blContextSetStrokeAlpha(self, alpha)
+    def swapStyles(mode) = blContextSwapStyles(self, mode)
+    def getGlobalAlpha() = blContextGetGlobalAlpha(self)
+    def setGlobalAlpha(alpha) = blContextSetGlobalAlpha(self, alpha)
+    def getCompOp() = blContextGetCompOp(self)
+    def setCompOp(compOp) = blContextSetCompOp(self, compOp)
+    def getFillRule() = blContextGetFillRule(self)
+    def setFillRule(fillRule) = blContextSetFillRule(self, fillRule)
+    def getStrokeWidth() = blContextGetStrokeWidth(self)
+    def setStrokeWidth(width) = blContextSetStrokeWidth(self, width)
+    def getStrokeMiterLimit() = blContextGetStrokeMiterLimit(self)
+    def setStrokeMiterLimit(miterLimit) = blContextSetStrokeMiterLimit(self, miterLimit)
+    def getStrokeCap(position) = blContextGetStrokeCap(self, position)
+    def setStrokeCap(position, strokeCap) = blContextSetStrokeCap(self, position, strokeCap)
+    def setStrokeCaps(strokeCap) = blContextSetStrokeCaps(self, strokeCap)
+    def getStrokeJoin() = blContextGetStrokeJoin(self)
+    def setStrokeJoin(strokeJoin) = blContextSetStrokeJoin(self, strokeJoin)
+    def getStrokeTransformOrder() = blContextGetStrokeTransformOrder(self)
+    def setStrokeTransformOrder(transformOrder) = blContextSetStrokeTransformOrder(self, transformOrder)
+    def getStrokeDashOffset() = blContextGetStrokeDashOffset(self)
+    def setStrokeDashOffset(dashOffset) = blContextSetStrokeDashOffset(self, dashOffset)
+    def getStrokeDashArray(dashArrayOut) = blContextGetStrokeDashArray(self, dashArrayOut)
+    def setStrokeDashArray(dashArray) = blContextSetStrokeDashArray(self, dashArray)
+    def getStrokeOptions(options) = blContextGetStrokeOptions(self, options)
+    def setStrokeOptions(options) = blContextSetStrokeOptions(self, options)
+    def clipToRectI(rect) = blContextClipToRectI(self, rect)
+    def clipToRectD(rect) = blContextClipToRectD(self, rect)
+    def restoreClipping() = blContextRestoreClipping(self)
+    def clearAll() = blContextClearAll(self)
+    def clearRectI(rect) = blContextClearRectI(self, rect)
+    def clearRectD(rect) = blContextClearRectD(self, rect)
+    def fillAll() = blContextFillAll(self)
+    def fillAllRgba32(rgba32) = blContextFillAllRgba32(self, rgba32)
+    def fillAllRgba64(rgba64) = blContextFillAllRgba64(self, rgba64)
+    def fillAllExt(style) = blContextFillAllExt(self, style)
+    def fillRectI(rect) = blContextFillRectI(self, rect)
+    def fillRectIRgba32(rect, rgba32) = blContextFillRectIRgba32(self, rect, rgba32)
+    def fillRectIRgba64(rect, rgba64) = blContextFillRectIRgba64(self, rect, rgba64)
+    def fillRectIExt(rect, style) = blContextFillRectIExt(self, rect, style)
+    def fillRectD(rect) = blContextFillRectD(self, rect)
+    def fillRectDRgba32(rect, rgba32) = blContextFillRectDRgba32(self, rect, rgba32)
+    def fillRectDRgba64(rect, rgba64) = blContextFillRectDRgba64(self, rect, rgba64)
+    def fillRectDExt(rect, style) = blContextFillRectDExt(self, rect, style)
+    def fillPathD(origin, path) = blContextFillPathD(self, origin, path)
+    def fillPathDRgba32(origin, path, rgba32) = blContextFillPathDRgba32(self, origin, path, rgba32)
+    def fillPathDRgba64(origin, path, rgba64) = blContextFillPathDRgba64(self, origin, path, rgba64)
+    def fillPathDExt(origin, path, style) = blContextFillPathDExt(self, origin, path, style)
+    def fillGeometry(type, data) = blContextFillGeometry(self, type, data)
+    def fillGeometryRgba32(type, data, rgba32) = blContextFillGeometryRgba32(self, type, data, rgba32)
+    def fillGeometryRgba64(type, data, rgba64) = blContextFillGeometryRgba64(self, type, data, rgba64)
+    def fillGeometryExt(type, data, style) = blContextFillGeometryExt(self, type, data, style)
+    def fillUtf8TextI(origin, font, text, size) = blContextFillUtf8TextI(self, origin, font, text, size)
+    def fillUtf8TextIRgba32(origin, font, text, size, rgba32) = blContextFillUtf8TextIRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf8TextIRgba64(origin, font, text, size, rgba64) = blContextFillUtf8TextIRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf8TextIExt(origin, font, text, size, style) = blContextFillUtf8TextIExt(self, origin, font, text, size, style)
+    def fillUtf8TextD(origin, font, text, size) = blContextFillUtf8TextD(self, origin, font, text, size)
+    def fillUtf8TextDRgba32(origin, font, text, size, rgba32) = blContextFillUtf8TextDRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf8TextDRgba64(origin, font, text, size, rgba64) = blContextFillUtf8TextDRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf8TextDExt(origin, font, text, size, style) = blContextFillUtf8TextDExt(self, origin, font, text, size, style)
+    def fillUtf16TextI(origin, font, text, size) = blContextFillUtf16TextI(self, origin, font, text, size)
+    def fillUtf16TextIRgba32(origin, font, text, size, rgba32) = blContextFillUtf16TextIRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf16TextIRgba64(origin, font, text, size, rgba64) = blContextFillUtf16TextIRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf16TextIExt(origin, font, text, size, style) = blContextFillUtf16TextIExt(self, origin, font, text, size, style)
+    def fillUtf16TextD(origin, font, text, size) = blContextFillUtf16TextD(self, origin, font, text, size)
+    def fillUtf16TextDRgba32(origin, font, text, size, rgba32) = blContextFillUtf16TextDRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf16TextDRgba64(origin, font, text, size, rgba64) = blContextFillUtf16TextDRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf16TextDExt(origin, font, text, size, style) = blContextFillUtf16TextDExt(self, origin, font, text, size, style)
+    def fillUtf32TextI(origin, font, text, size) = blContextFillUtf32TextI(self, origin, font, text, size)
+    def fillUtf32TextIRgba32(origin, font, text, size, rgba32) = blContextFillUtf32TextIRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf32TextIRgba64(origin, font, text, size, rgba64) = blContextFillUtf32TextIRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf32TextIExt(origin, font, text, size, style) = blContextFillUtf32TextIExt(self, origin, font, text, size, style)
+    def fillUtf32TextD(origin, font, text, size) = blContextFillUtf32TextD(self, origin, font, text, size)
+    def fillUtf32TextDRgba32(origin, font, text, size, rgba32) = blContextFillUtf32TextDRgba32(self, origin, font, text, size, rgba32)
+    def fillUtf32TextDRgba64(origin, font, text, size, rgba64) = blContextFillUtf32TextDRgba64(self, origin, font, text, size, rgba64)
+    def fillUtf32TextDExt(origin, font, text, size, style) = blContextFillUtf32TextDExt(self, origin, font, text, size, style)
+    def fillGlyphRunI(origin, font, glyphRun) = blContextFillGlyphRunI(self, origin, font, glyphRun)
+    def fillGlyphRunIRgba32(origin, font, glyphRun, rgba32) = blContextFillGlyphRunIRgba32(self, origin, font, glyphRun, rgba32)
+    def fillGlyphRunIRgba64(origin, font, glyphRun, rgba64) = blContextFillGlyphRunIRgba64(self, origin, font, glyphRun, rgba64)
+    def fillGlyphRunIExt(origin, font, glyphRun, style) = blContextFillGlyphRunIExt(self, origin, font, glyphRun, style)
+    def fillGlyphRunD(origin, font, glyphRun) = blContextFillGlyphRunD(self, origin, font, glyphRun)
+    def fillGlyphRunDRgba32(origin, font, glyphRun, rgba32) = blContextFillGlyphRunDRgba32(self, origin, font, glyphRun, rgba32)
+    def fillGlyphRunDRgba64(origin, font, glyphRun, rgba64) = blContextFillGlyphRunDRgba64(self, origin, font, glyphRun, rgba64)
+    def fillGlyphRunDExt(origin, font, glyphRun, style) = blContextFillGlyphRunDExt(self, origin, font, glyphRun, style)
+    def fillMaskI(origin, mask, maskArea) = blContextFillMaskI(self, origin, mask, maskArea)
+    def fillMaskIRgba32(origin, mask, maskArea, rgba32) = blContextFillMaskIRgba32(self, origin, mask, maskArea, rgba32)
+    def fillMaskIRgba64(origin, mask, maskArea, rgba64) = blContextFillMaskIRgba64(self, origin, mask, maskArea, rgba64)
+    def fillMaskIExt(origin, mask, maskArea, style) = blContextFillMaskIExt(self, origin, mask, maskArea, style)
+    def fillMaskD(origin, mask, maskArea) = blContextFillMaskD(self, origin, mask, maskArea)
+    def fillMaskDRgba32(origin, mask, maskArea, rgba32) = blContextFillMaskDRgba32(self, origin, mask, maskArea, rgba32)
+    def fillMaskDRgba64(origin, mask, maskArea, rgba64) = blContextFillMaskDRgba64(self, origin, mask, maskArea, rgba64)
+    def fillMaskDExt(origin, mask, maskArea, style) = blContextFillMaskDExt(self, origin, mask, maskArea, style)
+    def strokeRectI(rect) = blContextStrokeRectI(self, rect)
+    def strokeRectIRgba32(rect, rgba32) = blContextStrokeRectIRgba32(self, rect, rgba32)
+    def strokeRectIRgba64(rect, rgba64) = blContextStrokeRectIRgba64(self, rect, rgba64)
+    def strokeRectIExt(rect, style) = blContextStrokeRectIExt(self, rect, style)
+    def strokeRectD(rect) = blContextStrokeRectD(self, rect)
+    def strokeRectDRgba32(rect, rgba32) = blContextStrokeRectDRgba32(self, rect, rgba32)
+    def strokeRectDRgba64(rect, rgba64) = blContextStrokeRectDRgba64(self, rect, rgba64)
+    def strokeRectDExt(rect, style) = blContextStrokeRectDExt(self, rect, style)
+    def strokePathD(origin, path) = blContextStrokePathD(self, origin, path)
+    def strokePathDRgba32(origin, path, rgba32) = blContextStrokePathDRgba32(self, origin, path, rgba32)
+    def strokePathDRgba64(origin, path, rgba64) = blContextStrokePathDRgba64(self, origin, path, rgba64)
+    def strokePathDExt(origin, path, style) = blContextStrokePathDExt(self, origin, path, style)
+    def strokeGeometry(type, data) = blContextStrokeGeometry(self, type, data)
+    def strokeGeometryRgba32(type, data, rgba32) = blContextStrokeGeometryRgba32(self, type, data, rgba32)
+    def strokeGeometryRgba64(type, data, rgba64) = blContextStrokeGeometryRgba64(self, type, data, rgba64)
+    def strokeGeometryExt(type, data, style) = blContextStrokeGeometryExt(self, type, data, style)
+    def strokeUtf8TextI(origin, font, text, size) = blContextStrokeUtf8TextI(self, origin, font, text, size)
+    def strokeUtf8TextIRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf8TextIRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf8TextIRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf8TextIRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf8TextIExt(origin, font, text, size, style) = blContextStrokeUtf8TextIExt(self, origin, font, text, size, style)
+    def strokeUtf8TextD(origin, font, text, size) = blContextStrokeUtf8TextD(self, origin, font, text, size)
+    def strokeUtf8TextDRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf8TextDRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf8TextDRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf8TextDRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf8TextDExt(origin, font, text, size, style) = blContextStrokeUtf8TextDExt(self, origin, font, text, size, style)
+    def strokeUtf16TextI(origin, font, text, size) = blContextStrokeUtf16TextI(self, origin, font, text, size)
+    def strokeUtf16TextIRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf16TextIRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf16TextIRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf16TextIRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf16TextIExt(origin, font, text, size, style) = blContextStrokeUtf16TextIExt(self, origin, font, text, size, style)
+    def strokeUtf16TextD(origin, font, text, size) = blContextStrokeUtf16TextD(self, origin, font, text, size)
+    def strokeUtf16TextDRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf16TextDRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf16TextDRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf16TextDRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf16TextDExt(origin, font, text, size, style) = blContextStrokeUtf16TextDExt(self, origin, font, text, size, style)
+    def strokeUtf32TextI(origin, font, text, size) = blContextStrokeUtf32TextI(self, origin, font, text, size)
+    def strokeUtf32TextIRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf32TextIRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf32TextIRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf32TextIRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf32TextIExt(origin, font, text, size, style) = blContextStrokeUtf32TextIExt(self, origin, font, text, size, style)
+    def strokeUtf32TextD(origin, font, text, size) = blContextStrokeUtf32TextD(self, origin, font, text, size)
+    def strokeUtf32TextDRgba32(origin, font, text, size, rgba32) = blContextStrokeUtf32TextDRgba32(self, origin, font, text, size, rgba32)
+    def strokeUtf32TextDRgba64(origin, font, text, size, rgba64) = blContextStrokeUtf32TextDRgba64(self, origin, font, text, size, rgba64)
+    def strokeUtf32TextDExt(origin, font, text, size, style) = blContextStrokeUtf32TextDExt(self, origin, font, text, size, style)
+    def strokeGlyphRunI(origin, font, glyphRun) = blContextStrokeGlyphRunI(self, origin, font, glyphRun)
+    def strokeGlyphRunIRgba32(origin, font, glyphRun, rgba32) = blContextStrokeGlyphRunIRgba32(self, origin, font, glyphRun, rgba32)
+    def strokeGlyphRunIRgba64(origin, font, glyphRun, rgba64) = blContextStrokeGlyphRunIRgba64(self, origin, font, glyphRun, rgba64)
+    def strokeGlyphRunIExt(origin, font, glyphRun, style) = blContextStrokeGlyphRunIExt(self, origin, font, glyphRun, style)
+    def strokeGlyphRunD(origin, font, glyphRun) = blContextStrokeGlyphRunD(self, origin, font, glyphRun)
+    def strokeGlyphRunDRgba32(origin, font, glyphRun, rgba32) = blContextStrokeGlyphRunDRgba32(self, origin, font, glyphRun, rgba32)
+    def strokeGlyphRunDRgba64(origin, font, glyphRun, rgba64) = blContextStrokeGlyphRunDRgba64(self, origin, font, glyphRun, rgba64)
+    def strokeGlyphRunDExt(origin, font, glyphRun, style) = blContextStrokeGlyphRunDExt(self, origin, font, glyphRun, style)
+    def blitImageI(origin, img, imgArea) = blContextBlitImageI(self, origin, img, imgArea)
+    def blitImageD(origin, img, imgArea) = blContextBlitImageD(self, origin, img, imgArea)
+    def blitScaledImageI(rect, img, imgArea) = blContextBlitScaledImageI(self, rect, img, imgArea)
+    def blitScaledImageD(rect, img, imgArea) = blContextBlitScaledImageD(self, rect, img, imgArea)
   end
 
   class BLContextState < FFI::Struct
@@ -196,6 +430,52 @@ module Blend2D
       :userTransform, BLMatrix2D,
       :finalTransform, BLMatrix2D,
     )
+    def targetImage = self[:targetImage]
+    def targetImage=(v) self[:targetImage] = v end
+    def targetSize = self[:targetSize]
+    def targetSize=(v) self[:targetSize] = v end
+    def hints = self[:hints]
+    def hints=(v) self[:hints] = v end
+    def compOp = self[:compOp]
+    def compOp=(v) self[:compOp] = v end
+    def fillRule = self[:fillRule]
+    def fillRule=(v) self[:fillRule] = v end
+    def styleType = self[:styleType]
+    def styleType=(v) self[:styleType] = v end
+    def savedStateCount = self[:savedStateCount]
+    def savedStateCount=(v) self[:savedStateCount] = v end
+    def globalAlpha = self[:globalAlpha]
+    def globalAlpha=(v) self[:globalAlpha] = v end
+    def styleAlpha = self[:styleAlpha]
+    def styleAlpha=(v) self[:styleAlpha] = v end
+    def strokeOptions = self[:strokeOptions]
+    def strokeOptions=(v) self[:strokeOptions] = v end
+    def approximationOptions = self[:approximationOptions]
+    def approximationOptions=(v) self[:approximationOptions] = v end
+    def metaTransform = self[:metaTransform]
+    def metaTransform=(v) self[:metaTransform] = v end
+    def userTransform = self[:userTransform]
+    def userTransform=(v) self[:userTransform] = v end
+    def finalTransform = self[:finalTransform]
+    def finalTransform=(v) self[:finalTransform] = v end
+    def self.create_as(_targetImage_, _targetSize_, _hints_, _compOp_, _fillRule_, _styleType_, _savedStateCount_, _globalAlpha_, _styleAlpha_, _strokeOptions_, _approximationOptions_, _metaTransform_, _userTransform_, _finalTransform_)
+      instance = BLContextState.new
+      instance[:targetImage] = _targetImage_
+      instance[:targetSize] = _targetSize_
+      instance[:hints] = _hints_
+      instance[:compOp] = _compOp_
+      instance[:fillRule] = _fillRule_
+      instance[:styleType] = _styleType_
+      instance[:savedStateCount] = _savedStateCount_
+      instance[:globalAlpha] = _globalAlpha_
+      instance[:styleAlpha] = _styleAlpha_
+      instance[:strokeOptions] = _strokeOptions_
+      instance[:approximationOptions] = _approximationOptions_
+      instance[:metaTransform] = _metaTransform_
+      instance[:userTransform] = _userTransform_
+      instance[:finalTransform] = _finalTransform_
+      instance
+    end
   end
 
   class BLContextVirt < FFI::Struct
@@ -281,6 +561,250 @@ module Blend2D
       :blitImageD, :pointer,
       :blitScaledImageD, :pointer,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def applyTransformOp = self[:applyTransformOp]
+    def applyTransformOp=(v) self[:applyTransformOp] = v end
+    def fillRectI = self[:fillRectI]
+    def fillRectI=(v) self[:fillRectI] = v end
+    def fillRectIRgba32 = self[:fillRectIRgba32]
+    def fillRectIRgba32=(v) self[:fillRectIRgba32] = v end
+    def fillRectIExt = self[:fillRectIExt]
+    def fillRectIExt=(v) self[:fillRectIExt] = v end
+    def fillRectD = self[:fillRectD]
+    def fillRectD=(v) self[:fillRectD] = v end
+    def fillRectDRgba32 = self[:fillRectDRgba32]
+    def fillRectDRgba32=(v) self[:fillRectDRgba32] = v end
+    def fillRectDExt = self[:fillRectDExt]
+    def fillRectDExt=(v) self[:fillRectDExt] = v end
+    def fillPathD = self[:fillPathD]
+    def fillPathD=(v) self[:fillPathD] = v end
+    def fillPathDRgba32 = self[:fillPathDRgba32]
+    def fillPathDRgba32=(v) self[:fillPathDRgba32] = v end
+    def fillPathDExt = self[:fillPathDExt]
+    def fillPathDExt=(v) self[:fillPathDExt] = v end
+    def blitImageI = self[:blitImageI]
+    def blitImageI=(v) self[:blitImageI] = v end
+    def blitScaledImageI = self[:blitScaledImageI]
+    def blitScaledImageI=(v) self[:blitScaledImageI] = v end
+    def flush = self[:flush]
+    def flush=(v) self[:flush] = v end
+    def save = self[:save]
+    def save=(v) self[:save] = v end
+    def restore = self[:restore]
+    def restore=(v) self[:restore] = v end
+    def userToMeta = self[:userToMeta]
+    def userToMeta=(v) self[:userToMeta] = v end
+    def setHint = self[:setHint]
+    def setHint=(v) self[:setHint] = v end
+    def setHints = self[:setHints]
+    def setHints=(v) self[:setHints] = v end
+    def setFlattenMode = self[:setFlattenMode]
+    def setFlattenMode=(v) self[:setFlattenMode] = v end
+    def setFlattenTolerance = self[:setFlattenTolerance]
+    def setFlattenTolerance=(v) self[:setFlattenTolerance] = v end
+    def setApproximationOptions = self[:setApproximationOptions]
+    def setApproximationOptions=(v) self[:setApproximationOptions] = v end
+    def getStyle = self[:getStyle]
+    def getStyle=(v) self[:getStyle] = v end
+    def setStyle = self[:setStyle]
+    def setStyle=(v) self[:setStyle] = v end
+    def setStyleRgba = self[:setStyleRgba]
+    def setStyleRgba=(v) self[:setStyleRgba] = v end
+    def setStyleRgba32 = self[:setStyleRgba32]
+    def setStyleRgba32=(v) self[:setStyleRgba32] = v end
+    def setStyleRgba64 = self[:setStyleRgba64]
+    def setStyleRgba64=(v) self[:setStyleRgba64] = v end
+    def disableStyle = self[:disableStyle]
+    def disableStyle=(v) self[:disableStyle] = v end
+    def setStyleAlpha = self[:setStyleAlpha]
+    def setStyleAlpha=(v) self[:setStyleAlpha] = v end
+    def swapStyles = self[:swapStyles]
+    def swapStyles=(v) self[:swapStyles] = v end
+    def setGlobalAlpha = self[:setGlobalAlpha]
+    def setGlobalAlpha=(v) self[:setGlobalAlpha] = v end
+    def setCompOp = self[:setCompOp]
+    def setCompOp=(v) self[:setCompOp] = v end
+    def setFillRule = self[:setFillRule]
+    def setFillRule=(v) self[:setFillRule] = v end
+    def setStrokeWidth = self[:setStrokeWidth]
+    def setStrokeWidth=(v) self[:setStrokeWidth] = v end
+    def setStrokeMiterLimit = self[:setStrokeMiterLimit]
+    def setStrokeMiterLimit=(v) self[:setStrokeMiterLimit] = v end
+    def setStrokeCap = self[:setStrokeCap]
+    def setStrokeCap=(v) self[:setStrokeCap] = v end
+    def setStrokeCaps = self[:setStrokeCaps]
+    def setStrokeCaps=(v) self[:setStrokeCaps] = v end
+    def setStrokeJoin = self[:setStrokeJoin]
+    def setStrokeJoin=(v) self[:setStrokeJoin] = v end
+    def setStrokeDashOffset = self[:setStrokeDashOffset]
+    def setStrokeDashOffset=(v) self[:setStrokeDashOffset] = v end
+    def setStrokeDashArray = self[:setStrokeDashArray]
+    def setStrokeDashArray=(v) self[:setStrokeDashArray] = v end
+    def setStrokeTransformOrder = self[:setStrokeTransformOrder]
+    def setStrokeTransformOrder=(v) self[:setStrokeTransformOrder] = v end
+    def setStrokeOptions = self[:setStrokeOptions]
+    def setStrokeOptions=(v) self[:setStrokeOptions] = v end
+    def clipToRectI = self[:clipToRectI]
+    def clipToRectI=(v) self[:clipToRectI] = v end
+    def clipToRectD = self[:clipToRectD]
+    def clipToRectD=(v) self[:clipToRectD] = v end
+    def restoreClipping = self[:restoreClipping]
+    def restoreClipping=(v) self[:restoreClipping] = v end
+    def clearAll = self[:clearAll]
+    def clearAll=(v) self[:clearAll] = v end
+    def clearRectI = self[:clearRectI]
+    def clearRectI=(v) self[:clearRectI] = v end
+    def clearRectD = self[:clearRectD]
+    def clearRectD=(v) self[:clearRectD] = v end
+    def fillAll = self[:fillAll]
+    def fillAll=(v) self[:fillAll] = v end
+    def fillAllRgba32 = self[:fillAllRgba32]
+    def fillAllRgba32=(v) self[:fillAllRgba32] = v end
+    def fillAllExt = self[:fillAllExt]
+    def fillAllExt=(v) self[:fillAllExt] = v end
+    def fillGeometry = self[:fillGeometry]
+    def fillGeometry=(v) self[:fillGeometry] = v end
+    def fillGeometryRgba32 = self[:fillGeometryRgba32]
+    def fillGeometryRgba32=(v) self[:fillGeometryRgba32] = v end
+    def fillGeometryExt = self[:fillGeometryExt]
+    def fillGeometryExt=(v) self[:fillGeometryExt] = v end
+    def fillTextOpI = self[:fillTextOpI]
+    def fillTextOpI=(v) self[:fillTextOpI] = v end
+    def fillTextOpIRgba32 = self[:fillTextOpIRgba32]
+    def fillTextOpIRgba32=(v) self[:fillTextOpIRgba32] = v end
+    def fillTextOpIExt = self[:fillTextOpIExt]
+    def fillTextOpIExt=(v) self[:fillTextOpIExt] = v end
+    def fillTextOpD = self[:fillTextOpD]
+    def fillTextOpD=(v) self[:fillTextOpD] = v end
+    def fillTextOpDRgba32 = self[:fillTextOpDRgba32]
+    def fillTextOpDRgba32=(v) self[:fillTextOpDRgba32] = v end
+    def fillTextOpDExt = self[:fillTextOpDExt]
+    def fillTextOpDExt=(v) self[:fillTextOpDExt] = v end
+    def fillMaskI = self[:fillMaskI]
+    def fillMaskI=(v) self[:fillMaskI] = v end
+    def fillMaskIRgba32 = self[:fillMaskIRgba32]
+    def fillMaskIRgba32=(v) self[:fillMaskIRgba32] = v end
+    def fillMaskIExt = self[:fillMaskIExt]
+    def fillMaskIExt=(v) self[:fillMaskIExt] = v end
+    def fillMaskD = self[:fillMaskD]
+    def fillMaskD=(v) self[:fillMaskD] = v end
+    def fillMaskDRgba32 = self[:fillMaskDRgba32]
+    def fillMaskDRgba32=(v) self[:fillMaskDRgba32] = v end
+    def fillMaskDExt = self[:fillMaskDExt]
+    def fillMaskDExt=(v) self[:fillMaskDExt] = v end
+    def strokePathD = self[:strokePathD]
+    def strokePathD=(v) self[:strokePathD] = v end
+    def strokePathDRgba32 = self[:strokePathDRgba32]
+    def strokePathDRgba32=(v) self[:strokePathDRgba32] = v end
+    def strokePathDExt = self[:strokePathDExt]
+    def strokePathDExt=(v) self[:strokePathDExt] = v end
+    def strokeGeometry = self[:strokeGeometry]
+    def strokeGeometry=(v) self[:strokeGeometry] = v end
+    def strokeGeometryRgba32 = self[:strokeGeometryRgba32]
+    def strokeGeometryRgba32=(v) self[:strokeGeometryRgba32] = v end
+    def strokeGeometryExt = self[:strokeGeometryExt]
+    def strokeGeometryExt=(v) self[:strokeGeometryExt] = v end
+    def strokeTextOpI = self[:strokeTextOpI]
+    def strokeTextOpI=(v) self[:strokeTextOpI] = v end
+    def strokeTextOpIRgba32 = self[:strokeTextOpIRgba32]
+    def strokeTextOpIRgba32=(v) self[:strokeTextOpIRgba32] = v end
+    def strokeTextOpIExt = self[:strokeTextOpIExt]
+    def strokeTextOpIExt=(v) self[:strokeTextOpIExt] = v end
+    def strokeTextOpD = self[:strokeTextOpD]
+    def strokeTextOpD=(v) self[:strokeTextOpD] = v end
+    def strokeTextOpDRgba32 = self[:strokeTextOpDRgba32]
+    def strokeTextOpDRgba32=(v) self[:strokeTextOpDRgba32] = v end
+    def strokeTextOpDExt = self[:strokeTextOpDExt]
+    def strokeTextOpDExt=(v) self[:strokeTextOpDExt] = v end
+    def blitImageD = self[:blitImageD]
+    def blitImageD=(v) self[:blitImageD] = v end
+    def blitScaledImageD = self[:blitScaledImageD]
+    def blitScaledImageD=(v) self[:blitScaledImageD] = v end
+    def self.create_as(_base_, _applyTransformOp_, _fillRectI_, _fillRectIRgba32_, _fillRectIExt_, _fillRectD_, _fillRectDRgba32_, _fillRectDExt_, _fillPathD_, _fillPathDRgba32_, _fillPathDExt_, _blitImageI_, _blitScaledImageI_, _flush_, _save_, _restore_, _userToMeta_, _setHint_, _setHints_, _setFlattenMode_, _setFlattenTolerance_, _setApproximationOptions_, _getStyle_, _setStyle_, _setStyleRgba_, _setStyleRgba32_, _setStyleRgba64_, _disableStyle_, _setStyleAlpha_, _swapStyles_, _setGlobalAlpha_, _setCompOp_, _setFillRule_, _setStrokeWidth_, _setStrokeMiterLimit_, _setStrokeCap_, _setStrokeCaps_, _setStrokeJoin_, _setStrokeDashOffset_, _setStrokeDashArray_, _setStrokeTransformOrder_, _setStrokeOptions_, _clipToRectI_, _clipToRectD_, _restoreClipping_, _clearAll_, _clearRectI_, _clearRectD_, _fillAll_, _fillAllRgba32_, _fillAllExt_, _fillGeometry_, _fillGeometryRgba32_, _fillGeometryExt_, _fillTextOpI_, _fillTextOpIRgba32_, _fillTextOpIExt_, _fillTextOpD_, _fillTextOpDRgba32_, _fillTextOpDExt_, _fillMaskI_, _fillMaskIRgba32_, _fillMaskIExt_, _fillMaskD_, _fillMaskDRgba32_, _fillMaskDExt_, _strokePathD_, _strokePathDRgba32_, _strokePathDExt_, _strokeGeometry_, _strokeGeometryRgba32_, _strokeGeometryExt_, _strokeTextOpI_, _strokeTextOpIRgba32_, _strokeTextOpIExt_, _strokeTextOpD_, _strokeTextOpDRgba32_, _strokeTextOpDExt_, _blitImageD_, _blitScaledImageD_)
+      instance = BLContextVirt.new
+      instance[:base] = _base_
+      instance[:applyTransformOp] = _applyTransformOp_
+      instance[:fillRectI] = _fillRectI_
+      instance[:fillRectIRgba32] = _fillRectIRgba32_
+      instance[:fillRectIExt] = _fillRectIExt_
+      instance[:fillRectD] = _fillRectD_
+      instance[:fillRectDRgba32] = _fillRectDRgba32_
+      instance[:fillRectDExt] = _fillRectDExt_
+      instance[:fillPathD] = _fillPathD_
+      instance[:fillPathDRgba32] = _fillPathDRgba32_
+      instance[:fillPathDExt] = _fillPathDExt_
+      instance[:blitImageI] = _blitImageI_
+      instance[:blitScaledImageI] = _blitScaledImageI_
+      instance[:flush] = _flush_
+      instance[:save] = _save_
+      instance[:restore] = _restore_
+      instance[:userToMeta] = _userToMeta_
+      instance[:setHint] = _setHint_
+      instance[:setHints] = _setHints_
+      instance[:setFlattenMode] = _setFlattenMode_
+      instance[:setFlattenTolerance] = _setFlattenTolerance_
+      instance[:setApproximationOptions] = _setApproximationOptions_
+      instance[:getStyle] = _getStyle_
+      instance[:setStyle] = _setStyle_
+      instance[:setStyleRgba] = _setStyleRgba_
+      instance[:setStyleRgba32] = _setStyleRgba32_
+      instance[:setStyleRgba64] = _setStyleRgba64_
+      instance[:disableStyle] = _disableStyle_
+      instance[:setStyleAlpha] = _setStyleAlpha_
+      instance[:swapStyles] = _swapStyles_
+      instance[:setGlobalAlpha] = _setGlobalAlpha_
+      instance[:setCompOp] = _setCompOp_
+      instance[:setFillRule] = _setFillRule_
+      instance[:setStrokeWidth] = _setStrokeWidth_
+      instance[:setStrokeMiterLimit] = _setStrokeMiterLimit_
+      instance[:setStrokeCap] = _setStrokeCap_
+      instance[:setStrokeCaps] = _setStrokeCaps_
+      instance[:setStrokeJoin] = _setStrokeJoin_
+      instance[:setStrokeDashOffset] = _setStrokeDashOffset_
+      instance[:setStrokeDashArray] = _setStrokeDashArray_
+      instance[:setStrokeTransformOrder] = _setStrokeTransformOrder_
+      instance[:setStrokeOptions] = _setStrokeOptions_
+      instance[:clipToRectI] = _clipToRectI_
+      instance[:clipToRectD] = _clipToRectD_
+      instance[:restoreClipping] = _restoreClipping_
+      instance[:clearAll] = _clearAll_
+      instance[:clearRectI] = _clearRectI_
+      instance[:clearRectD] = _clearRectD_
+      instance[:fillAll] = _fillAll_
+      instance[:fillAllRgba32] = _fillAllRgba32_
+      instance[:fillAllExt] = _fillAllExt_
+      instance[:fillGeometry] = _fillGeometry_
+      instance[:fillGeometryRgba32] = _fillGeometryRgba32_
+      instance[:fillGeometryExt] = _fillGeometryExt_
+      instance[:fillTextOpI] = _fillTextOpI_
+      instance[:fillTextOpIRgba32] = _fillTextOpIRgba32_
+      instance[:fillTextOpIExt] = _fillTextOpIExt_
+      instance[:fillTextOpD] = _fillTextOpD_
+      instance[:fillTextOpDRgba32] = _fillTextOpDRgba32_
+      instance[:fillTextOpDExt] = _fillTextOpDExt_
+      instance[:fillMaskI] = _fillMaskI_
+      instance[:fillMaskIRgba32] = _fillMaskIRgba32_
+      instance[:fillMaskIExt] = _fillMaskIExt_
+      instance[:fillMaskD] = _fillMaskD_
+      instance[:fillMaskDRgba32] = _fillMaskDRgba32_
+      instance[:fillMaskDExt] = _fillMaskDExt_
+      instance[:strokePathD] = _strokePathD_
+      instance[:strokePathDRgba32] = _strokePathDRgba32_
+      instance[:strokePathDExt] = _strokePathDExt_
+      instance[:strokeGeometry] = _strokeGeometry_
+      instance[:strokeGeometryRgba32] = _strokeGeometryRgba32_
+      instance[:strokeGeometryExt] = _strokeGeometryExt_
+      instance[:strokeTextOpI] = _strokeTextOpI_
+      instance[:strokeTextOpIRgba32] = _strokeTextOpIRgba32_
+      instance[:strokeTextOpIExt] = _strokeTextOpIExt_
+      instance[:strokeTextOpD] = _strokeTextOpD_
+      instance[:strokeTextOpDRgba32] = _strokeTextOpDRgba32_
+      instance[:strokeTextOpDExt] = _strokeTextOpDExt_
+      instance[:blitImageD] = _blitImageD_
+      instance[:blitScaledImageD] = _blitScaledImageD_
+      instance
+    end
   end
 
   class BLContextImpl < FFI::Struct
@@ -289,6 +813,19 @@ module Blend2D
       :state, :pointer,
       :contextType, :uint,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def state = self[:state]
+    def state=(v) self[:state] = v end
+    def contextType = self[:contextType]
+    def contextType=(v) self[:contextType] = v end
+    def self.create_as(_virt_, _state_, _contextType_)
+      instance = BLContextImpl.new
+      instance[:virt] = _virt_
+      instance[:state] = _state_
+      instance[:contextType] = _contextType_
+      instance
+    end
   end
 
 

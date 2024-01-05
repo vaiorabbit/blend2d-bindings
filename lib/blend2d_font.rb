@@ -37,6 +37,46 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontInit(self)
+    def self.create()
+      instance = BLFontCore.new
+      blFontInit(instance)
+      instance
+    end
+    def initMove(other) = blFontInitMove(self, other)
+    def initWeak(other) = blFontInitWeak(self, other)
+    def destroy() = blFontDestroy(self)
+    def reset() = blFontReset(self)
+    def assignMove(other) = blFontAssignMove(self, other)
+    def assignWeak(other) = blFontAssignWeak(self, other)
+    def equals(b) = blFontEquals(a, b)
+    def createFromFace(face, size) = blFontCreateFromFace(self, face, size)
+    def createFromFaceWithSettings(face, size, featureSettings, variationSettings) = blFontCreateFromFaceWithSettings(self, face, size, featureSettings, variationSettings)
+    def getFace(out) = blFontGetFace(self, out)
+    def getSize() = blFontGetSize(self)
+    def setSize(size) = blFontSetSize(self, size)
+    def getMetrics(out) = blFontGetMetrics(self, out)
+    def getMatrix(out) = blFontGetMatrix(self, out)
+    def getDesignMetrics(out) = blFontGetDesignMetrics(self, out)
+    def getFeatureSettings(out) = blFontGetFeatureSettings(self, out)
+    def setFeatureSettings(featureSettings) = blFontSetFeatureSettings(self, featureSettings)
+    def resetFeatureSettings() = blFontResetFeatureSettings(self)
+    def getVariationSettings(out) = blFontGetVariationSettings(self, out)
+    def setVariationSettings(variationSettings) = blFontSetVariationSettings(self, variationSettings)
+    def resetVariationSettings() = blFontResetVariationSettings(self)
+    def shape(gb) = blFontShape(self, gb)
+    def mapTextToGlyphs(gb, stateOut) = blFontMapTextToGlyphs(self, gb, stateOut)
+    def positionGlyphs(gb) = blFontPositionGlyphs(self, gb)
+    def applyKerning(gb) = blFontApplyKerning(self, gb)
+    def applyGSub(gb, lookups) = blFontApplyGSub(self, gb, lookups)
+    def applyGPos(gb, lookups) = blFontApplyGPos(self, gb, lookups)
+    def getTextMetrics(gb, out) = blFontGetTextMetrics(self, gb, out)
+    def getGlyphBounds(glyphData, glyphAdvance, out, count) = blFontGetGlyphBounds(self, glyphData, glyphAdvance, out, count)
+    def getGlyphAdvances(glyphData, glyphAdvance, out, count) = blFontGetGlyphAdvances(self, glyphData, glyphAdvance, out, count)
+    def getGlyphOutlines(glyphId, userTransform, out, sink, userData) = blFontGetGlyphOutlines(self, glyphId, userTransform, out, sink, userData)
+    def getGlyphRunOutlines(glyphRun, userTransform, out, sink, userData) = blFontGetGlyphRunOutlines(self, glyphRun, userTransform, out, sink, userData)
   end
 
   class BLFontImpl < FFI::Struct
@@ -51,6 +91,37 @@ module Blend2D
       :featureSettings, BLFontFeatureSettingsCore,
       :variationSettings, BLFontVariationSettingsCore,
     )
+    def face = self[:face]
+    def face=(v) self[:face] = v end
+    def weight = self[:weight]
+    def weight=(v) self[:weight] = v end
+    def stretch = self[:stretch]
+    def stretch=(v) self[:stretch] = v end
+    def style = self[:style]
+    def style=(v) self[:style] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def metrics = self[:metrics]
+    def metrics=(v) self[:metrics] = v end
+    def matrix = self[:matrix]
+    def matrix=(v) self[:matrix] = v end
+    def featureSettings = self[:featureSettings]
+    def featureSettings=(v) self[:featureSettings] = v end
+    def variationSettings = self[:variationSettings]
+    def variationSettings=(v) self[:variationSettings] = v end
+    def self.create_as(_face_, _weight_, _stretch_, _style_, _reserved_, _metrics_, _matrix_, _featureSettings_, _variationSettings_)
+      instance = BLFontImpl.new
+      instance[:face] = _face_
+      instance[:weight] = _weight_
+      instance[:stretch] = _stretch_
+      instance[:style] = _style_
+      instance[:reserved] = _reserved_
+      instance[:metrics] = _metrics_
+      instance[:matrix] = _matrix_
+      instance[:featureSettings] = _featureSettings_
+      instance[:variationSettings] = _variationSettings_
+      instance
+    end
   end
 
 

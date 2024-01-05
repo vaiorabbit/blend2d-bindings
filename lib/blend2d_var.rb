@@ -25,6 +25,60 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def initType(type) = blVarInitType(self, type)
+    def initNull() = blVarInitNull(self)
+    def initBool(value) = blVarInitBool(self, value)
+    def initInt32(value) = blVarInitInt32(self, value)
+    def initInt64(value) = blVarInitInt64(self, value)
+    def initUInt32(value) = blVarInitUInt32(self, value)
+    def initUInt64(value) = blVarInitUInt64(self, value)
+    def initDouble(value) = blVarInitDouble(self, value)
+    def initRgba(rgba) = blVarInitRgba(self, rgba)
+    def initRgba32(rgba32) = blVarInitRgba32(self, rgba32)
+    def initRgba64(rgba64) = blVarInitRgba64(self, rgba64)
+    def initMove(other) = blVarInitMove(self, other)
+    def initWeak(other) = blVarInitWeak(self, other)
+    def destroy() = blVarDestroy(self)
+    def reset() = blVarReset(self)
+    def assignNull() = blVarAssignNull(self)
+    def assignBool(value) = blVarAssignBool(self, value)
+    def assignInt32(value) = blVarAssignInt32(self, value)
+    def assignInt64(value) = blVarAssignInt64(self, value)
+    def assignUInt32(value) = blVarAssignUInt32(self, value)
+    def assignUInt64(value) = blVarAssignUInt64(self, value)
+    def assignDouble(value) = blVarAssignDouble(self, value)
+    def assignRgba(rgba) = blVarAssignRgba(self, rgba)
+    def assignRgba32(rgba32) = blVarAssignRgba32(self, rgba32)
+    def assignRgba64(rgba64) = blVarAssignRgba64(self, rgba64)
+    def assignMove(other) = blVarAssignMove(self, other)
+    def assignWeak(other) = blVarAssignWeak(self, other)
+    def getType() = blVarGetType(self)
+    def toBool(out) = blVarToBool(self, out)
+    def toInt32(out) = blVarToInt32(self, out)
+    def toInt64(out) = blVarToInt64(self, out)
+    def toUInt32(out) = blVarToUInt32(self, out)
+    def toUInt64(out) = blVarToUInt64(self, out)
+    def toDouble(out) = blVarToDouble(self, out)
+    def toRgba(out) = blVarToRgba(self, out)
+    def toRgba32(out) = blVarToRgba32(self, out)
+    def toRgba64(out) = blVarToRgba64(self, out)
+    def equals(b) = blVarEquals(a, b)
+    def equalsNull() = blVarEqualsNull(self)
+    def equalsBool(value) = blVarEqualsBool(self, value)
+    def equalsInt64(value) = blVarEqualsInt64(self, value)
+    def equalsUInt64(value) = blVarEqualsUInt64(self, value)
+    def equalsDouble(value) = blVarEqualsDouble(self, value)
+    def equalsRgba(rgba) = blVarEqualsRgba(self, rgba)
+    def equalsRgba32(rgba32) = blVarEqualsRgba32(self, rgba32)
+    def equalsRgba64(rgba64) = blVarEqualsRgba64(self, rgba64)
+    def strictEquals(b) = blVarStrictEquals(a, b)
+    def self.create_as(__d_)
+      instance = BLVarCore.new
+      instance[:_d] = __d_
+      instance
+    end
   end
 
 

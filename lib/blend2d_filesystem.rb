@@ -50,6 +50,24 @@ module Blend2D
     layout(
       :handle, :long,
     )
+    def handle = self[:handle]
+    def handle=(v) self[:handle] = v end
+    def init() = blFileInit(self)
+    def self.create()
+      instance = BLFileCore.new
+      blFileInit(instance)
+      instance
+    end
+    def reset() = blFileReset(self)
+    def open(fileName, openFlags) = blFileOpen(self, fileName, openFlags)
+    def close() = blFileClose(self)
+    def seek(offset, seekType, positionOut) = blFileSeek(self, offset, seekType, positionOut)
+    def read(buffer, n, bytesReadOut) = blFileRead(self, buffer, n, bytesReadOut)
+    def write(buffer, n, bytesWrittenOut) = blFileWrite(self, buffer, n, bytesWrittenOut)
+    def truncate(maxSize) = blFileTruncate(self, maxSize)
+    def getSize(fileSizeOut) = blFileGetSize(self, fileSizeOut)
+    def systemReadFile(dst, maxSize, readFlags) = blFileSystemReadFile(fileName, dst, maxSize, readFlags)
+    def systemWriteFile(data, size, bytesWrittenOut) = blFileSystemWriteFile(fileName, data, size, bytesWrittenOut)
   end
 
 

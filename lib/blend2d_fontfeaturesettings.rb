@@ -33,6 +33,16 @@ module Blend2D
       :tag, :uint,
       :value, :uint,
     )
+    def tag = self[:tag]
+    def tag=(v) self[:tag] = v end
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_tag_, _value_)
+      instance = BLFontFeatureItem.new
+      instance[:tag] = _tag_
+      instance[:value] = _value_
+      instance
+    end
   end
 
   class BLFontFeatureSettingsView < FFI::Struct
@@ -41,12 +51,49 @@ module Blend2D
       :size, :ulong,
       :ssoData, [BLFontFeatureItem, 36],
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def ssoData = self[:ssoData]
+    def ssoData=(v) self[:ssoData] = v end
+    def self.create_as(_data_, _size_, _ssoData_)
+      instance = BLFontFeatureSettingsView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:ssoData] = _ssoData_
+      instance
+    end
   end
 
   class BLFontFeatureSettingsCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontFeatureSettingsInit(self)
+    def self.create()
+      instance = BLFontFeatureSettingsCore.new
+      blFontFeatureSettingsInit(instance)
+      instance
+    end
+    def initMove(other) = blFontFeatureSettingsInitMove(self, other)
+    def initWeak(other) = blFontFeatureSettingsInitWeak(self, other)
+    def destroy() = blFontFeatureSettingsDestroy(self)
+    def reset() = blFontFeatureSettingsReset(self)
+    def clear() = blFontFeatureSettingsClear(self)
+    def shrink() = blFontFeatureSettingsShrink(self)
+    def assignMove(other) = blFontFeatureSettingsAssignMove(self, other)
+    def assignWeak(other) = blFontFeatureSettingsAssignWeak(self, other)
+    def getSize() = blFontFeatureSettingsGetSize(self)
+    def getCapacity() = blFontFeatureSettingsGetCapacity(self)
+    def getView(out) = blFontFeatureSettingsGetView(self, out)
+    def hasValue(featureTag) = blFontFeatureSettingsHasValue(self, featureTag)
+    def getValue(featureTag) = blFontFeatureSettingsGetValue(self, featureTag)
+    def setValue(featureTag, value) = blFontFeatureSettingsSetValue(self, featureTag, value)
+    def removeValue(featureTag) = blFontFeatureSettingsRemoveValue(self, featureTag)
+    def equals(b) = blFontFeatureSettingsEquals(a, b)
   end
 
   class BLFontFeatureSettingsImpl < FFI::Struct
@@ -55,6 +102,19 @@ module Blend2D
       :size, :ulong,
       :capacity, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def capacity = self[:capacity]
+    def capacity=(v) self[:capacity] = v end
+    def self.create_as(_data_, _size_, _capacity_)
+      instance = BLFontFeatureSettingsImpl.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:capacity] = _capacity_
+      instance
+    end
   end
 
 

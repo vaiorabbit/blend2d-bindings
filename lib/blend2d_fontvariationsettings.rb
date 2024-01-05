@@ -33,6 +33,16 @@ module Blend2D
       :tag, :uint,
       :value, :float,
     )
+    def tag = self[:tag]
+    def tag=(v) self[:tag] = v end
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_tag_, _value_)
+      instance = BLFontVariationItem.new
+      instance[:tag] = _tag_
+      instance[:value] = _value_
+      instance
+    end
   end
 
   class BLFontVariationSettingsView < FFI::Struct
@@ -41,12 +51,49 @@ module Blend2D
       :size, :ulong,
       :ssoData, [BLFontVariationItem, 3],
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def ssoData = self[:ssoData]
+    def ssoData=(v) self[:ssoData] = v end
+    def self.create_as(_data_, _size_, _ssoData_)
+      instance = BLFontVariationSettingsView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:ssoData] = _ssoData_
+      instance
+    end
   end
 
   class BLFontVariationSettingsCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontVariationSettingsInit(self)
+    def self.create()
+      instance = BLFontVariationSettingsCore.new
+      blFontVariationSettingsInit(instance)
+      instance
+    end
+    def initMove(other) = blFontVariationSettingsInitMove(self, other)
+    def initWeak(other) = blFontVariationSettingsInitWeak(self, other)
+    def destroy() = blFontVariationSettingsDestroy(self)
+    def reset() = blFontVariationSettingsReset(self)
+    def clear() = blFontVariationSettingsClear(self)
+    def shrink() = blFontVariationSettingsShrink(self)
+    def assignMove(other) = blFontVariationSettingsAssignMove(self, other)
+    def assignWeak(other) = blFontVariationSettingsAssignWeak(self, other)
+    def getSize() = blFontVariationSettingsGetSize(self)
+    def getCapacity() = blFontVariationSettingsGetCapacity(self)
+    def getView(out) = blFontVariationSettingsGetView(self, out)
+    def hasValue(variationTag) = blFontVariationSettingsHasValue(self, variationTag)
+    def getValue(variationTag) = blFontVariationSettingsGetValue(self, variationTag)
+    def setValue(variationTag, value) = blFontVariationSettingsSetValue(self, variationTag, value)
+    def removeValue(variationTag) = blFontVariationSettingsRemoveValue(self, variationTag)
+    def equals(b) = blFontVariationSettingsEquals(a, b)
   end
 
   class BLFontVariationSettingsImpl < FFI::Struct
@@ -55,6 +102,19 @@ module Blend2D
       :size, :ulong,
       :capacity, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def capacity = self[:capacity]
+    def capacity=(v) self[:capacity] = v end
+    def self.create_as(_data_, _size_, _capacity_)
+      instance = BLFontVariationSettingsImpl.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:capacity] = _capacity_
+      instance
+    end
   end
 
 

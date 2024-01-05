@@ -28,24 +28,74 @@ module Blend2D
       :weight, :uint,
       :stretch, :uint,
     )
+    def style = self[:style]
+    def style=(v) self[:style] = v end
+    def weight = self[:weight]
+    def weight=(v) self[:weight] = v end
+    def stretch = self[:stretch]
+    def stretch=(v) self[:stretch] = v end
+    def self.create_as(_style_, _weight_, _stretch_)
+      instance = BLFontQueryProperties.new
+      instance[:style] = _style_
+      instance[:weight] = _weight_
+      instance[:stretch] = _stretch_
+      instance
+    end
   end
 
   class BLFontManagerCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontManagerInit(self)
+    def self.create()
+      instance = BLFontManagerCore.new
+      blFontManagerInit(instance)
+      instance
+    end
+    def initMove(other) = blFontManagerInitMove(self, other)
+    def initWeak(other) = blFontManagerInitWeak(self, other)
+    def initNew() = blFontManagerInitNew(self)
+    def destroy() = blFontManagerDestroy(self)
+    def reset() = blFontManagerReset(self)
+    def assignMove(other) = blFontManagerAssignMove(self, other)
+    def assignWeak(other) = blFontManagerAssignWeak(self, other)
+    def create() = blFontManagerCreate(self)
+    def getFaceCount() = blFontManagerGetFaceCount(self)
+    def getFamilyCount() = blFontManagerGetFamilyCount(self)
+    def hasFace(face) = blFontManagerHasFace(self, face)
+    def addFace(face) = blFontManagerAddFace(self, face)
+    def queryFace(name, nameSize, properties, out) = blFontManagerQueryFace(self, name, nameSize, properties, out)
+    def queryFacesByFamilyName(name, nameSize, out) = blFontManagerQueryFacesByFamilyName(self, name, nameSize, out)
+    def equals(b) = blFontManagerEquals(a, b)
   end
 
   class BLFontManagerVirt < FFI::Struct
     layout(
       :base, BLObjectVirtBase,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def self.create_as(_base_)
+      instance = BLFontManagerVirt.new
+      instance[:base] = _base_
+      instance
+    end
   end
 
   class BLFontManagerImpl < FFI::Struct
     layout(
       :virt, :pointer,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def self.create_as(_virt_)
+      instance = BLFontManagerImpl.new
+      instance[:virt] = _virt_
+      instance
+    end
   end
 
 

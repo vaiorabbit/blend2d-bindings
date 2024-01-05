@@ -32,6 +32,40 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blPatternInit(self)
+    def self.create()
+      instance = BLPatternCore.new
+      blPatternInit(instance)
+      instance
+    end
+    def initMove(other) = blPatternInitMove(self, other)
+    def initWeak(other) = blPatternInitWeak(self, other)
+    def initAs(image, area, extendMode, transform) = blPatternInitAs(self, image, area, extendMode, transform)
+    def self.create_as(image, area, extendMode, transform)
+      instance = BLPatternCore.new
+      blPatternInitAs(instance, image, area, extendMode, transform)
+      instance
+    end
+    def destroy() = blPatternDestroy(self)
+    def reset() = blPatternReset(self)
+    def assignMove(other) = blPatternAssignMove(self, other)
+    def assignWeak(other) = blPatternAssignWeak(self, other)
+    def assignDeep(other) = blPatternAssignDeep(self, other)
+    def create(image, area, extendMode, transform) = blPatternCreate(self, image, area, extendMode, transform)
+    def getImage(image) = blPatternGetImage(self, image)
+    def setImage(image, area) = blPatternSetImage(self, image, area)
+    def resetImage() = blPatternResetImage(self)
+    def getArea(areaOut) = blPatternGetArea(self, areaOut)
+    def setArea(area) = blPatternSetArea(self, area)
+    def resetArea() = blPatternResetArea(self)
+    def getExtendMode() = blPatternGetExtendMode(self)
+    def setExtendMode(extendMode) = blPatternSetExtendMode(self, extendMode)
+    def getTransform(transformOut) = blPatternGetTransform(self, transformOut)
+    def getTransformType() = blPatternGetTransformType(self)
+    def applyTransformOp(opType, opData) = blPatternApplyTransformOp(self, opType, opData)
+    def equals(b) = blPatternEquals(a, b)
   end
 
   class BLPatternImpl < FFI::Struct
@@ -40,6 +74,19 @@ module Blend2D
       :area, BLRectI,
       :transform, BLMatrix2D,
     )
+    def image = self[:image]
+    def image=(v) self[:image] = v end
+    def area = self[:area]
+    def area=(v) self[:area] = v end
+    def transform = self[:transform]
+    def transform=(v) self[:transform] = v end
+    def self.create_as(_image_, _area_, _transform_)
+      instance = BLPatternImpl.new
+      instance[:image] = _image_
+      instance[:area] = _area_
+      instance[:transform] = _transform_
+      instance
+    end
   end
 
 

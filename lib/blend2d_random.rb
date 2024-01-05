@@ -23,6 +23,17 @@ module Blend2D
     layout(
       :data, [:ulong_long, 2],
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def reset(seed) = blRandomReset(self, seed)
+    def nextUInt32() = blRandomNextUInt32(self)
+    def nextUInt64() = blRandomNextUInt64(self)
+    def nextDouble() = blRandomNextDouble(self)
+    def self.create_as(_data_)
+      instance = BLRandom.new
+      instance[:data] = _data_
+      instance
+    end
   end
 
 

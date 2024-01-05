@@ -24,6 +24,53 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blBitArrayInit(self)
+    def self.create()
+      instance = BLBitArrayCore.new
+      blBitArrayInit(instance)
+      instance
+    end
+    def initMove(other) = blBitArrayInitMove(self, other)
+    def initWeak(other) = blBitArrayInitWeak(self, other)
+    def destroy() = blBitArrayDestroy(self)
+    def reset() = blBitArrayReset(self)
+    def assignMove(other) = blBitArrayAssignMove(self, other)
+    def assignWeak(other) = blBitArrayAssignWeak(self, other)
+    def assignWords(wordData, wordCount) = blBitArrayAssignWords(self, wordData, wordCount)
+    def isEmpty() = blBitArrayIsEmpty(self)
+    def getSize() = blBitArrayGetSize(self)
+    def getWordCount() = blBitArrayGetWordCount(self)
+    def getCapacity() = blBitArrayGetCapacity(self)
+    def getData() = blBitArrayGetData(self)
+    def getCardinality() = blBitArrayGetCardinality(self)
+    def getCardinalityInRange(startBit, endBit) = blBitArrayGetCardinalityInRange(self, startBit, endBit)
+    def hasBit(bitIndex) = blBitArrayHasBit(self, bitIndex)
+    def hasBitsInRange(startBit, endBit) = blBitArrayHasBitsInRange(self, startBit, endBit)
+    def subsumes(b) = blBitArraySubsumes(a, b)
+    def intersects(b) = blBitArrayIntersects(a, b)
+    def getRange(startOut, endOut) = blBitArrayGetRange(self, startOut, endOut)
+    def equals(b) = blBitArrayEquals(a, b)
+    def compare(b) = blBitArrayCompare(a, b)
+    def clear() = blBitArrayClear(self)
+    def resize(nBits) = blBitArrayResize(self, nBits)
+    def reserve(nBits) = blBitArrayReserve(self, nBits)
+    def shrink() = blBitArrayShrink(self)
+    def setBit(bitIndex) = blBitArraySetBit(self, bitIndex)
+    def fillRange(startBit, endBit) = blBitArrayFillRange(self, startBit, endBit)
+    def fillWords(bitIndex, wordData, wordCount) = blBitArrayFillWords(self, bitIndex, wordData, wordCount)
+    def clearBit(bitIndex) = blBitArrayClearBit(self, bitIndex)
+    def clearRange(startBit, endBit) = blBitArrayClearRange(self, startBit, endBit)
+    def clearWord(bitIndex, wordValue) = blBitArrayClearWord(self, bitIndex, wordValue)
+    def clearWords(bitIndex, wordData, wordCount) = blBitArrayClearWords(self, bitIndex, wordData, wordCount)
+    def replaceOp(nBits, dataOut) = blBitArrayReplaceOp(self, nBits, dataOut)
+    def replaceBit(bitIndex, bitValue) = blBitArrayReplaceBit(self, bitIndex, bitValue)
+    def replaceWord(bitIndex, wordValue) = blBitArrayReplaceWord(self, bitIndex, wordValue)
+    def replaceWords(bitIndex, wordData, wordCount) = blBitArrayReplaceWords(self, bitIndex, wordData, wordCount)
+    def appendBit(bitValue) = blBitArrayAppendBit(self, bitValue)
+    def appendWord(wordValue) = blBitArrayAppendWord(self, wordValue)
+    def appendWords(wordData, wordCount) = blBitArrayAppendWords(self, wordData, wordCount)
   end
 
   class BLBitArrayImpl < FFI::Struct
@@ -31,6 +78,16 @@ module Blend2D
       :size, :uint,
       :capacity, :uint,
     )
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def capacity = self[:capacity]
+    def capacity=(v) self[:capacity] = v end
+    def self.create_as(_size_, _capacity_)
+      instance = BLBitArrayImpl.new
+      instance[:size] = _size_
+      instance[:capacity] = _capacity_
+      instance
+    end
   end
 
 

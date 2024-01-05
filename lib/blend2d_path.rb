@@ -157,12 +157,93 @@ module Blend2D
       :simplifyTolerance, :double,
       :offsetParameter, :double,
     )
+    def flattenMode = self[:flattenMode]
+    def flattenMode=(v) self[:flattenMode] = v end
+    def offsetMode = self[:offsetMode]
+    def offsetMode=(v) self[:offsetMode] = v end
+    def reservedFlags = self[:reservedFlags]
+    def reservedFlags=(v) self[:reservedFlags] = v end
+    def flattenTolerance = self[:flattenTolerance]
+    def flattenTolerance=(v) self[:flattenTolerance] = v end
+    def simplifyTolerance = self[:simplifyTolerance]
+    def simplifyTolerance=(v) self[:simplifyTolerance] = v end
+    def offsetParameter = self[:offsetParameter]
+    def offsetParameter=(v) self[:offsetParameter] = v end
+    def self.create_as(_flattenMode_, _offsetMode_, _reservedFlags_, _flattenTolerance_, _simplifyTolerance_, _offsetParameter_)
+      instance = BLApproximationOptions.new
+      instance[:flattenMode] = _flattenMode_
+      instance[:offsetMode] = _offsetMode_
+      instance[:reservedFlags] = _reservedFlags_
+      instance[:flattenTolerance] = _flattenTolerance_
+      instance[:simplifyTolerance] = _simplifyTolerance_
+      instance[:offsetParameter] = _offsetParameter_
+      instance
+    end
   end
 
   class BLPathCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blPathInit(self)
+    def self.create()
+      instance = BLPathCore.new
+      blPathInit(instance)
+      instance
+    end
+    def initMove(other) = blPathInitMove(self, other)
+    def initWeak(other) = blPathInitWeak(self, other)
+    def destroy() = blPathDestroy(self)
+    def reset() = blPathReset(self)
+    def getSize() = blPathGetSize(self)
+    def getCapacity() = blPathGetCapacity(self)
+    def getCommandData() = blPathGetCommandData(self)
+    def getVertexData() = blPathGetVertexData(self)
+    def clear() = blPathClear(self)
+    def shrink() = blPathShrink(self)
+    def reserve(n) = blPathReserve(self, n)
+    def modifyOp(op, n, cmdDataOut, vtxDataOut) = blPathModifyOp(self, op, n, cmdDataOut, vtxDataOut)
+    def assignMove(other) = blPathAssignMove(self, other)
+    def assignWeak(other) = blPathAssignWeak(self, other)
+    def assignDeep(other) = blPathAssignDeep(self, other)
+    def setVertexAt(index, cmd, x, y) = blPathSetVertexAt(self, index, cmd, x, y)
+    def moveTo(x0, y0) = blPathMoveTo(self, x0, y0)
+    def lineTo(x1, y1) = blPathLineTo(self, x1, y1)
+    def polyTo(poly, count) = blPathPolyTo(self, poly, count)
+    def quadTo(x1, y1, x2, y2) = blPathQuadTo(self, x1, y1, x2, y2)
+    def conicTo(x1, y1, x2, y2, w) = blPathConicTo(self, x1, y1, x2, y2, w)
+    def cubicTo(x1, y1, x2, y2, x3, y3) = blPathCubicTo(self, x1, y1, x2, y2, x3, y3)
+    def smoothQuadTo(x2, y2) = blPathSmoothQuadTo(self, x2, y2)
+    def smoothCubicTo(x2, y2, x3, y3) = blPathSmoothCubicTo(self, x2, y2, x3, y3)
+    def arcTo(x, y, rx, ry, start, sweep, forceMoveTo) = blPathArcTo(self, x, y, rx, ry, start, sweep, forceMoveTo)
+    def arcQuadrantTo(x1, y1, x2, y2) = blPathArcQuadrantTo(self, x1, y1, x2, y2)
+    def ellipticArcTo(rx, ry, xAxisRotation, largeArcFlag, sweepFlag, x1, y1) = blPathEllipticArcTo(self, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, x1, y1)
+    def close() = blPathClose(self)
+    def addGeometry(geometryType, geometryData, m, dir) = blPathAddGeometry(self, geometryType, geometryData, m, dir)
+    def addBoxI(box, dir) = blPathAddBoxI(self, box, dir)
+    def addBoxD(box, dir) = blPathAddBoxD(self, box, dir)
+    def addRectI(rect, dir) = blPathAddRectI(self, rect, dir)
+    def addRectD(rect, dir) = blPathAddRectD(self, rect, dir)
+    def addPath(other, range) = blPathAddPath(self, other, range)
+    def addTranslatedPath(other, range, p) = blPathAddTranslatedPath(self, other, range, p)
+    def addTransformedPath(other, range, m) = blPathAddTransformedPath(self, other, range, m)
+    def addReversedPath(other, range, reverseMode) = blPathAddReversedPath(self, other, range, reverseMode)
+    def addStrokedPath(other, range, options, approx) = blPathAddStrokedPath(self, other, range, options, approx)
+    def removeRange(range) = blPathRemoveRange(self, range)
+    def translate(range, p) = blPathTranslate(self, range, p)
+    def transform(range, m) = blPathTransform(self, range, m)
+    def fitTo(range, rect, fitFlags) = blPathFitTo(self, range, rect, fitFlags)
+    def equals(b) = blPathEquals(a, b)
+    def getInfoFlags(flagsOut) = blPathGetInfoFlags(self, flagsOut)
+    def getControlBox(boxOut) = blPathGetControlBox(self, boxOut)
+    def getBoundingBox(boxOut) = blPathGetBoundingBox(self, boxOut)
+    def getFigureRange(index, rangeOut) = blPathGetFigureRange(self, index, rangeOut)
+    def getLastVertex(vtxOut) = blPathGetLastVertex(self, vtxOut)
+    def getClosestVertex(p, maxDistance, indexOut, distanceOut) = blPathGetClosestVertex(self, p, maxDistance, indexOut, distanceOut)
+    def hitTest(p, fillRule) = blPathHitTest(self, p, fillRule)
+    def strokeToSink(range, strokeOptions, approximationOptions, a, b, c, sink, userData) = blPathStrokeToSink(self, range, strokeOptions, approximationOptions, a, b, c, sink, userData)
   end
 
 

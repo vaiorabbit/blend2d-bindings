@@ -38,12 +38,27 @@ module Blend2D
 
   # Typedef
 
+  typedef :int, :BLGradientType
+  typedef :int, :BLGradientValue
+  typedef :int, :BLGradientQuality
+
+  # Struct
 
   class BLGradientStop < FFI::Struct
     layout(
       :offset, :double,
       :rgba, BLRgba64,
     )
+    def offset = self[:offset]
+    def offset=(v) self[:offset] = v end
+    def rgba = self[:rgba]
+    def rgba=(v) self[:rgba] = v end
+    def self.create_as(_offset_, _rgba_)
+      instance = BLGradientStop.new
+      instance[:offset] = _offset_
+      instance[:rgba] = _rgba_
+      instance
+    end
   end
 
   class BLLinearGradientValues < FFI::Struct
@@ -53,6 +68,22 @@ module Blend2D
       :x1, :double,
       :y1, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_)
+      instance = BLLinearGradientValues.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance
+    end
   end
 
   class BLRadialGradientValues < FFI::Struct
@@ -63,6 +94,25 @@ module Blend2D
       :y1, :double,
       :r0, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def r0 = self[:r0]
+    def r0=(v) self[:r0] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_, _r0_)
+      instance = BLRadialGradientValues.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance[:r0] = _r0_
+      instance
+    end
   end
 
   class BLConicGradientValues < FFI::Struct
@@ -71,13 +121,115 @@ module Blend2D
       :y0, :double,
       :angle, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def angle = self[:angle]
+    def angle=(v) self[:angle] = v end
+    def self.create_as(_x0_, _y0_, _angle_)
+      instance = BLConicGradientValues.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:angle] = _angle_
+      instance
+    end
   end
 
   class BLGradientCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blGradientInit(self)
+    def self.create()
+      instance = BLGradientCore.new
+      blGradientInit(instance)
+      instance
+    end
+    def initMove(other) = blGradientInitMove(self, other)
+    def initWeak(other) = blGradientInitWeak(self, other)
+    def initAs(type, values, extendMode, stops, n, transform) = blGradientInitAs(self, type, values, extendMode, stops, n, transform)
+    def self.create_as(type, values, extendMode, stops, n, transform)
+      instance = BLGradientCore.new
+      blGradientInitAs(instance, type, values, extendMode, stops, n, transform)
+      instance
+    end
+    def destroy() = blGradientDestroy(self)
+    def reset() = blGradientReset(self)
+    def assignMove(other) = blGradientAssignMove(self, other)
+    def assignWeak(other) = blGradientAssignWeak(self, other)
+    def create(type, values, extendMode, stops, n, transform) = blGradientCreate(self, type, values, extendMode, stops, n, transform)
+    def shrink() = blGradientShrink(self)
+    def reserve(n) = blGradientReserve(self, n)
+    def getType() = blGradientGetType(self)
+    def setType(type) = blGradientSetType(self, type)
+    def getExtendMode() = blGradientGetExtendMode(self)
+    def setExtendMode(extendMode) = blGradientSetExtendMode(self, extendMode)
+    def getValue(index) = blGradientGetValue(self, index)
+    def setValue(index, value) = blGradientSetValue(self, index, value)
+    def setValues(index, values, n) = blGradientSetValues(self, index, values, n)
+    def getSize() = blGradientGetSize(self)
+    def getCapacity() = blGradientGetCapacity(self)
+    def getStops() = blGradientGetStops(self)
+    def resetStops() = blGradientResetStops(self)
+    def assignStops(stops, n) = blGradientAssignStops(self, stops, n)
+    def addStopRgba32(offset, argb32) = blGradientAddStopRgba32(self, offset, argb32)
+    def addStopRgba64(offset, argb64) = blGradientAddStopRgba64(self, offset, argb64)
+    def removeStop(index) = blGradientRemoveStop(self, index)
+    def removeStopByOffset(offset, all) = blGradientRemoveStopByOffset(self, offset, all)
+    def removeStopsByIndex(rStart, rEnd) = blGradientRemoveStopsByIndex(self, rStart, rEnd)
+    def removeStopsByOffset(offsetMin, offsetMax) = blGradientRemoveStopsByOffset(self, offsetMin, offsetMax)
+    def replaceStopRgba32(index, offset, rgba32) = blGradientReplaceStopRgba32(self, index, offset, rgba32)
+    def replaceStopRgba64(index, offset, rgba64) = blGradientReplaceStopRgba64(self, index, offset, rgba64)
+    def indexOfStop(offset) = blGradientIndexOfStop(self, offset)
+    def getTransform(transformOut) = blGradientGetTransform(self, transformOut)
+    def getTransformType() = blGradientGetTransformType(self)
+    def applyTransformOp(opType, opData) = blGradientApplyTransformOp(self, opType, opData)
+    def equals(b) = blGradientEquals(a, b)
   end
+
+
+  # class BLGradientStop < FFI::Struct
+  #   layout(
+  #     :offset, :double,
+  #     :rgba, BLRgba64,
+  #   )
+  # end
+
+  # class BLLinearGradientValues < FFI::Struct
+  #   layout(
+  #     :x0, :double,
+  #     :y0, :double,
+  #     :x1, :double,
+  #     :y1, :double,
+  #   )
+  # end
+
+  # class BLRadialGradientValues < FFI::Struct
+  #   layout(
+  #     :x0, :double,
+  #     :y0, :double,
+  #     :x1, :double,
+  #     :y1, :double,
+  #     :r0, :double,
+  #   )
+  # end
+
+  # class BLConicGradientValues < FFI::Struct
+  #   layout(
+  #     :x0, :double,
+  #     :y0, :double,
+  #     :angle, :double,
+  #   )
+  # end
+
+  # class BLGradientCore < FFI::Struct
+  #   layout(
+  #     :_d, BLObjectDetail,
+  #   )
+  # end
 
   class BLGradientImpl_Contents < FFI::Union
     layout(
@@ -97,12 +249,6 @@ module Blend2D
       :contents, BLGradientImpl_Contents,
     )
   end
-
-  typedef :int, :BLGradientType
-  typedef :int, :BLGradientValue
-  typedef :int, :BLGradientQuality
-
-  # Struct
 
 
   # Function

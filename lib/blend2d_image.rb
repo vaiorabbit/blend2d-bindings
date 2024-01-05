@@ -44,6 +44,25 @@ module Blend2D
       :format, :uint,
       :flags, :uint,
     )
+    def pixelData = self[:pixelData]
+    def pixelData=(v) self[:pixelData] = v end
+    def stride = self[:stride]
+    def stride=(v) self[:stride] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def format = self[:format]
+    def format=(v) self[:format] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def self.create_as(_pixelData_, _stride_, _size_, _format_, _flags_)
+      instance = BLImageData.new
+      instance[:pixelData] = _pixelData_
+      instance[:stride] = _stride_
+      instance[:size] = _size_
+      instance[:format] = _format_
+      instance[:flags] = _flags_
+      instance
+    end
   end
 
   class BLImageInfo < FFI::Struct
@@ -57,12 +76,73 @@ module Blend2D
       :format, [:char, 16],
       :compression, [:char, 16],
     )
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def density = self[:density]
+    def density=(v) self[:density] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def depth = self[:depth]
+    def depth=(v) self[:depth] = v end
+    def planeCount = self[:planeCount]
+    def planeCount=(v) self[:planeCount] = v end
+    def frameCount = self[:frameCount]
+    def frameCount=(v) self[:frameCount] = v end
+    def format = self[:format]
+    def format=(v) self[:format] = v end
+    def compression = self[:compression]
+    def compression=(v) self[:compression] = v end
+    def self.create_as(_size_, _density_, _flags_, _depth_, _planeCount_, _frameCount_, _format_, _compression_)
+      instance = BLImageInfo.new
+      instance[:size] = _size_
+      instance[:density] = _density_
+      instance[:flags] = _flags_
+      instance[:depth] = _depth_
+      instance[:planeCount] = _planeCount_
+      instance[:frameCount] = _frameCount_
+      instance[:format] = _format_
+      instance[:compression] = _compression_
+      instance
+    end
   end
 
   class BLImageCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blImageInit(self)
+    def self.create()
+      instance = BLImageCore.new
+      blImageInit(instance)
+      instance
+    end
+    def initMove(other) = blImageInitMove(self, other)
+    def initWeak(other) = blImageInitWeak(self, other)
+    def initAs(w, h, format) = blImageInitAs(self, w, h, format)
+    def self.create_as(w, h, format)
+      instance = BLImageCore.new
+      blImageInitAs(instance, w, h, format)
+      instance
+    end
+    def initAsFromData(w, h, format, pixelData, stride, accessFlags, destroyFunc, userData) = blImageInitAsFromData(self, w, h, format, pixelData, stride, accessFlags, destroyFunc, userData)
+    def destroy() = blImageDestroy(self)
+    def reset() = blImageReset(self)
+    def assignMove(other) = blImageAssignMove(self, other)
+    def assignWeak(other) = blImageAssignWeak(self, other)
+    def assignDeep(other) = blImageAssignDeep(self, other)
+    def create(w, h, format) = blImageCreate(self, w, h, format)
+    def createFromData(w, h, format, pixelData, stride, accessFlags, destroyFunc, userData) = blImageCreateFromData(self, w, h, format, pixelData, stride, accessFlags, destroyFunc, userData)
+    def getData(dataOut) = blImageGetData(self, dataOut)
+    def makeMutable(dataOut) = blImageMakeMutable(self, dataOut)
+    def convert(format) = blImageConvert(self, format)
+    def equals(b) = blImageEquals(a, b)
+    def scale(src, size, filter) = blImageScale(dst, src, size, filter)
+    def readFromFile(fileName, codecs) = blImageReadFromFile(self, fileName, codecs)
+    def readFromData(data, size, codecs) = blImageReadFromData(self, data, size, codecs)
+    def writeToFile(fileName, codec) = blImageWriteToFile(self, fileName, codec)
+    def writeToData(dst, codec) = blImageWriteToData(self, dst, codec)
   end
 
   class BLImageImpl < FFI::Struct
@@ -75,6 +155,31 @@ module Blend2D
       :depth, :ushort,
       :reserved, [:uchar, 4],
     )
+    def pixelData = self[:pixelData]
+    def pixelData=(v) self[:pixelData] = v end
+    def stride = self[:stride]
+    def stride=(v) self[:stride] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def format = self[:format]
+    def format=(v) self[:format] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def depth = self[:depth]
+    def depth=(v) self[:depth] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def self.create_as(_pixelData_, _stride_, _size_, _format_, _flags_, _depth_, _reserved_)
+      instance = BLImageImpl.new
+      instance[:pixelData] = _pixelData_
+      instance[:stride] = _stride_
+      instance[:size] = _size_
+      instance[:format] = _format_
+      instance[:flags] = _flags_
+      instance[:depth] = _depth_
+      instance[:reserved] = _reserved_
+      instance
+    end
   end
 
 

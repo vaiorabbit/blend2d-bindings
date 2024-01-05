@@ -76,18 +76,87 @@ module Blend2D
       :diagFlags, :uint,
       :reserved, [:uint, 2],
     )
+    def faceType = self[:faceType]
+    def faceType=(v) self[:faceType] = v end
+    def outlineType = self[:outlineType]
+    def outlineType=(v) self[:outlineType] = v end
+    def reserved8 = self[:reserved8]
+    def reserved8=(v) self[:reserved8] = v end
+    def glyphCount = self[:glyphCount]
+    def glyphCount=(v) self[:glyphCount] = v end
+    def revision = self[:revision]
+    def revision=(v) self[:revision] = v end
+    def faceIndex = self[:faceIndex]
+    def faceIndex=(v) self[:faceIndex] = v end
+    def faceFlags = self[:faceFlags]
+    def faceFlags=(v) self[:faceFlags] = v end
+    def diagFlags = self[:diagFlags]
+    def diagFlags=(v) self[:diagFlags] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def self.create_as(_faceType_, _outlineType_, _reserved8_, _glyphCount_, _revision_, _faceIndex_, _faceFlags_, _diagFlags_, _reserved_)
+      instance = BLFontFaceInfo.new
+      instance[:faceType] = _faceType_
+      instance[:outlineType] = _outlineType_
+      instance[:reserved8] = _reserved8_
+      instance[:glyphCount] = _glyphCount_
+      instance[:revision] = _revision_
+      instance[:faceIndex] = _faceIndex_
+      instance[:faceFlags] = _faceFlags_
+      instance[:diagFlags] = _diagFlags_
+      instance[:reserved] = _reserved_
+      instance
+    end
   end
 
   class BLFontFaceCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontFaceInit(self)
+    def self.create()
+      instance = BLFontFaceCore.new
+      blFontFaceInit(instance)
+      instance
+    end
+    def initMove(other) = blFontFaceInitMove(self, other)
+    def initWeak(other) = blFontFaceInitWeak(self, other)
+    def destroy() = blFontFaceDestroy(self)
+    def reset() = blFontFaceReset(self)
+    def assignMove(other) = blFontFaceAssignMove(self, other)
+    def assignWeak(other) = blFontFaceAssignWeak(self, other)
+    def equals(b) = blFontFaceEquals(a, b)
+    def createFromFile(fileName, readFlags) = blFontFaceCreateFromFile(self, fileName, readFlags)
+    def createFromData(fontData, faceIndex) = blFontFaceCreateFromData(self, fontData, faceIndex)
+    def getFullName(out) = blFontFaceGetFullName(self, out)
+    def getFamilyName(out) = blFontFaceGetFamilyName(self, out)
+    def getSubfamilyName(out) = blFontFaceGetSubfamilyName(self, out)
+    def getPostScriptName(out) = blFontFaceGetPostScriptName(self, out)
+    def getFaceInfo(out) = blFontFaceGetFaceInfo(self, out)
+    def getDesignMetrics(out) = blFontFaceGetDesignMetrics(self, out)
+    def getUnicodeCoverage(out) = blFontFaceGetUnicodeCoverage(self, out)
+    def getCharacterCoverage(out) = blFontFaceGetCharacterCoverage(self, out)
+    def hasScriptTag(scriptTag) = blFontFaceHasScriptTag(self, scriptTag)
+    def hasFeatureTag(featureTag) = blFontFaceHasFeatureTag(self, featureTag)
+    def hasVariationTag(variationTag) = blFontFaceHasVariationTag(self, variationTag)
+    def getScriptTags(out) = blFontFaceGetScriptTags(self, out)
+    def getFeatureTags(out) = blFontFaceGetFeatureTags(self, out)
+    def getVariationTags(out) = blFontFaceGetVariationTags(self, out)
   end
 
   class BLFontFaceVirt < FFI::Struct
     layout(
       :base, BLObjectVirtBase,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def self.create_as(_base_)
+      instance = BLFontFaceVirt.new
+      instance[:base] = _base_
+      instance
+    end
   end
 
   class BLFontFaceImpl < FFI::Struct
@@ -107,6 +176,52 @@ module Blend2D
       :unicodeCoverage, BLFontUnicodeCoverage,
       :panose, BLFontPanose,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def weight = self[:weight]
+    def weight=(v) self[:weight] = v end
+    def stretch = self[:stretch]
+    def stretch=(v) self[:stretch] = v end
+    def style = self[:style]
+    def style=(v) self[:style] = v end
+    def faceInfo = self[:faceInfo]
+    def faceInfo=(v) self[:faceInfo] = v end
+    def uniqueId = self[:uniqueId]
+    def uniqueId=(v) self[:uniqueId] = v end
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def fullName = self[:fullName]
+    def fullName=(v) self[:fullName] = v end
+    def familyName = self[:familyName]
+    def familyName=(v) self[:familyName] = v end
+    def subfamilyName = self[:subfamilyName]
+    def subfamilyName=(v) self[:subfamilyName] = v end
+    def postScriptName = self[:postScriptName]
+    def postScriptName=(v) self[:postScriptName] = v end
+    def designMetrics = self[:designMetrics]
+    def designMetrics=(v) self[:designMetrics] = v end
+    def unicodeCoverage = self[:unicodeCoverage]
+    def unicodeCoverage=(v) self[:unicodeCoverage] = v end
+    def panose = self[:panose]
+    def panose=(v) self[:panose] = v end
+    def self.create_as(_virt_, _weight_, _stretch_, _style_, _faceInfo_, _uniqueId_, _data_, _fullName_, _familyName_, _subfamilyName_, _postScriptName_, _designMetrics_, _unicodeCoverage_, _panose_)
+      instance = BLFontFaceImpl.new
+      instance[:virt] = _virt_
+      instance[:weight] = _weight_
+      instance[:stretch] = _stretch_
+      instance[:style] = _style_
+      instance[:faceInfo] = _faceInfo_
+      instance[:uniqueId] = _uniqueId_
+      instance[:data] = _data_
+      instance[:fullName] = _fullName_
+      instance[:familyName] = _familyName_
+      instance[:subfamilyName] = _subfamilyName_
+      instance[:postScriptName] = _postScriptName_
+      instance[:designMetrics] = _designMetrics_
+      instance[:unicodeCoverage] = _unicodeCoverage_
+      instance[:panose] = _panose_
+      instance
+    end
   end
 
 

@@ -29,6 +29,16 @@ module Blend2D
       :_startWord, :uint,
       :_data, [:uint, 4],
     )
+    def _startWord = self[:_startWord]
+    def _startWord=(v) self[:_startWord] = v end
+    def _data = self[:_data]
+    def _data=(v) self[:_data] = v end
+    def self.create_as(__startWord_, __data_)
+      instance = BLBitSetSegment.new
+      instance[:_startWord] = __startWord_
+      instance[:_data] = __data_
+      instance
+    end
   end
 
   class BLBitSetData < FFI::Struct
@@ -37,12 +47,67 @@ module Blend2D
       :segmentCount, :uint,
       :ssoSegments, [BLBitSetSegment, 3],
     )
+    def segmentData = self[:segmentData]
+    def segmentData=(v) self[:segmentData] = v end
+    def segmentCount = self[:segmentCount]
+    def segmentCount=(v) self[:segmentCount] = v end
+    def ssoSegments = self[:ssoSegments]
+    def ssoSegments=(v) self[:ssoSegments] = v end
+    def self.create_as(_segmentData_, _segmentCount_, _ssoSegments_)
+      instance = BLBitSetData.new
+      instance[:segmentData] = _segmentData_
+      instance[:segmentCount] = _segmentCount_
+      instance[:ssoSegments] = _ssoSegments_
+      instance
+    end
   end
 
   class BLBitSetCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blBitSetInit(self)
+    def self.create()
+      instance = BLBitSetCore.new
+      blBitSetInit(instance)
+      instance
+    end
+    def initMove(other) = blBitSetInitMove(self, other)
+    def initWeak(other) = blBitSetInitWeak(self, other)
+    def initRange(startBit, endBit) = blBitSetInitRange(self, startBit, endBit)
+    def destroy() = blBitSetDestroy(self)
+    def reset() = blBitSetReset(self)
+    def assignMove(other) = blBitSetAssignMove(self, other)
+    def assignWeak(other) = blBitSetAssignWeak(self, other)
+    def assignDeep(other) = blBitSetAssignDeep(self, other)
+    def assignRange(startBit, endBit) = blBitSetAssignRange(self, startBit, endBit)
+    def assignWords(startWord, wordData, wordCount) = blBitSetAssignWords(self, startWord, wordData, wordCount)
+    def isEmpty() = blBitSetIsEmpty(self)
+    def getData(out) = blBitSetGetData(self, out)
+    def getSegmentCount() = blBitSetGetSegmentCount(self)
+    def getSegmentCapacity() = blBitSetGetSegmentCapacity(self)
+    def getCardinality() = blBitSetGetCardinality(self)
+    def getCardinalityInRange(startBit, endBit) = blBitSetGetCardinalityInRange(self, startBit, endBit)
+    def hasBit(bitIndex) = blBitSetHasBit(self, bitIndex)
+    def hasBitsInRange(startBit, endBit) = blBitSetHasBitsInRange(self, startBit, endBit)
+    def subsumes(b) = blBitSetSubsumes(a, b)
+    def intersects(b) = blBitSetIntersects(a, b)
+    def getRange(startOut, endOut) = blBitSetGetRange(self, startOut, endOut)
+    def equals(b) = blBitSetEquals(a, b)
+    def compare(b) = blBitSetCompare(a, b)
+    def clear() = blBitSetClear(self)
+    def shrink() = blBitSetShrink(self)
+    def optimize() = blBitSetOptimize(self)
+    def chop(startBit, endBit) = blBitSetChop(self, startBit, endBit)
+    def addBit(bitIndex) = blBitSetAddBit(self, bitIndex)
+    def addRange(rangeStartBit, rangeEndBit) = blBitSetAddRange(self, rangeStartBit, rangeEndBit)
+    def addWords(startWord, wordData, wordCount) = blBitSetAddWords(self, startWord, wordData, wordCount)
+    def clearBit(bitIndex) = blBitSetClearBit(self, bitIndex)
+    def clearRange(rangeStartBit, rangeEndBit) = blBitSetClearRange(self, rangeStartBit, rangeEndBit)
+    def builderCommit(builder, newAreaIndex) = blBitSetBuilderCommit(self, builder, newAreaIndex)
+    def builderAddRange(builder, startBit, endBit) = blBitSetBuilderAddRange(self, builder, startBit, endBit)
   end
 
   class BLBitSetBuilderCore < FFI::Struct
@@ -50,6 +115,18 @@ module Blend2D
       :_areaShift, :uint,
       :_areaIndex, :uint,
     )
+    def _areaShift = self[:_areaShift]
+    def _areaShift=(v) self[:_areaShift] = v end
+    def _areaIndex = self[:_areaIndex]
+    def _areaIndex=(v) self[:_areaIndex] = v end
+    def commit(builder, newAreaIndex) = blBitSetBuilderCommit(self, builder, newAreaIndex)
+    def addRange(builder, startBit, endBit) = blBitSetBuilderAddRange(self, builder, startBit, endBit)
+    def self.create_as(__areaShift_, __areaIndex_)
+      instance = BLBitSetBuilderCore.new
+      instance[:_areaShift] = __areaShift_
+      instance[:_areaIndex] = __areaIndex_
+      instance
+    end
   end
 
   class BLBitSetImpl < FFI::Struct
@@ -57,6 +134,16 @@ module Blend2D
       :segmentCount, :uint,
       :segmentCapacity, :uint,
     )
+    def segmentCount = self[:segmentCount]
+    def segmentCount=(v) self[:segmentCount] = v end
+    def segmentCapacity = self[:segmentCapacity]
+    def segmentCapacity=(v) self[:segmentCapacity] = v end
+    def self.create_as(_segmentCount_, _segmentCapacity_)
+      instance = BLBitSetImpl.new
+      instance[:segmentCount] = _segmentCount_
+      instance[:segmentCapacity] = _segmentCapacity_
+      instance
+    end
   end
 
 

@@ -66,6 +66,16 @@ module Blend2D
       :x, :int,
       :y, :int,
     )
+    def x = self[:x]
+    def x=(v) self[:x] = v end
+    def y = self[:y]
+    def y=(v) self[:y] = v end
+    def self.create_as(_x_, _y_)
+      instance = BLPointI.new
+      instance[:x] = _x_
+      instance[:y] = _y_
+      instance
+    end
   end
 
   class BLSizeI < FFI::Struct
@@ -73,6 +83,16 @@ module Blend2D
       :w, :int,
       :h, :int,
     )
+    def w = self[:w]
+    def w=(v) self[:w] = v end
+    def h = self[:h]
+    def h=(v) self[:h] = v end
+    def self.create_as(_w_, _h_)
+      instance = BLSizeI.new
+      instance[:w] = _w_
+      instance[:h] = _h_
+      instance
+    end
   end
 
   class BLBoxI < FFI::Struct
@@ -82,6 +102,22 @@ module Blend2D
       :x1, :int,
       :y1, :int,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_)
+      instance = BLBoxI.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance
+    end
   end
 
   class BLRectI < FFI::Struct
@@ -91,6 +127,22 @@ module Blend2D
       :w, :int,
       :h, :int,
     )
+    def x = self[:x]
+    def x=(v) self[:x] = v end
+    def y = self[:y]
+    def y=(v) self[:y] = v end
+    def w = self[:w]
+    def w=(v) self[:w] = v end
+    def h = self[:h]
+    def h=(v) self[:h] = v end
+    def self.create_as(_x_, _y_, _w_, _h_)
+      instance = BLRectI.new
+      instance[:x] = _x_
+      instance[:y] = _y_
+      instance[:w] = _w_
+      instance[:h] = _h_
+      instance
+    end
   end
 
   class BLPoint < FFI::Struct
@@ -98,6 +150,16 @@ module Blend2D
       :x, :double,
       :y, :double,
     )
+    def x = self[:x]
+    def x=(v) self[:x] = v end
+    def y = self[:y]
+    def y=(v) self[:y] = v end
+    def self.create_as(_x_, _y_)
+      instance = BLPoint.new
+      instance[:x] = _x_
+      instance[:y] = _y_
+      instance
+    end
   end
 
   class BLSize < FFI::Struct
@@ -105,6 +167,16 @@ module Blend2D
       :w, :double,
       :h, :double,
     )
+    def w = self[:w]
+    def w=(v) self[:w] = v end
+    def h = self[:h]
+    def h=(v) self[:h] = v end
+    def self.create_as(_w_, _h_)
+      instance = BLSize.new
+      instance[:w] = _w_
+      instance[:h] = _h_
+      instance
+    end
   end
 
   class BLBox < FFI::Struct
@@ -114,6 +186,22 @@ module Blend2D
       :x1, :double,
       :y1, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_)
+      instance = BLBox.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance
+    end
   end
 
   class BLRect < FFI::Struct
@@ -123,6 +211,22 @@ module Blend2D
       :w, :double,
       :h, :double,
     )
+    def x = self[:x]
+    def x=(v) self[:x] = v end
+    def y = self[:y]
+    def y=(v) self[:y] = v end
+    def w = self[:w]
+    def w=(v) self[:w] = v end
+    def h = self[:h]
+    def h=(v) self[:h] = v end
+    def self.create_as(_x_, _y_, _w_, _h_)
+      instance = BLRect.new
+      instance[:x] = _x_
+      instance[:y] = _y_
+      instance[:w] = _w_
+      instance[:h] = _h_
+      instance
+    end
   end
 
   class BLLine < FFI::Struct
@@ -132,6 +236,22 @@ module Blend2D
       :x1, :double,
       :y1, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_)
+      instance = BLLine.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance
+    end
   end
 
   class BLTriangle < FFI::Struct
@@ -143,6 +263,28 @@ module Blend2D
       :x2, :double,
       :y2, :double,
     )
+    def x0 = self[:x0]
+    def x0=(v) self[:x0] = v end
+    def y0 = self[:y0]
+    def y0=(v) self[:y0] = v end
+    def x1 = self[:x1]
+    def x1=(v) self[:x1] = v end
+    def y1 = self[:y1]
+    def y1=(v) self[:y1] = v end
+    def x2 = self[:x2]
+    def x2=(v) self[:x2] = v end
+    def y2 = self[:y2]
+    def y2=(v) self[:y2] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_, _x2_, _y2_)
+      instance = BLTriangle.new
+      instance[:x0] = _x0_
+      instance[:y0] = _y0_
+      instance[:x1] = _x1_
+      instance[:y1] = _y1_
+      instance[:x2] = _x2_
+      instance[:y2] = _y2_
+      instance
+    end
   end
 
   class BLRoundRect < FFI::Struct
@@ -154,6 +296,28 @@ module Blend2D
       :rx, :double,
       :ry, :double,
     )
+    def x = self[:x]
+    def x=(v) self[:x] = v end
+    def y = self[:y]
+    def y=(v) self[:y] = v end
+    def w = self[:w]
+    def w=(v) self[:w] = v end
+    def h = self[:h]
+    def h=(v) self[:h] = v end
+    def rx = self[:rx]
+    def rx=(v) self[:rx] = v end
+    def ry = self[:ry]
+    def ry=(v) self[:ry] = v end
+    def self.create_as(_x_, _y_, _w_, _h_, _rx_, _ry_)
+      instance = BLRoundRect.new
+      instance[:x] = _x_
+      instance[:y] = _y_
+      instance[:w] = _w_
+      instance[:h] = _h_
+      instance[:rx] = _rx_
+      instance[:ry] = _ry_
+      instance
+    end
   end
 
   class BLCircle < FFI::Struct
@@ -162,6 +326,19 @@ module Blend2D
       :cy, :double,
       :r, :double,
     )
+    def cx = self[:cx]
+    def cx=(v) self[:cx] = v end
+    def cy = self[:cy]
+    def cy=(v) self[:cy] = v end
+    def r = self[:r]
+    def r=(v) self[:r] = v end
+    def self.create_as(_cx_, _cy_, _r_)
+      instance = BLCircle.new
+      instance[:cx] = _cx_
+      instance[:cy] = _cy_
+      instance[:r] = _r_
+      instance
+    end
   end
 
   class BLEllipse < FFI::Struct
@@ -171,6 +348,22 @@ module Blend2D
       :rx, :double,
       :ry, :double,
     )
+    def cx = self[:cx]
+    def cx=(v) self[:cx] = v end
+    def cy = self[:cy]
+    def cy=(v) self[:cy] = v end
+    def rx = self[:rx]
+    def rx=(v) self[:rx] = v end
+    def ry = self[:ry]
+    def ry=(v) self[:ry] = v end
+    def self.create_as(_cx_, _cy_, _rx_, _ry_)
+      instance = BLEllipse.new
+      instance[:cx] = _cx_
+      instance[:cy] = _cy_
+      instance[:rx] = _rx_
+      instance[:ry] = _ry_
+      instance
+    end
   end
 
   class BLArc < FFI::Struct
@@ -182,6 +375,28 @@ module Blend2D
       :start, :double,
       :sweep, :double,
     )
+    def cx = self[:cx]
+    def cx=(v) self[:cx] = v end
+    def cy = self[:cy]
+    def cy=(v) self[:cy] = v end
+    def rx = self[:rx]
+    def rx=(v) self[:rx] = v end
+    def ry = self[:ry]
+    def ry=(v) self[:ry] = v end
+    def start = self[:start]
+    def start=(v) self[:start] = v end
+    def sweep = self[:sweep]
+    def sweep=(v) self[:sweep] = v end
+    def self.create_as(_cx_, _cy_, _rx_, _ry_, _start_, _sweep_)
+      instance = BLArc.new
+      instance[:cx] = _cx_
+      instance[:cy] = _cy_
+      instance[:rx] = _rx_
+      instance[:ry] = _ry_
+      instance[:start] = _start_
+      instance[:sweep] = _sweep_
+      instance
+    end
   end
 
 

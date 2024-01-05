@@ -28,6 +28,19 @@ module Blend2D
       :restart, :pointer,
       :writeFrame, :pointer,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def restart = self[:restart]
+    def restart=(v) self[:restart] = v end
+    def writeFrame = self[:writeFrame]
+    def writeFrame=(v) self[:writeFrame] = v end
+    def self.create_as(_base_, _restart_, _writeFrame_)
+      instance = BLImageEncoderVirt.new
+      instance[:base] = _base_
+      instance[:restart] = _restart_
+      instance[:writeFrame] = _writeFrame_
+      instance
+    end
   end
 
   class BLImageEncoderImpl < FFI::Struct
@@ -39,12 +52,50 @@ module Blend2D
       :frameIndex, :ulong_long,
       :bufferIndex, :ulong,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def codec = self[:codec]
+    def codec=(v) self[:codec] = v end
+    def lastResult = self[:lastResult]
+    def lastResult=(v) self[:lastResult] = v end
+    def handle = self[:handle]
+    def handle=(v) self[:handle] = v end
+    def frameIndex = self[:frameIndex]
+    def frameIndex=(v) self[:frameIndex] = v end
+    def bufferIndex = self[:bufferIndex]
+    def bufferIndex=(v) self[:bufferIndex] = v end
+    def self.create_as(_virt_, _codec_, _lastResult_, _handle_, _frameIndex_, _bufferIndex_)
+      instance = BLImageEncoderImpl.new
+      instance[:virt] = _virt_
+      instance[:codec] = _codec_
+      instance[:lastResult] = _lastResult_
+      instance[:handle] = _handle_
+      instance[:frameIndex] = _frameIndex_
+      instance[:bufferIndex] = _bufferIndex_
+      instance
+    end
   end
 
   class BLImageEncoderCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blImageEncoderInit(self)
+    def self.create()
+      instance = BLImageEncoderCore.new
+      blImageEncoderInit(instance)
+      instance
+    end
+    def initMove(other) = blImageEncoderInitMove(self, other)
+    def initWeak(other) = blImageEncoderInitWeak(self, other)
+    def destroy() = blImageEncoderDestroy(self)
+    def reset() = blImageEncoderReset(self)
+    def assignMove(other) = blImageEncoderAssignMove(self, other)
+    def assignWeak(other) = blImageEncoderAssignWeak(self, other)
+    def restart() = blImageEncoderRestart(self)
+    def writeFrame(dst, image) = blImageEncoderWriteFrame(self, dst, image)
   end
 
 

@@ -33,12 +33,45 @@ module Blend2D
       :data, :pointer,
       :size, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def self.create_as(_data_, _size_)
+      instance = BLFontTable.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance
+    end
   end
 
   class BLFontDataCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blFontDataInit(self)
+    def self.create()
+      instance = BLFontDataCore.new
+      blFontDataInit(instance)
+      instance
+    end
+    def initMove(other) = blFontDataInitMove(self, other)
+    def initWeak(other) = blFontDataInitWeak(self, other)
+    def destroy() = blFontDataDestroy(self)
+    def reset() = blFontDataReset(self)
+    def assignMove(other) = blFontDataAssignMove(self, other)
+    def assignWeak(other) = blFontDataAssignWeak(self, other)
+    def createFromFile(fileName, readFlags) = blFontDataCreateFromFile(self, fileName, readFlags)
+    def createFromDataArray(dataArray) = blFontDataCreateFromDataArray(self, dataArray)
+    def createFromData(data, dataSize, destroyFunc, userData) = blFontDataCreateFromData(self, data, dataSize, destroyFunc, userData)
+    def equals(b) = blFontDataEquals(a, b)
+    def getFaceCount() = blFontDataGetFaceCount(self)
+    def getFaceType() = blFontDataGetFaceType(self)
+    def getFlags() = blFontDataGetFlags(self)
+    def getTableTags(faceIndex, dst) = blFontDataGetTableTags(self, faceIndex, dst)
+    def getTables(faceIndex, dst, tags, count) = blFontDataGetTables(self, faceIndex, dst, tags, count)
   end
 
   class BLFontDataVirt < FFI::Struct
@@ -47,6 +80,19 @@ module Blend2D
       :getTableTags, :pointer,
       :getTables, :pointer,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def getTableTags = self[:getTableTags]
+    def getTableTags=(v) self[:getTableTags] = v end
+    def getTables = self[:getTables]
+    def getTables=(v) self[:getTables] = v end
+    def self.create_as(_base_, _getTableTags_, _getTables_)
+      instance = BLFontDataVirt.new
+      instance[:base] = _base_
+      instance[:getTableTags] = _getTableTags_
+      instance[:getTables] = _getTables_
+      instance
+    end
   end
 
   class BLFontDataImpl < FFI::Struct
@@ -56,6 +102,22 @@ module Blend2D
       :faceCount, :uint,
       :flags, :uint,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def faceType = self[:faceType]
+    def faceType=(v) self[:faceType] = v end
+    def faceCount = self[:faceCount]
+    def faceCount=(v) self[:faceCount] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def self.create_as(_virt_, _faceType_, _faceCount_, _flags_)
+      instance = BLFontDataImpl.new
+      instance[:virt] = _virt_
+      instance[:faceType] = _faceType_
+      instance[:faceCount] = _faceCount_
+      instance[:flags] = _flags_
+      instance
+    end
   end
 
 

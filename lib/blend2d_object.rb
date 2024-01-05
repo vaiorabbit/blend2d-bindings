@@ -145,18 +145,68 @@ module Blend2D
       :getProperty, :pointer,
       :setProperty, :pointer,
     )
+    def destroy = self[:destroy]
+    def destroy=(v) self[:destroy] = v end
+    def getProperty = self[:getProperty]
+    def getProperty=(v) self[:getProperty] = v end
+    def setProperty = self[:setProperty]
+    def setProperty=(v) self[:setProperty] = v end
+    def self.create_as(_destroy_, _getProperty_, _setProperty_)
+      instance = BLObjectVirtBase.new
+      instance[:destroy] = _destroy_
+      instance[:getProperty] = _getProperty_
+      instance[:setProperty] = _setProperty_
+      instance
+    end
   end
 
   class BLObjectVirt < FFI::Struct
     layout(
       :base, BLObjectVirtBase,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def self.create_as(_base_)
+      instance = BLObjectVirt.new
+      instance[:base] = _base_
+      instance
+    end
   end
 
   class BLObjectCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def allocImpl(objectInfo, implSize) = blObjectAllocImpl(self, objectInfo, implSize)
+    def allocImplAligned(objectInfo, implSize, implAlignment) = blObjectAllocImplAligned(self, objectInfo, implSize, implAlignment)
+    def allocImplExternal(objectInfo, implSize, immutable, destroyFunc, userData) = blObjectAllocImplExternal(self, objectInfo, implSize, immutable, destroyFunc, userData)
+    def freeImpl() = blObjectFreeImpl(impl)
+    def initMove(other) = blObjectInitMove(self, other)
+    def initWeak(other) = blObjectInitWeak(self, other)
+    def reset() = blObjectReset(self)
+    def assignMove(other) = blObjectAssignMove(self, other)
+    def assignWeak(other) = blObjectAssignWeak(self, other)
+    def getProperty(name, nameSize, valueOut) = blObjectGetProperty(self, name, nameSize, valueOut)
+    def getPropertyBool(name, nameSize, valueOut) = blObjectGetPropertyBool(self, name, nameSize, valueOut)
+    def getPropertyInt32(name, nameSize, valueOut) = blObjectGetPropertyInt32(self, name, nameSize, valueOut)
+    def getPropertyInt64(name, nameSize, valueOut) = blObjectGetPropertyInt64(self, name, nameSize, valueOut)
+    def getPropertyUInt32(name, nameSize, valueOut) = blObjectGetPropertyUInt32(self, name, nameSize, valueOut)
+    def getPropertyUInt64(name, nameSize, valueOut) = blObjectGetPropertyUInt64(self, name, nameSize, valueOut)
+    def getPropertyDouble(name, nameSize, valueOut) = blObjectGetPropertyDouble(self, name, nameSize, valueOut)
+    def setProperty(name, nameSize, value) = blObjectSetProperty(self, name, nameSize, value)
+    def setPropertyBool(name, nameSize, value) = blObjectSetPropertyBool(self, name, nameSize, value)
+    def setPropertyInt32(name, nameSize, value) = blObjectSetPropertyInt32(self, name, nameSize, value)
+    def setPropertyInt64(name, nameSize, value) = blObjectSetPropertyInt64(self, name, nameSize, value)
+    def setPropertyUInt32(name, nameSize, value) = blObjectSetPropertyUInt32(self, name, nameSize, value)
+    def setPropertyUInt64(name, nameSize, value) = blObjectSetPropertyUInt64(self, name, nameSize, value)
+    def setPropertyDouble(name, nameSize, value) = blObjectSetPropertyDouble(self, name, nameSize, value)
+    def self.create_as(__d_)
+      instance = BLObjectCore.new
+      instance[:_d] = __d_
+      instance
+    end
   end
 
 

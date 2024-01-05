@@ -37,6 +37,31 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blImageCodecInit(self)
+    def self.create()
+      instance = BLImageCodecCore.new
+      blImageCodecInit(instance)
+      instance
+    end
+    def initMove(other) = blImageCodecInitMove(self, other)
+    def initWeak(other) = blImageCodecInitWeak(self, other)
+    def initByName(name, size, codecs) = blImageCodecInitByName(self, name, size, codecs)
+    def destroy() = blImageCodecDestroy(self)
+    def reset() = blImageCodecReset(self)
+    def assignMove(other) = blImageCodecAssignMove(self, other)
+    def assignWeak(other) = blImageCodecAssignWeak(self, other)
+    def findByName(name, size, codecs) = blImageCodecFindByName(self, name, size, codecs)
+    def findByExtension(name, size, codecs) = blImageCodecFindByExtension(self, name, size, codecs)
+    def findByData(data, size, codecs) = blImageCodecFindByData(self, data, size, codecs)
+    def inspectData(data, size) = blImageCodecInspectData(self, data, size)
+    def createDecoder(dst) = blImageCodecCreateDecoder(self, dst)
+    def createEncoder(dst) = blImageCodecCreateEncoder(self, dst)
+    def arrayInitBuiltInCodecs() = blImageCodecArrayInitBuiltInCodecs(self)
+    def arrayAssignBuiltInCodecs() = blImageCodecArrayAssignBuiltInCodecs(self)
+    def addToBuiltIn() = blImageCodecAddToBuiltIn(codec)
+    def removeFromBuiltIn() = blImageCodecRemoveFromBuiltIn(codec)
   end
 
   class BLImageCodecVirt < FFI::Struct
@@ -46,6 +71,22 @@ module Blend2D
       :createDecoder, :pointer,
       :createEncoder, :pointer,
     )
+    def base = self[:base]
+    def base=(v) self[:base] = v end
+    def inspectData = self[:inspectData]
+    def inspectData=(v) self[:inspectData] = v end
+    def createDecoder = self[:createDecoder]
+    def createDecoder=(v) self[:createDecoder] = v end
+    def createEncoder = self[:createEncoder]
+    def createEncoder=(v) self[:createEncoder] = v end
+    def self.create_as(_base_, _inspectData_, _createDecoder_, _createEncoder_)
+      instance = BLImageCodecVirt.new
+      instance[:base] = _base_
+      instance[:inspectData] = _inspectData_
+      instance[:createDecoder] = _createDecoder_
+      instance[:createEncoder] = _createEncoder_
+      instance
+    end
   end
 
   class BLImageCodecImpl < FFI::Struct
@@ -57,6 +98,28 @@ module Blend2D
       :extensions, BLStringCore,
       :features, :uint,
     )
+    def virt = self[:virt]
+    def virt=(v) self[:virt] = v end
+    def name = self[:name]
+    def name=(v) self[:name] = v end
+    def vendor = self[:vendor]
+    def vendor=(v) self[:vendor] = v end
+    def mimeType = self[:mimeType]
+    def mimeType=(v) self[:mimeType] = v end
+    def extensions = self[:extensions]
+    def extensions=(v) self[:extensions] = v end
+    def features = self[:features]
+    def features=(v) self[:features] = v end
+    def self.create_as(_virt_, _name_, _vendor_, _mimeType_, _extensions_, _features_)
+      instance = BLImageCodecImpl.new
+      instance[:virt] = _virt_
+      instance[:name] = _name_
+      instance[:vendor] = _vendor_
+      instance[:mimeType] = _mimeType_
+      instance[:extensions] = _extensions_
+      instance[:features] = _features_
+      instance
+    end
   end
 
 

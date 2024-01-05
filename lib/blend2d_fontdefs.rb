@@ -422,6 +422,16 @@ module Blend2D
       :cluster, :uint,
       :reserved, :uint,
     )
+    def cluster = self[:cluster]
+    def cluster=(v) self[:cluster] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def self.create_as(_cluster_, _reserved_)
+      instance = BLGlyphInfo.new
+      instance[:cluster] = _cluster_
+      instance[:reserved] = _reserved_
+      instance
+    end
   end
 
   class BLGlyphPlacement < FFI::Struct
@@ -429,6 +439,16 @@ module Blend2D
       :placement, BLPointI,
       :advance, BLPointI,
     )
+    def placement = self[:placement]
+    def placement=(v) self[:placement] = v end
+    def advance = self[:advance]
+    def advance=(v) self[:advance] = v end
+    def self.create_as(_placement_, _advance_)
+      instance = BLGlyphPlacement.new
+      instance[:placement] = _placement_
+      instance[:advance] = _advance_
+      instance
+    end
   end
 
   class BLGlyphMappingState < FFI::Struct
@@ -437,6 +457,19 @@ module Blend2D
       :undefinedFirst, :ulong,
       :undefinedCount, :ulong,
     )
+    def glyphCount = self[:glyphCount]
+    def glyphCount=(v) self[:glyphCount] = v end
+    def undefinedFirst = self[:undefinedFirst]
+    def undefinedFirst=(v) self[:undefinedFirst] = v end
+    def undefinedCount = self[:undefinedCount]
+    def undefinedCount=(v) self[:undefinedCount] = v end
+    def self.create_as(_glyphCount_, _undefinedFirst_, _undefinedCount_)
+      instance = BLGlyphMappingState.new
+      instance[:glyphCount] = _glyphCount_
+      instance[:undefinedFirst] = _undefinedFirst_
+      instance[:undefinedCount] = _undefinedCount_
+      instance
+    end
   end
 
   class BLGlyphOutlineSinkInfo < FFI::Struct
@@ -444,12 +477,29 @@ module Blend2D
       :glyphIndex, :ulong,
       :contourCount, :ulong,
     )
+    def glyphIndex = self[:glyphIndex]
+    def glyphIndex=(v) self[:glyphIndex] = v end
+    def contourCount = self[:contourCount]
+    def contourCount=(v) self[:contourCount] = v end
+    def self.create_as(_glyphIndex_, _contourCount_)
+      instance = BLGlyphOutlineSinkInfo.new
+      instance[:glyphIndex] = _glyphIndex_
+      instance[:contourCount] = _contourCount_
+      instance
+    end
   end
 
   class BLFontUnicodeCoverage < FFI::Struct
     layout(
       :data, [:uint, 4],
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def self.create_as(_data_)
+      instance = BLFontUnicodeCoverage.new
+      instance[:data] = _data_
+      instance
+    end
   end
 
   class BLTextMetrics < FFI::Struct
@@ -459,6 +509,22 @@ module Blend2D
       :trailingBearing, BLPoint,
       :boundingBox, BLBox,
     )
+    def advance = self[:advance]
+    def advance=(v) self[:advance] = v end
+    def leadingBearing = self[:leadingBearing]
+    def leadingBearing=(v) self[:leadingBearing] = v end
+    def trailingBearing = self[:trailingBearing]
+    def trailingBearing=(v) self[:trailingBearing] = v end
+    def boundingBox = self[:boundingBox]
+    def boundingBox=(v) self[:boundingBox] = v end
+    def self.create_as(_advance_, _leadingBearing_, _trailingBearing_, _boundingBox_)
+      instance = BLTextMetrics.new
+      instance[:advance] = _advance_
+      instance[:leadingBearing] = _leadingBearing_
+      instance[:trailingBearing] = _trailingBearing_
+      instance[:boundingBox] = _boundingBox_
+      instance
+    end
   end
 
 

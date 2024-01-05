@@ -176,6 +176,16 @@ module Blend2D
       :start, :ulong,
       :end, :ulong,
     )
+    def start = self[:start]
+    def start=(v) self[:start] = v end
+    def end = self[:end]
+    def end=(v) self[:end] = v end
+    def self.create_as(_start_, _end_)
+      instance = BLRange.new
+      instance[:start] = _start_
+      instance[:end] = _end_
+      instance
+    end
   end
 
   class BLArrayView < FFI::Struct
@@ -183,6 +193,16 @@ module Blend2D
       :data, :pointer,
       :size, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def self.create_as(_data_, _size_)
+      instance = BLArrayView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance
+    end
   end
 
   class BLStringView < FFI::Struct
@@ -190,6 +210,16 @@ module Blend2D
       :data, :pointer,
       :size, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def self.create_as(_data_, _size_)
+      instance = BLStringView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance
+    end
   end
 
 

@@ -46,6 +46,34 @@ module Blend2D
       :placementAdvance, :char,
       :flags, :uint,
     )
+    def glyphData = self[:glyphData]
+    def glyphData=(v) self[:glyphData] = v end
+    def placementData = self[:placementData]
+    def placementData=(v) self[:placementData] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def placementType = self[:placementType]
+    def placementType=(v) self[:placementType] = v end
+    def glyphAdvance = self[:glyphAdvance]
+    def glyphAdvance=(v) self[:glyphAdvance] = v end
+    def placementAdvance = self[:placementAdvance]
+    def placementAdvance=(v) self[:placementAdvance] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def self.create_as(_glyphData_, _placementData_, _size_, _reserved_, _placementType_, _glyphAdvance_, _placementAdvance_, _flags_)
+      instance = BLGlyphRun.new
+      instance[:glyphData] = _glyphData_
+      instance[:placementData] = _placementData_
+      instance[:size] = _size_
+      instance[:reserved] = _reserved_
+      instance[:placementType] = _placementType_
+      instance[:glyphAdvance] = _glyphAdvance_
+      instance[:placementAdvance] = _placementAdvance_
+      instance[:flags] = _flags_
+      instance
+    end
   end
 
 

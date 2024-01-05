@@ -24,6 +24,47 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blStringInit(self)
+    def self.create()
+      instance = BLStringCore.new
+      blStringInit(instance)
+      instance
+    end
+    def initMove(other) = blStringInitMove(self, other)
+    def initWeak(other) = blStringInitWeak(self, other)
+    def initWithData(str, size) = blStringInitWithData(self, str, size)
+    def destroy() = blStringDestroy(self)
+    def reset() = blStringReset(self)
+    def getData() = blStringGetData(self)
+    def getSize() = blStringGetSize(self)
+    def getCapacity() = blStringGetCapacity(self)
+    def clear() = blStringClear(self)
+    def shrink() = blStringShrink(self)
+    def reserve(n) = blStringReserve(self, n)
+    def resize(n, fill) = blStringResize(self, n, fill)
+    def makeMutable(dataOut) = blStringMakeMutable(self, dataOut)
+    def modifyOp(op, n, dataOut) = blStringModifyOp(self, op, n, dataOut)
+    def insertOp(index, n, dataOut) = blStringInsertOp(self, index, n, dataOut)
+    def assignMove(other) = blStringAssignMove(self, other)
+    def assignWeak(other) = blStringAssignWeak(self, other)
+    def assignDeep(other) = blStringAssignDeep(self, other)
+    def assignData(str, n) = blStringAssignData(self, str, n)
+    def applyOpChar(op, c, n) = blStringApplyOpChar(self, op, c, n)
+    def applyOpData(op, str, n) = blStringApplyOpData(self, op, str, n)
+    def applyOpString(op, other) = blStringApplyOpString(self, op, other)
+    def applyOpFormat(op, fmt) = blStringApplyOpFormat(self, op, fmt)
+    def applyOpFormatV(op, fmt, ap) = blStringApplyOpFormatV(self, op, fmt, ap)
+    def insertChar(index, c, n) = blStringInsertChar(self, index, c, n)
+    def insertData(index, str, n) = blStringInsertData(self, index, str, n)
+    def insertString(index, other) = blStringInsertString(self, index, other)
+    def removeIndex(index) = blStringRemoveIndex(self, index)
+    def removeRange(rStart, rEnd) = blStringRemoveRange(self, rStart, rEnd)
+    def equals(b) = blStringEquals(a, b)
+    def equalsData(str, n) = blStringEqualsData(self, str, n)
+    def compare(b) = blStringCompare(a, b)
+    def compareData(str, n) = blStringCompareData(self, str, n)
   end
 
   class BLStringImpl < FFI::Struct
@@ -31,6 +72,16 @@ module Blend2D
       :size, :ulong,
       :capacity, :ulong,
     )
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def capacity = self[:capacity]
+    def capacity=(v) self[:capacity] = v end
+    def self.create_as(_size_, _capacity_)
+      instance = BLStringImpl.new
+      instance[:size] = _size_
+      instance[:capacity] = _capacity_
+      instance
+    end
   end
 
 

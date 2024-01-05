@@ -24,6 +24,61 @@ module Blend2D
     layout(
       :_d, BLObjectDetail,
     )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init(arrayType) = blArrayInit(self, arrayType)
+    def self.create()
+      instance = BLArrayCore.new
+      blArrayInit(instance)
+      instance
+    end
+    def initMove(other) = blArrayInitMove(self, other)
+    def initWeak(other) = blArrayInitWeak(self, other)
+    def destroy() = blArrayDestroy(self)
+    def reset() = blArrayReset(self)
+    def getSize() = blArrayGetSize(self)
+    def getCapacity() = blArrayGetCapacity(self)
+    def getItemSize() = blArrayGetItemSize(self)
+    def getData() = blArrayGetData(self)
+    def clear() = blArrayClear(self)
+    def shrink() = blArrayShrink(self)
+    def reserve(n) = blArrayReserve(self, n)
+    def resize(n, fill) = blArrayResize(self, n, fill)
+    def makeMutable(dataOut) = blArrayMakeMutable(self, dataOut)
+    def modifyOp(op, n, dataOut) = blArrayModifyOp(self, op, n, dataOut)
+    def insertOp(index, n, dataOut) = blArrayInsertOp(self, index, n, dataOut)
+    def assignMove(other) = blArrayAssignMove(self, other)
+    def assignWeak(other) = blArrayAssignWeak(self, other)
+    def assignDeep(other) = blArrayAssignDeep(self, other)
+    def assignData(data, n) = blArrayAssignData(self, data, n)
+    def assignExternalData(data, size, capacity, dataAccessFlags, destroyFunc, userData) = blArrayAssignExternalData(self, data, size, capacity, dataAccessFlags, destroyFunc, userData)
+    def appendU8(value) = blArrayAppendU8(self, value)
+    def appendU16(value) = blArrayAppendU16(self, value)
+    def appendU32(value) = blArrayAppendU32(self, value)
+    def appendU64(value) = blArrayAppendU64(self, value)
+    def appendF32(value) = blArrayAppendF32(self, value)
+    def appendF64(value) = blArrayAppendF64(self, value)
+    def appendItem(item) = blArrayAppendItem(self, item)
+    def appendData(data, n) = blArrayAppendData(self, data, n)
+    def insertU8(index, value) = blArrayInsertU8(self, index, value)
+    def insertU16(index, value) = blArrayInsertU16(self, index, value)
+    def insertU32(index, value) = blArrayInsertU32(self, index, value)
+    def insertU64(index, value) = blArrayInsertU64(self, index, value)
+    def insertF32(index, value) = blArrayInsertF32(self, index, value)
+    def insertF64(index, value) = blArrayInsertF64(self, index, value)
+    def insertItem(index, item) = blArrayInsertItem(self, index, item)
+    def insertData(index, data, n) = blArrayInsertData(self, index, data, n)
+    def replaceU8(index, value) = blArrayReplaceU8(self, index, value)
+    def replaceU16(index, value) = blArrayReplaceU16(self, index, value)
+    def replaceU32(index, value) = blArrayReplaceU32(self, index, value)
+    def replaceU64(index, value) = blArrayReplaceU64(self, index, value)
+    def replaceF32(index, value) = blArrayReplaceF32(self, index, value)
+    def replaceF64(index, value) = blArrayReplaceF64(self, index, value)
+    def replaceItem(index, item) = blArrayReplaceItem(self, index, item)
+    def replaceData(rStart, rEnd, data, n) = blArrayReplaceData(self, rStart, rEnd, data, n)
+    def removeIndex(index) = blArrayRemoveIndex(self, index)
+    def removeRange(rStart, rEnd) = blArrayRemoveRange(self, rStart, rEnd)
+    def equals(b) = blArrayEquals(a, b)
   end
 
   class BLArrayImpl < FFI::Struct
@@ -32,6 +87,19 @@ module Blend2D
       :size, :ulong,
       :capacity, :ulong,
     )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def capacity = self[:capacity]
+    def capacity=(v) self[:capacity] = v end
+    def self.create_as(_data_, _size_, _capacity_)
+      instance = BLArrayImpl.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:capacity] = _capacity_
+      instance
+    end
   end
 
 
