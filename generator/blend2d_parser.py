@@ -1,9 +1,14 @@
 import os, pprint, re, sys
+import platform
 import json
 from pathlib import Path
 from clang.cindex import Config, CursorKind, Index, TranslationUnit, TranslationUnitLoadError, TypeKind
 
-Config.set_library_path("/opt/homebrew/opt/llvm/lib")
+if platform.system() == "Windows":
+    Config.set_library_path('c:/Program Files/LLVM/bin')
+else:
+    Config.set_library_path("/opt/homebrew/opt/llvm/lib")
+
 
 ####################################################################################################
 
