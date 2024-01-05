@@ -156,9 +156,9 @@ def generate_structunion(ctx, indent = ""):
             print(indent + "  def %s = self[:%s]" % (field.element_name, field.element_name), file = sys.stdout)
             print(indent + "  def %s=(v) self[:%s] = v end" % (field.element_name, field.element_name), file = sys.stdout)
 
+        func_name_prefix = ('bl' + struct_name.removeprefix('BL')).removesuffix('Core')
 
         # Print instance methods
-        func_name_prefix = ('bl' + struct_name.removeprefix('BL')).removesuffix('Core')
         for func_name, func_info in ctx.decl_functions.items():
             if func_name.startswith(func_name_prefix):
                 method_name = func_name.removeprefix(func_name_prefix)
@@ -168,6 +168,20 @@ def generate_structunion(ctx, indent = ""):
                 args_with_self = ', '.join(args_name_list)
                 args_without_self = ', '.join(args_name_list[1:])
                 print(indent + "  def %s(%s) = %s(%s)" % (method_name[0].lower() + method_name[1:], args_without_self, func_name, args_with_self), file = sys.stdout)
+                if method_name == 'Init':
+                    # Print instance creator methods
+                    print(indent + "  def self.create()", file = sys.stdout)
+                    print(indent + "    instance = %s.new" % (struct_name), file = sys.stdout)
+                    print(indent + "    %s(instance)" % (func_name), file = sys.stdout)
+                    print(indent + "    instance", file = sys.stdout)
+                    print(indent + "  end", file = sys.stdout)
+                if method_name == 'InitAs':
+                    # Print instance creator methods
+                    print(indent + "  def self.create_as(%s)" % (args_without_self) , file = sys.stdout)
+                    print(indent + "    instance = %s.new" % (struct_name), file = sys.stdout)
+                    print(indent + "    %s(instance, %s)" % (func_name, args_without_self), file = sys.stdout)
+                    print(indent + "    instance", file = sys.stdout)
+                    print(indent + "  end", file = sys.stdout)
 
         print(indent + "end\n", file = sys.stdout)
 
