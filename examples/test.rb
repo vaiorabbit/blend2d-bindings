@@ -49,7 +49,7 @@ if __FILE__ == $PROGRAM_NAME
 
   codec = BLImageCodecCore.new
   codec.initByName("PNG", "PNG".chars.length, nil)
-  img.writeToFile("bl_sample_capi.png", codec)
+  img.writeToFile("test.png", codec)
   codec.destroy()
   codec = nil
 
