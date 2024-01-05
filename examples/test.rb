@@ -19,20 +19,20 @@ if __FILE__ == $PROGRAM_NAME
   # First shape
   radial = BLGradientCore.new
   radialValues = BLRadialGradientValues.new
-  radialValues[:x0] = 180.0
-  radialValues[:y0] = 180.0
-  radialValues[:x1] = 180.0
-  radialValues[:y1] = 180.0
-  radialValues[:r0] = 180.0
+  radialValues.x0 = 180.0
+  radialValues.y0 = 180.0
+  radialValues.x1 = 180.0
+  radialValues.y1 = 180.0
+  radialValues.r0 = 180.0
 
   radial.initAs(BL_GRADIENT_TYPE_RADIAL, radialValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
   radial.addStopRgba32(0.0, 0xFFFFFFFF)
   radial.addStopRgba32(1.0, 0xFFFF6F3F)
 
   circle = BLCircle.new
-  circle[:cx] = 180.0
-  circle[:cy] = 180.0
-  circle[:r] = 160.0
+  circle.cx = 180.0
+  circle.cy = 180.0
+  circle.r = 160.0
 
   ctx.fillGeometryExt(BL_GEOMETRY_TYPE_CIRCLE, circle, radial)
 
@@ -42,10 +42,10 @@ if __FILE__ == $PROGRAM_NAME
   # Second shape
   linear = BLGradientCore.new
   linearValues = BLLinearGradientValues.new
-  linearValues[:x0] = 195.0
-  linearValues[:y0] = 195.0
-  linearValues[:x1] = 470.0
-  linearValues[:y1] = 470.0
+  linearValues.x0 = 195.0
+  linearValues.y0 = 195.0
+  linearValues.x1 = 470.0
+  linearValues.y1 = 470.0
 
   linear.initAs(BL_GRADIENT_TYPE_LINEAR, linearValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
   linear.addStopRgba32(0.0, 0xFFFFFFFF)
@@ -58,12 +58,12 @@ if __FILE__ == $PROGRAM_NAME
   ctx.setCompOp(BL_COMP_OP_PLUS)
 
   roundRect = BLRoundRect.new
-  roundRect[:x] = 195.0
-  roundRect[:y] = 195.0
-  roundRect[:w] = 270.0
-  roundRect[:h] = 270.0
-  roundRect[:rx] = 25.0
-  roundRect[:ry] = 25.0
+  roundRect.x = 195.0
+  roundRect.y = 195.0
+  roundRect.w = 270.0
+  roundRect.h = 270.0
+  roundRect.rx = 25.0
+  roundRect.ry = 25.0
   r = ctx.fillGeometryExt(BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
   puts "blContextFillGeometryExt failed (result = #{r})" unless r == BL_SUCCESS
 

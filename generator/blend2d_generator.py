@@ -134,7 +134,9 @@ def generate_typedef(ctx, indent = "", typedef_prefix="", typedef_postfix=""):
     if typedef_postfix != "":
         print(typedef_postfix, file = sys.stdout)
 
-def generate_structunion(ctx, indent = ""):
+def generate_structunion(ctx, indent = "", struct_prefix="", struct_postfix=""):
+    if struct_prefix != "":
+        print(struct_prefix, file = sys.stdout)
     for struct_name, struct_info in ctx.decl_structs.items():
         if struct_info == None:
             continue
@@ -184,6 +186,8 @@ def generate_structunion(ctx, indent = ""):
                     print(indent + "  end", file = sys.stdout)
 
         print(indent + "end\n", file = sys.stdout)
+    if struct_postfix != "":
+        print(struct_postfix, file = sys.stdout)
 
 def generate_function(ctx, indent = "", setup_method_name = ""):
     print(indent + "def self.setup_%s_symbols(output_error = false)" % setup_method_name , file = sys.stdout)
@@ -242,7 +246,7 @@ def generate_function(ctx, indent = "", setup_method_name = ""):
     print(indent + "end", file = sys.stdout)
 
 
-def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "", typedef_prefix="", typedef_postfix=""):
+def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "", typedef_prefix="", typedef_postfix="", struct_prefix="", struct_postfix=""):
 
     print(prefix, file = sys.stdout)
 
@@ -269,7 +273,7 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "",
 
     # struct/union
     print(indent + "# Struct\n", file = sys.stdout)
-    generate_structunion(ctx, indent)
+    generate_structunion(ctx, indent, struct_prefix, struct_postfix)
     print("", file = sys.stdout)
 
     # function
