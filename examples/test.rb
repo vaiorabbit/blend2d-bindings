@@ -7,14 +7,14 @@ if __FILE__ == $PROGRAM_NAME
   load_blend2d_lib()
 
   img = BLImageCore.new
-  r = blImageInitAs(img, 480, 480, BL_FORMAT_PRGB32)
+  r = img.initAs(480, 480, BL_FORMAT_PRGB32)
   puts "blImageInitAs failed (result = #{r})" unless r == BL_SUCCESS
 
   ctx = BLContextCore.new
-  r = blContextInitAs(ctx, img, nil)
+  r = ctx.initAs(img, nil)
   puts "blContextInitAs failed (result = #{r})" unless r == BL_SUCCESS
 
-  blContextClearAll(ctx)
+  ctx.clearAll()
 
   # First shape
   radial = BLGradientCore.new
@@ -25,18 +25,18 @@ if __FILE__ == $PROGRAM_NAME
   radialValues[:y1] = 180.0
   radialValues[:r0] = 180.0
 
-  blGradientInitAs(radial, BL_GRADIENT_TYPE_RADIAL, radialValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
-  blGradientAddStopRgba32(radial, 0.0, 0xFFFFFFFF)
-  blGradientAddStopRgba32(radial, 1.0, 0xFFFF6F3F)
+  radial.initAs(BL_GRADIENT_TYPE_RADIAL, radialValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
+  radial.addStopRgba32(0.0, 0xFFFFFFFF)
+  radial.addStopRgba32(1.0, 0xFFFF6F3F)
 
   circle = BLCircle.new
   circle[:cx] = 180.0
   circle[:cy] = 180.0
   circle[:r] = 160.0
 
-  blContextFillGeometryExt(ctx, BL_GEOMETRY_TYPE_CIRCLE, circle, radial)
+  ctx.fillGeometryExt(BL_GEOMETRY_TYPE_CIRCLE, circle, radial)
 
-  blGradientDestroy(radial)
+  radial.destroy()
   radial = nil
 
   # Second shape
@@ -47,15 +47,15 @@ if __FILE__ == $PROGRAM_NAME
   linearValues[:x1] = 470.0
   linearValues[:y1] = 470.0
 
-  blGradientInitAs(linear, BL_GRADIENT_TYPE_LINEAR, linearValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
-  blGradientAddStopRgba32(linear, 0.0, 0xFFFFFFFF)
-  blGradientAddStopRgba32(linear, 1.0, 0xFF3F9FFF)
+  linear.initAs(BL_GRADIENT_TYPE_LINEAR, linearValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
+  linear.addStopRgba32(0.0, 0xFFFFFFFF)
+  linear.addStopRgba32(1.0, 0xFF3F9FFF)
 
   # blContextSetCompOp(ctx, BL_COMP_OP_DIFFERENCE) # BL_COMP_OP_DIFFERENCE causes error on calling blContextFillGeometryExt ('65543 NOT_IMPLEMENTED')
   # Ref.:
   # - https://github.com/blend2d/blend2d/issues/182
   # - https://github.com/blend2d/blend2d/issues/181
-  blContextSetCompOp(ctx, BL_COMP_OP_PLUS)
+  ctx.setCompOp(BL_COMP_OP_PLUS)
 
   roundRect = BLRoundRect.new
   roundRect[:x] = 195.0
@@ -64,22 +64,22 @@ if __FILE__ == $PROGRAM_NAME
   roundRect[:h] = 270.0
   roundRect[:rx] = 25.0
   roundRect[:ry] = 25.0
-  r = blContextFillGeometryExt(ctx, BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
+  r = ctx.fillGeometryExt(BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
   puts "blContextFillGeometryExt failed (result = #{r})" unless r == BL_SUCCESS
 
-  blGradientDestroy(linear)
+  linear.destroy()
   linear = nil
 
-  blContextDestroy(ctx)
+  ctx.destroy()
   ctx = nil
 
   codec = BLImageCodecCore.new
 
-  blImageCodecInitByName(codec, "PNG", "PNG".chars.length, nil)
-  blImageWriteToFile(img, "bl_sample_capi.png", codec)
-  blImageCodecDestroy(codec)
+  codec.initByName("PNG", "PNG".chars.length, nil)
+  img.writeToFile("bl_sample_capi.png", codec)
+  codec.destroy()
   codec = nil
 
-  blImageDestroy(img)
+  img.destroy()
   img = nil
 end

@@ -35,11 +35,11 @@ TYPEDEF_PREFIX_GRADIENT = """
     )
   end
 
-  class BLGradientCore < FFI::Struct
-    layout(
-      :_d, BLObjectDetail,
-    )
-  end
+  # class BLGradientCore < FFI::Struct
+  #   layout(
+  #     :_d, BLObjectDetail,
+  #   )
+  # end
 
   class BLGradientImpl_Contents < FFI::Union
     layout(
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     ctx.decl_structs['BLLinearGradientValues'] = None
     ctx.decl_structs['BLRadialGradientValues'] = None
     ctx.decl_structs['BLConicGradientValues'] = None
-    ctx.decl_structs['BLGradientCore'] = None
+    # ctx.decl_structs['BLGradientCore'] = None
     ctx.decl_structs['BLGradientImpl'] = None
 
     blend2d_generator.sanitize(ctx)
