@@ -138,6 +138,8 @@ def generate_structunion(ctx, indent = ""):
     for struct_name, struct_info in ctx.decl_structs.items():
         if struct_info == None:
             continue
+
+        # Print body of struct from here
         print(indent + "class %s < %s" % (struct_info.api_name, struct_info.kind), file = sys.stdout)
         print(indent + "  layout(", file = sys.stdout)
         for field in struct_info.fields:
@@ -148,6 +150,12 @@ def generate_structunion(ctx, indent = ""):
             else:
                 print(indent + "    :%s, [%s, %s]," % (field.element_name, field.type_kind, field.element_count), file = sys.stdout)
         print(indent + "  )", file = sys.stdout)
+
+        # Print accessors
+        for field in struct_info.fields:
+            print(indent + "  def %s = self[:%s]" % (field.element_name, field.element_name), file = sys.stdout)
+            print(indent + "  def %s=(v) self[:%s] = v end" % (field.element_name, field.element_name), file = sys.stdout)
+
         print(indent + "end\n", file = sys.stdout)
 
 def generate_function(ctx, indent = "", setup_method_name = ""):

@@ -8,7 +8,7 @@ set PYTHONEXE=%LOCALAPPDATA%\Programs\Python\Python311\python.exe
 %PYTHONEXE% generate_array.py > ..\lib\blend2d_array.rb
 %PYTHONEXE% generate_bitarray.py > ..\lib\blend2d_bitarray.rb
 %PYTHONEXE% generate_bitset.py > ..\lib\blend2d_bitset.rb
-%PYTHONEXE% generate_filesystem.py > ..\lib\blend2d_filesystem.rba
+%PYTHONEXE% generate_filesystem.py > ..\lib\blend2d_filesystem.rb
 %PYTHONEXE% generate_format.py > ..\lib\blend2d_format.rb
 %PYTHONEXE% generate_geometry.py > ..\lib\blend2d_geometry.rb
 %PYTHONEXE% generate_string.py > ..\lib\blend2d_string.rb
