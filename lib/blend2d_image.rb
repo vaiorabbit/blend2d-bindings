@@ -39,7 +39,7 @@ module Blend2D
   class BLImageData < FFI::Struct
     layout(
       :pixelData, :pointer,
-      :stride, :long,
+      :stride, :int64,
       :size, BLSizeI,
       :format, :uint,
       :flags, :uint,
@@ -148,7 +148,7 @@ module Blend2D
   class BLImageImpl < FFI::Struct
     layout(
       :pixelData, :pointer,
-      :stride, :long,
+      :stride, :int64,
       :size, BLSizeI,
       :format, :uchar,
       :flags, :uchar,
@@ -237,14 +237,14 @@ module Blend2D
       :blImageInitMove => [:pointer, :pointer],
       :blImageInitWeak => [:pointer, :pointer],
       :blImageInitAs => [:pointer, :int, :int, :int],
-      :blImageInitAsFromData => [:pointer, :int, :int, :int, :pointer, :long, :int, :BLDestroyExternalDataFunc, :pointer],
+      :blImageInitAsFromData => [:pointer, :int, :int, :int, :pointer, :int64, :int, :BLDestroyExternalDataFunc, :pointer],
       :blImageDestroy => [:pointer],
       :blImageReset => [:pointer],
       :blImageAssignMove => [:pointer, :pointer],
       :blImageAssignWeak => [:pointer, :pointer],
       :blImageAssignDeep => [:pointer, :pointer],
       :blImageCreate => [:pointer, :int, :int, :int],
-      :blImageCreateFromData => [:pointer, :int, :int, :int, :pointer, :long, :int, :BLDestroyExternalDataFunc, :pointer],
+      :blImageCreateFromData => [:pointer, :int, :int, :int, :pointer, :int64, :int, :BLDestroyExternalDataFunc, :pointer],
       :blImageGetData => [:pointer, :pointer],
       :blImageMakeMutable => [:pointer, :pointer],
       :blImageConvert => [:pointer, :int],

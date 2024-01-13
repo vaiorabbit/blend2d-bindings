@@ -85,7 +85,7 @@ module Blend2D
       :blPixelConverterReset => [:pointer],
       :blPixelConverterAssign => [:pointer, :pointer],
       :blPixelConverterCreate => [:pointer, :pointer, :pointer, :int],
-      :blPixelConverterConvert => [:pointer, :pointer, :long, :pointer, :long, :uint, :uint, :pointer],
+      :blPixelConverterConvert => [:pointer, :pointer, :int64, :pointer, :int64, :uint, :uint, :pointer],
     }
     retvals = {
       :blPixelConverterInit => :uint,

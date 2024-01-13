@@ -228,8 +228,8 @@ module Blend2D
       :blFontApplyGSub => [:pointer, :pointer, :pointer],
       :blFontApplyGPos => [:pointer, :pointer, :pointer],
       :blFontGetTextMetrics => [:pointer, :pointer, :pointer],
-      :blFontGetGlyphBounds => [:pointer, :pointer, :long, :pointer, :ulong],
-      :blFontGetGlyphAdvances => [:pointer, :pointer, :long, :pointer, :ulong],
+      :blFontGetGlyphBounds => [:pointer, :pointer, :int64, :pointer, :ulong],
+      :blFontGetGlyphAdvances => [:pointer, :pointer, :int64, :pointer, :ulong],
       :blFontGetGlyphOutlines => [:pointer, :uint, :pointer, :pointer, :BLPathSinkFunc, :pointer],
       :blFontGetGlyphRunOutlines => [:pointer, :pointer, :pointer, :pointer, :BLPathSinkFunc, :pointer],
     }

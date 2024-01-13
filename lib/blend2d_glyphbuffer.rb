@@ -106,7 +106,7 @@ module Blend2D
       :blGlyphBufferGetPlacementData => [:pointer],
       :blGlyphBufferSetText => [:pointer, :pointer, :ulong, :int],
       :blGlyphBufferSetGlyphs => [:pointer, :pointer, :ulong],
-      :blGlyphBufferSetGlyphsFromStruct => [:pointer, :pointer, :ulong, :ulong, :long],
+      :blGlyphBufferSetGlyphsFromStruct => [:pointer, :pointer, :ulong, :ulong, :int64],
       :blGlyphBufferSetDebugSink => [:pointer, :BLDebugMessageSinkFunc, :pointer],
       :blGlyphBufferResetDebugSink => [:pointer],
     }

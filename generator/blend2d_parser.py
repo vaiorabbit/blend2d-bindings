@@ -154,6 +154,10 @@ def get_cindex_ctypes_mapping(strTypeKind, strBlend2dTypedef):
         if m:
             isSizeType = True
 
+    isPointerHolder = False
+    if strBlend2dTypedef == 'intptr_t' or strBlend2dTypedef == 'uintptr_t':
+        isPointerHolder = True
+
     # clang types -> python ctypes
     ctypes_mapping = {
         'TypeKind.VOID' : ':void',
@@ -190,6 +194,8 @@ def get_cindex_ctypes_mapping(strTypeKind, strBlend2dTypedef):
         return ':pointer'
     elif isSizeType:
         return ':size_t'
+    elif isPointerHolder:
+        return ':int64' if strBlend2dTypedef == 'intptr_t' else ':uint64'
     else:
         mapping_key = ""
         if strTypeKind != 'TypeKind.TYPEDEF':

@@ -48,7 +48,7 @@ module Blend2D
 
   class BLFileCore < FFI::Struct
     layout(
-      :handle, :long,
+      :handle, :int64,
     )
     def handle = self[:handle]
     def handle=(v) self[:handle] = v end
