@@ -1,4 +1,6 @@
-require_relative 'util'
+require_relative '../util/setup_blend2d'
+require_relative '../util/setup_imgui'
+require_relative '../util/setup_raylib'
 
 SIZE_MAX = 2 ** 64 - 1
 
@@ -74,13 +76,6 @@ def renderBlend2DImage(ctx, xRadiusValue, yRadiusValue, angleValue, largeArcFlag
 end
 
 if __FILE__ == $PROGRAM_NAME
-  load_raylib()
-  load_imgui()
-  load_blend2d()
-
-  include Raylib
-  include Blend2D
-
   sidebar_width = 200
   image_width = 580
   image_height = 520

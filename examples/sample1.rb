@@ -1,12 +1,7 @@
 # Ref.: https://github.com/blend2d/blend2d/blob/master/test/bl_sample_1.cpp
-require_relative '../lib/blend2d.rb'
-require_relative 'util'
-
-include Blend2D
+require_relative 'util/setup_blend2d'
 
 if __FILE__ == $PROGRAM_NAME
-  load_blend2d_lib()
-
   img = BLImageCore.create_as(480, 480, BL_FORMAT_PRGB32)
 
   ctx = BLContextCore.create_as(img, nil)

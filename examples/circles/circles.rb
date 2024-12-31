@@ -1,4 +1,6 @@
-require_relative 'util'
+require_relative '../util/setup_blend2d'
+require_relative '../util/setup_imgui'
+require_relative '../util/setup_raylib'
 
 # Blend2D ARGB -> Raylib ABGR
 def raylibTextureFromBlend2DImage(blImg, blImgData, rayImg, rayImgData)
@@ -39,13 +41,6 @@ def renderBlend2DImage(ctx, angle, circle_count, blImg, blImgData, rayImg, rayIm
 end
 
 if __FILE__ == $PROGRAM_NAME
-  load_raylib()
-  load_imgui()
-  load_blend2d()
-
-  include Raylib
-  include Blend2D
-
   sidebar_width = 200
   image_width = 480
   image_height = 480

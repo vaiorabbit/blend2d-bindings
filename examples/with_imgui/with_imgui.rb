@@ -1,13 +1,8 @@
-require_relative 'util'
+require_relative '../util/setup_blend2d'
+require_relative '../util/setup_imgui'
+require_relative '../util/setup_raylib'
 
 if __FILE__ == $PROGRAM_NAME
-  load_raylib()
-  load_imgui()
-  load_blend2d()
-
-  include Raylib
-  include Blend2D
-
   sidebar_width = 200
   blImg = BLImageCore.create_as(480, 480, BL_FORMAT_PRGB32)
 
@@ -28,8 +23,8 @@ if __FILE__ == $PROGRAM_NAME
   linear.addStopRgba32(0.0, 0xFFFFFFFF)
   linear.addStopRgba32(1.0, 0xFF3F9FFF)
   roundRect = BLRoundRect.create_as(195, 195, 270, 270, 25, 25)
-  ctx.setCompOp(BL_COMP_OP_PLUS)
-  p ctx.fillGeometryExt(BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
+  ctx.setCompOp(BL_COMP_OP_DIFFERENCE)
+  ctx.fillGeometryExt(BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
 
   # Convert pixel
   blImgData = BLImageData.new

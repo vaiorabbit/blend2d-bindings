@@ -1,7 +1,4 @@
-require_relative '../lib/blend2d.rb'
-require_relative 'util'
-
-include Blend2D
+require_relative 'util/setup_blend2d'
 
 # Ref.: https://web.archive.org/web/20170103014420im_/http://www.explore-hokkaido.com/assets/svg/hokkaido-map.svg
 hokkaido = [
@@ -150,8 +147,6 @@ translate_s = FFI::MemoryPointer.new(:double, 2)
 translate_s.put_array_of_double(0, [170, 260])
 
 if __FILE__ == $PROGRAM_NAME
-  load_blend2d_lib()
-
   img = BLImageCore.create_as(480, 480, BL_FORMAT_PRGB32)
   ctx = BLContextCore.create_as(img, nil)
   ctx.clearAll()

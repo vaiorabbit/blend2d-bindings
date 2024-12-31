@@ -1,11 +1,7 @@
-require_relative '../lib/blend2d.rb'
-require_relative 'util'
-
-include Blend2D
+# Visit https://github.com/vaiorabbit/blend2d-bindings/tree/main/examples for more examples.
+require_relative 'util/setup_blend2d'
 
 if __FILE__ == $PROGRAM_NAME
-  load_blend2d_lib()
-
   img = BLImageCore.create_as(480, 480, BL_FORMAT_PRGB32)
 
   ctx = BLContextCore.create_as(img, nil)
@@ -29,16 +25,9 @@ if __FILE__ == $PROGRAM_NAME
   linear.addStopRgba32(0.0, 0xFFFFFFFF)
   linear.addStopRgba32(1.0, 0xFF3F9FFF)
 
-  # blContextSetCompOp(ctx, BL_COMP_OP_DIFFERENCE) # BL_COMP_OP_DIFFERENCE causes error on calling blContextFillGeometryExt ('65543 NOT_IMPLEMENTED')
-  # Ref.:
-  # - https://github.com/blend2d/blend2d/issues/182
-  # - https://github.com/blend2d/blend2d/issues/181
-  ctx.setCompOp(BL_COMP_OP_PLUS)
-
+  ctx.setCompOp(BL_COMP_OP_DIFFERENCE)
   roundRect = BLRoundRect.create_as(195, 195, 270, 270, 25, 25)
-
   r = ctx.fillGeometryExt(BL_GEOMETRY_TYPE_ROUND_RECT, roundRect, linear)
-  puts "blContextFillGeometryExt failed (result = #{r})" unless r == BL_SUCCESS
 
   linear.destroy()
   linear = nil
