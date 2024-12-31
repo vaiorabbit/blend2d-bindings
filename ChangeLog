@@ -2,6 +2,7 @@
 
 	* Updated with latest Blend2D ( https://github.com/blend2d/blend2d/commit/16088c4ffb41813d9f0511fb2a6896f5608a4706 )
 	* Added AsmJit support
+	* examples/particles : Added
 
 2024-04-13  vaiorabbit  <http://twitter.com/vaiorabbit>
 
