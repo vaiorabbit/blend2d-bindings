@@ -19,7 +19,7 @@ if not exist build (
     mkdir build
 )
 cd build
-%CMAKE_EXE% -G "MSYS Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_COMPILER=gcc -D BLEND2D_NO_JIT=1 ../blend2d
-make
+%CMAKE_EXE% -G "MSYS Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_COMPILER=gcc ../blend2d
+cmake --build .
 copy libblend2d.dll ..\..\lib
 popd

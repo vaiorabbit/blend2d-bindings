@@ -20,7 +20,7 @@ module Blend2D
 
   BL_FONT_DATA_NO_FLAGS = 0
   BL_FONT_DATA_FLAG_COLLECTION = 1
-  BL_FONT_DATA_FLAG_FORCE_UINT = 4294967295
+  BL_FONT_DATA_FLAG_FORCE_UINT = -1
 
   # Typedef
 
@@ -31,7 +31,7 @@ module Blend2D
   class BLFontTable < FFI::Struct
     layout(
       :data, :pointer,
-      :size, :ulong,
+      :size, :ulong_long,
     )
     def data = self[:data]
     def data=(v) self[:data] = v end
@@ -170,13 +170,13 @@ module Blend2D
       :blFontDataAssignWeak => [:pointer, :pointer],
       :blFontDataCreateFromFile => [:pointer, :pointer, :int],
       :blFontDataCreateFromDataArray => [:pointer, :pointer],
-      :blFontDataCreateFromData => [:pointer, :pointer, :ulong, :BLDestroyExternalDataFunc, :pointer],
+      :blFontDataCreateFromData => [:pointer, :pointer, :ulong_long, :BLDestroyExternalDataFunc, :pointer],
       :blFontDataEquals => [:pointer, :pointer],
       :blFontDataGetFaceCount => [:pointer],
       :blFontDataGetFaceType => [:pointer],
       :blFontDataGetFlags => [:pointer],
       :blFontDataGetTableTags => [:pointer, :uint, :pointer],
-      :blFontDataGetTables => [:pointer, :uint, :pointer, :pointer, :ulong],
+      :blFontDataGetTables => [:pointer, :uint, :pointer, :pointer, :ulong_long],
     }
     retvals = {
       :blFontDataInit => :uint,
@@ -189,12 +189,12 @@ module Blend2D
       :blFontDataCreateFromFile => :uint,
       :blFontDataCreateFromDataArray => :uint,
       :blFontDataCreateFromData => :uint,
-      :blFontDataEquals => :int,
+      :blFontDataEquals => :bool,
       :blFontDataGetFaceCount => :uint,
       :blFontDataGetFaceType => :int,
       :blFontDataGetFlags => :int,
       :blFontDataGetTableTags => :uint,
-      :blFontDataGetTables => :ulong,
+      :blFontDataGetTables => :ulong_long,
     }
     symbols.each do |sym|
       begin

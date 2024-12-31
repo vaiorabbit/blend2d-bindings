@@ -15,6 +15,7 @@
     , "BL_NORETURN" : null
     , "BL_NODISCARD" : null
     , "BL_NOEXCEPT" : null
+    , "BL_CONSTEXPR" : null
     , "BL_NOEXCEPT_C" : null
     , "BL_PURE" : null
     , "BL_ALIGN_TYPE" : null

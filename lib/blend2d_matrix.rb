@@ -21,7 +21,7 @@ module Blend2D
   BL_TRANSFORM_TYPE_AFFINE = 4
   BL_TRANSFORM_TYPE_INVALID = 5
   BL_TRANSFORM_TYPE_MAX_VALUE = 5
-  BL_MATRIX2D_TYPE_FORCE_UINT = 4294967295
+  BL_MATRIX2D_TYPE_FORCE_UINT = -1
   BL_TRANSFORM_OP_RESET = 0
   BL_TRANSFORM_OP_ASSIGN = 1
   BL_TRANSFORM_OP_TRANSLATE = 2
@@ -37,7 +37,7 @@ module Blend2D
   BL_TRANSFORM_OP_POST_ROTATE_PT = 12
   BL_TRANSFORM_OP_POST_TRANSFORM = 13
   BL_TRANSFORM_OP_MAX_VALUE = 13
-  BL_TRANSFORM_OP_FORCE_UINT = 4294967295
+  BL_TRANSFORM_OP_FORCE_UINT = -1
 
   # Typedef
 
@@ -106,7 +106,7 @@ module Blend2D
       :blMatrix2DApplyOp => [:pointer, :int, :pointer],
       :blMatrix2DInvert => [:pointer, :pointer],
       :blMatrix2DGetType => [:pointer],
-      :blMatrix2DMapPointDArray => [:pointer, :pointer, :pointer, :ulong],
+      :blMatrix2DMapPointDArray => [:pointer, :pointer, :pointer, :ulong_long],
     }
     retvals = {
       :blMatrix2DSetIdentity => :uint,

@@ -1,3 +1,6 @@
 [submodule "blend2d_dll/blend2d"]
 	path = blend2d_dll/blend2d
 	url = https://github.com/blend2d/blend2d.git
+[submodule "blend2d_dll/asmjit"]
+	path = blend2d_dll/asmjit
+	url = https://github.com/asmjit/asmjit.git

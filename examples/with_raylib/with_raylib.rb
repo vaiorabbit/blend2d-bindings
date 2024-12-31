@@ -13,7 +13,7 @@ if __FILE__ == $PROGRAM_NAME
   ctx.clearAll()
 
   # First shape
-  radialValues = BLRadialGradientValues.create_as(180, 180, 180, 180, 180)
+  radialValues = BLRadialGradientValues.create_as(180, 180, 180, 180, 180, 0.0)
   radial = BLGradientCore.create_as(BL_GRADIENT_TYPE_RADIAL, radialValues, BL_EXTEND_MODE_PAD, nil, 0, nil)
   radial.addStopRgba32(0.0, 0xFFFFFFFF)
   radial.addStopRgba32(1.0, 0xFFFF6F3F)
@@ -46,7 +46,7 @@ if __FILE__ == $PROGRAM_NAME
   # Raylib starts here
   #
 
-  redrawEveryFrame = true
+  redrawEveryFrame = false
 
   SetTraceLogLevel(LOG_ERROR)
   screen_width = blImgData.size.w

@@ -19,7 +19,7 @@ module Blend2D
   BL_PIXEL_CONVERTER_CREATE_FLAG_DONT_COPY_PALETTE = 1
   BL_PIXEL_CONVERTER_CREATE_FLAG_ALTERABLE_PALETTE = 2
   BL_PIXEL_CONVERTER_CREATE_FLAG_NO_MULTI_STEP = 4
-  BL_PIXEL_CONVERTER_CREATE_FLAG_FORCE_UINT = 4294967295
+  BL_PIXEL_CONVERTER_CREATE_FLAG_FORCE_UINT = -1
 
   # Typedef
 
@@ -51,7 +51,7 @@ module Blend2D
     )
   end
 
-  callback :BLPixelConverterFunc, [:pointer, :pointer, :long, :pointer, :long, :uint, :uint, :pointer], :uint
+  callback :BLPixelConverterFunc, [:pointer, :pointer, :long_long, :pointer, :long_long, :uint, :uint, :pointer], :uint
   typedef :int, :BLPixelConverterCreateFlags
 
   # Struct

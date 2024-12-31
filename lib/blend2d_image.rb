@@ -20,14 +20,14 @@ module Blend2D
 
   BL_IMAGE_INFO_FLAG_NO_FLAGS = 0
   BL_IMAGE_INFO_FLAG_PROGRESSIVE = 1
-  BL_IMAGE_INFO_FLAG_FORCE_UINT = 4294967295
+  BL_IMAGE_INFO_FLAG_FORCE_UINT = -1
   BL_IMAGE_SCALE_FILTER_NONE = 0
   BL_IMAGE_SCALE_FILTER_NEAREST = 1
   BL_IMAGE_SCALE_FILTER_BILINEAR = 2
   BL_IMAGE_SCALE_FILTER_BICUBIC = 3
   BL_IMAGE_SCALE_FILTER_LANCZOS = 4
   BL_IMAGE_SCALE_FILTER_MAX_VALUE = 4
-  BL_IMAGE_SCALE_FILTER_FORCE_UINT = 4294967295
+  BL_IMAGE_SCALE_FILTER_FORCE_UINT = -1
 
   # Typedef
 
@@ -251,7 +251,7 @@ module Blend2D
       :blImageEquals => [:pointer, :pointer],
       :blImageScale => [:pointer, :pointer, :pointer, :int],
       :blImageReadFromFile => [:pointer, :pointer, :pointer],
-      :blImageReadFromData => [:pointer, :pointer, :ulong, :pointer],
+      :blImageReadFromData => [:pointer, :pointer, :ulong_long, :pointer],
       :blImageWriteToFile => [:pointer, :pointer, :pointer],
       :blImageWriteToData => [:pointer, :pointer, :pointer],
     }
@@ -271,7 +271,7 @@ module Blend2D
       :blImageGetData => :uint,
       :blImageMakeMutable => :uint,
       :blImageConvert => :uint,
-      :blImageEquals => :int,
+      :blImageEquals => :bool,
       :blImageScale => :uint,
       :blImageReadFromFile => :uint,
       :blImageReadFromData => :uint,

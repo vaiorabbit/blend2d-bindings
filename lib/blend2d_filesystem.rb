@@ -14,6 +14,34 @@ module Blend2D
 
   # Enum
 
+  BL_FILE_INFO_OWNER_R = 256
+  BL_FILE_INFO_OWNER_W = 128
+  BL_FILE_INFO_OWNER_X = 64
+  BL_FILE_INFO_OWNER_MASK = 448
+  BL_FILE_INFO_GROUP_R = 32
+  BL_FILE_INFO_GROUP_W = 16
+  BL_FILE_INFO_GROUP_X = 8
+  BL_FILE_INFO_GROUP_MASK = 56
+  BL_FILE_INFO_OTHER_R = 4
+  BL_FILE_INFO_OTHER_W = 2
+  BL_FILE_INFO_OTHER_X = 1
+  BL_FILE_INFO_OTHER_MASK = 7
+  BL_FILE_INFO_SUID = 2048
+  BL_FILE_INFO_SGID = 1024
+  BL_FILE_INFO_PERMISSIONS_MASK = 4095
+  BL_FILE_INFO_REGULAR = 65536
+  BL_FILE_INFO_DIRECTORY = 131072
+  BL_FILE_INFO_SYMLINK = 262144
+  BL_FILE_INFO_CHAR_DEVICE = 1048576
+  BL_FILE_INFO_BLOCK_DEVICE = 2097152
+  BL_FILE_INFO_FIFO = 4194304
+  BL_FILE_INFO_SOCKET = 8388608
+  BL_FILE_INFO_HIDDEN = 16777216
+  BL_FILE_INFO_EXECUTABLE = 33554432
+  BL_FILE_INFO_ARCHIVE = 67108864
+  BL_FILE_INFO_SYSTEM = 134217728
+  BL_FILE_INFO_VALID = -2147483648
+  BL_FILE_INFO_FORCE_UINT = -1
   BL_FILE_OPEN_NO_FLAGS = 0
   BL_FILE_OPEN_READ = 1
   BL_FILE_OPEN_WRITE = 2
@@ -25,21 +53,22 @@ module Blend2D
   BL_FILE_OPEN_WRITE_EXCLUSIVE = 536870912
   BL_FILE_OPEN_RW_EXCLUSIVE = 805306368
   BL_FILE_OPEN_CREATE_EXCLUSIVE = 1073741824
-  BL_FILE_OPEN_DELETE_EXCLUSIVE = 2147483648
-  BL_FILE_OPEN_FORCE_UINT = 4294967295
+  BL_FILE_OPEN_DELETE_EXCLUSIVE = -2147483648
+  BL_FILE_OPEN_FORCE_UINT = -1
   BL_FILE_SEEK_SET = 0
   BL_FILE_SEEK_CUR = 1
   BL_FILE_SEEK_END = 2
   BL_FILE_SEEK_MAX_VALUE = 3
-  BL_FILE_SEEK_FORCE_UINT = 4294967295
+  BL_FILE_SEEK_FORCE_UINT = -1
   BL_FILE_READ_NO_FLAGS = 0
   BL_FILE_READ_MMAP_ENABLED = 1
   BL_FILE_READ_MMAP_AVOID_SMALL = 2
   BL_FILE_READ_MMAP_NO_FALLBACK = 8
-  BL_FILE_READ_FORCE_UINT = 4294967295
+  BL_FILE_READ_FORCE_UINT = -1
 
   # Typedef
 
+  typedef :int, :BLFileInfoFlags
   typedef :int, :BLFileOpenFlags
   typedef :int, :BLFileSeekType
   typedef :int, :BLFileReadFlags
@@ -65,9 +94,44 @@ module Blend2D
     def read(buffer, n, bytesReadOut) = blFileRead(self, buffer, n, bytesReadOut)
     def write(buffer, n, bytesWrittenOut) = blFileWrite(self, buffer, n, bytesWrittenOut)
     def truncate(maxSize) = blFileTruncate(self, maxSize)
+    def getInfo(infoOut) = blFileGetInfo(self, infoOut)
     def getSize(fileSizeOut) = blFileGetSize(self, fileSizeOut)
+    def systemGetInfo(infoOut) = blFileSystemGetInfo(fileName, infoOut)
     def systemReadFile(dst, maxSize, readFlags) = blFileSystemReadFile(fileName, dst, maxSize, readFlags)
     def systemWriteFile(data, size, bytesWrittenOut) = blFileSystemWriteFile(fileName, data, size, bytesWrittenOut)
+  end
+
+  class BLFileInfo < FFI::Struct
+    layout(
+      :size, :ulong_long,
+      :modifiedTime, :long_long,
+      :flags, :int,
+      :uid, :uint,
+      :gid, :uint,
+      :reserved, [:uint, 5],
+    )
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def modifiedTime = self[:modifiedTime]
+    def modifiedTime=(v) self[:modifiedTime] = v end
+    def flags = self[:flags]
+    def flags=(v) self[:flags] = v end
+    def uid = self[:uid]
+    def uid=(v) self[:uid] = v end
+    def gid = self[:gid]
+    def gid=(v) self[:gid] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
+    def self.create_as(_size_, _modifiedTime_, _flags_, _uid_, _gid_, _reserved_)
+      instance = BLFileInfo.new
+      instance[:size] = _size_
+      instance[:modifiedTime] = _modifiedTime_
+      instance[:flags] = _flags_
+      instance[:uid] = _uid_
+      instance[:gid] = _gid_
+      instance[:reserved] = _reserved_
+      instance
+    end
   end
 
 
@@ -83,7 +147,9 @@ module Blend2D
       :blFileRead,
       :blFileWrite,
       :blFileTruncate,
+      :blFileGetInfo,
       :blFileGetSize,
+      :blFileSystemGetInfo,
       :blFileSystemReadFile,
       :blFileSystemWriteFile,
     ]
@@ -96,7 +162,9 @@ module Blend2D
       :blFileRead => :blFileRead,
       :blFileWrite => :blFileWrite,
       :blFileTruncate => :blFileTruncate,
+      :blFileGetInfo => :blFileGetInfo,
       :blFileGetSize => :blFileGetSize,
+      :blFileSystemGetInfo => :blFileSystemGetInfo,
       :blFileSystemReadFile => :blFileSystemReadFile,
       :blFileSystemWriteFile => :blFileSystemWriteFile,
     }
@@ -106,12 +174,14 @@ module Blend2D
       :blFileOpen => [:pointer, :pointer, :int],
       :blFileClose => [:pointer],
       :blFileSeek => [:pointer, :long_long, :int, :pointer],
-      :blFileRead => [:pointer, :pointer, :ulong, :pointer],
-      :blFileWrite => [:pointer, :pointer, :ulong, :pointer],
+      :blFileRead => [:pointer, :pointer, :ulong_long, :pointer],
+      :blFileWrite => [:pointer, :pointer, :ulong_long, :pointer],
       :blFileTruncate => [:pointer, :long_long],
+      :blFileGetInfo => [:pointer, :pointer],
       :blFileGetSize => [:pointer, :pointer],
-      :blFileSystemReadFile => [:pointer, :pointer, :ulong, :int],
-      :blFileSystemWriteFile => [:pointer, :pointer, :ulong, :pointer],
+      :blFileSystemGetInfo => [:pointer, :pointer],
+      :blFileSystemReadFile => [:pointer, :pointer, :ulong_long, :int],
+      :blFileSystemWriteFile => [:pointer, :pointer, :ulong_long, :pointer],
     }
     retvals = {
       :blFileInit => :uint,
@@ -122,7 +192,9 @@ module Blend2D
       :blFileRead => :uint,
       :blFileWrite => :uint,
       :blFileTruncate => :uint,
+      :blFileGetInfo => :uint,
       :blFileGetSize => :uint,
+      :blFileSystemGetInfo => :uint,
       :blFileSystemReadFile => :uint,
       :blFileSystemWriteFile => :uint,
     }

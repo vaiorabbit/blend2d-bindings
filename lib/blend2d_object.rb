@@ -23,7 +23,7 @@ module Blend2D
   BL_OBJECT_INFO_R_SHIFT = 29
   BL_OBJECT_INFO_D_SHIFT = 30
   BL_OBJECT_INFO_M_SHIFT = 31
-  BL_OBJECT_INFO_SHIFT_FORCE_UINT = 4294967295
+  BL_OBJECT_INFO_SHIFT_FORCE_UINT = -1
   BL_OBJECT_INFO_P_MASK = 255
   BL_OBJECT_INFO_Q_MASK = 65280
   BL_OBJECT_INFO_C_MASK = 3840
@@ -33,10 +33,10 @@ module Blend2D
   BL_OBJECT_INFO_TYPE_MASK = 532676608
   BL_OBJECT_INFO_R_FLAG = 536870912
   BL_OBJECT_INFO_D_FLAG = 1073741824
-  BL_OBJECT_INFO_M_FLAG = 2147483648
-  BL_OBJECT_INFO_MD_FLAGS = 3221225472
-  BL_OBJECT_INFO_MDR_FLAGS = 3758096384
-  BL_OBJECT_INFO_BITS_FORCE_UINT = 4294967295
+  BL_OBJECT_INFO_M_FLAG = -2147483648
+  BL_OBJECT_INFO_MD_FLAGS = -1073741824
+  BL_OBJECT_INFO_MDR_FLAGS = -536870912
+  BL_OBJECT_INFO_BITS_FORCE_UINT = -1
   BL_OBJECT_TYPE_RGBA = 0
   BL_OBJECT_TYPE_RGBA32 = 1
   BL_OBJECT_TYPE_RGBA64 = 2
@@ -92,7 +92,7 @@ module Blend2D
   BL_OBJECT_TYPE_MIN_VIRTUAL = 100
   BL_OBJECT_TYPE_MAX_VIRTUAL = 127
   BL_OBJECT_TYPE_MAX_VALUE = 127
-  BL_OBJECT_TYPE_FORCE_UINT = 4294967295
+  BL_OBJECT_TYPE_FORCE_UINT = -1
 
   # Typedef
 
@@ -264,29 +264,29 @@ module Blend2D
       :blObjectSetPropertyDouble => :blObjectSetPropertyDouble,
     }
     args = {
-      :blObjectAllocImpl => [:pointer, :uint, :ulong],
-      :blObjectAllocImplAligned => [:pointer, :uint, :ulong, :ulong],
-      :blObjectAllocImplExternal => [:pointer, :uint, :ulong, :int, :BLDestroyExternalDataFunc, :pointer],
+      :blObjectAllocImpl => [:pointer, :uint, :ulong_long],
+      :blObjectAllocImplAligned => [:pointer, :uint, :ulong_long, :ulong_long],
+      :blObjectAllocImplExternal => [:pointer, :uint, :ulong_long, :bool, :BLDestroyExternalDataFunc, :pointer],
       :blObjectFreeImpl => [:pointer],
       :blObjectInitMove => [:pointer, :pointer],
       :blObjectInitWeak => [:pointer, :pointer],
       :blObjectReset => [:pointer],
       :blObjectAssignMove => [:pointer, :pointer],
       :blObjectAssignWeak => [:pointer, :pointer],
-      :blObjectGetProperty => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyBool => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyInt32 => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyInt64 => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyUInt32 => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyUInt64 => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectGetPropertyDouble => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectSetProperty => [:pointer, :pointer, :ulong, :pointer],
-      :blObjectSetPropertyBool => [:pointer, :pointer, :ulong, :int],
-      :blObjectSetPropertyInt32 => [:pointer, :pointer, :ulong, :int],
-      :blObjectSetPropertyInt64 => [:pointer, :pointer, :ulong, :long_long],
-      :blObjectSetPropertyUInt32 => [:pointer, :pointer, :ulong, :uint],
-      :blObjectSetPropertyUInt64 => [:pointer, :pointer, :ulong, :ulong_long],
-      :blObjectSetPropertyDouble => [:pointer, :pointer, :ulong, :double],
+      :blObjectGetProperty => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyBool => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyInt32 => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyInt64 => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyUInt32 => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyUInt64 => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectGetPropertyDouble => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectSetProperty => [:pointer, :pointer, :ulong_long, :pointer],
+      :blObjectSetPropertyBool => [:pointer, :pointer, :ulong_long, :bool],
+      :blObjectSetPropertyInt32 => [:pointer, :pointer, :ulong_long, :int],
+      :blObjectSetPropertyInt64 => [:pointer, :pointer, :ulong_long, :long_long],
+      :blObjectSetPropertyUInt32 => [:pointer, :pointer, :ulong_long, :uint],
+      :blObjectSetPropertyUInt64 => [:pointer, :pointer, :ulong_long, :ulong_long],
+      :blObjectSetPropertyDouble => [:pointer, :pointer, :ulong_long, :double],
     }
     retvals = {
       :blObjectAllocImpl => :uint,

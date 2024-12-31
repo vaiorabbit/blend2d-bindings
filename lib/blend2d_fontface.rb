@@ -39,8 +39,8 @@ module Blend2D
   BL_FONT_FACE_FLAG_VARIATION_SEQUENCES = 268435456
   BL_FONT_FACE_FLAG_OPENTYPE_VARIATIONS = 536870912
   BL_FONT_FACE_FLAG_SYMBOL_FONT = 1073741824
-  BL_FONT_FACE_FLAG_LAST_RESORT_FONT = 2147483648
-  BL_FONT_FACE_FLAG_FORCE_UINT = 4294967295
+  BL_FONT_FACE_FLAG_LAST_RESORT_FONT = -2147483648
+  BL_FONT_FACE_FLAG_FORCE_UINT = -1
   BL_FONT_FACE_DIAG_NO_FLAGS = 0
   BL_FONT_FACE_DIAG_WRONG_NAME_DATA = 1
   BL_FONT_FACE_DIAG_FIXED_NAME_DATA = 2
@@ -48,13 +48,13 @@ module Blend2D
   BL_FONT_FACE_DIAG_FIXED_KERN_DATA = 8
   BL_FONT_FACE_DIAG_WRONG_CMAP_DATA = 16
   BL_FONT_FACE_DIAG_WRONG_CMAP_FORMAT = 32
-  BL_FONT_FACE_DIAG_FORCE_UINT = 4294967295
+  BL_FONT_FACE_DIAG_FORCE_UINT = -1
   BL_FONT_OUTLINE_TYPE_NONE = 0
   BL_FONT_OUTLINE_TYPE_TRUETYPE = 1
   BL_FONT_OUTLINE_TYPE_CFF = 2
   BL_FONT_OUTLINE_TYPE_CFF2 = 3
   BL_FONT_OUTLINE_TYPE_MAX_VALUE = 3
-  BL_FONT_OUTLINE_TYPE_FORCE_UINT = 4294967295
+  BL_FONT_OUTLINE_TYPE_FORCE_UINT = -1
 
   # Typedef
 
@@ -314,7 +314,7 @@ module Blend2D
       :blFontFaceReset => :uint,
       :blFontFaceAssignMove => :uint,
       :blFontFaceAssignWeak => :uint,
-      :blFontFaceEquals => :int,
+      :blFontFaceEquals => :bool,
       :blFontFaceCreateFromFile => :uint,
       :blFontFaceCreateFromData => :uint,
       :blFontFaceGetFullName => :uint,
@@ -325,9 +325,9 @@ module Blend2D
       :blFontFaceGetDesignMetrics => :uint,
       :blFontFaceGetUnicodeCoverage => :uint,
       :blFontFaceGetCharacterCoverage => :uint,
-      :blFontFaceHasScriptTag => :int,
-      :blFontFaceHasFeatureTag => :int,
-      :blFontFaceHasVariationTag => :int,
+      :blFontFaceHasScriptTag => :bool,
+      :blFontFaceHasFeatureTag => :bool,
+      :blFontFaceHasVariationTag => :bool,
       :blFontFaceGetScriptTags => :uint,
       :blFontFaceGetFeatureTags => :uint,
       :blFontFaceGetVariationTags => :uint,

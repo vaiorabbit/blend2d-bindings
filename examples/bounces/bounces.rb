@@ -39,11 +39,11 @@ def renderBlend2DImage(ctx, time, style, blImg, blImgData, rayImg, rayImgData)
     gr.setValues(0, values, BLLinearGradientValues.size / FFI::TYPE_FLOAT64.size)
   when "Radial"
     gr.setType(BL_GRADIENT_TYPE_RADIAL)
-    values = BLRadialGradientValues.create_as(kHalfSize, kHalfSize, kHalfSize, kHalfSize - 15, kHalfSize)
+    values = BLRadialGradientValues.create_as(kHalfSize, kHalfSize, kHalfSize, kHalfSize - 15, kHalfSize, 0.0)
     gr.setValues(0, values, BLRadialGradientValues.size / FFI::TYPE_FLOAT64.size)
   when "Conic"
     gr.setType(BL_GRADIENT_TYPE_CONIC)
-    values = BLConicGradientValues.create_as(kHalfSize, kHalfSize, Math::PI / -2.0)
+    values = BLConicGradientValues.create_as(kHalfSize, kHalfSize, Math::PI / -2.0, 1.0)
     gr.setValues(0, values, BLConicGradientValues.size / FFI::TYPE_FLOAT64.size)
   end
 

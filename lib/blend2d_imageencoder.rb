@@ -22,6 +22,28 @@ module Blend2D
 
   # Struct
 
+  class BLImageEncoderCore < FFI::Struct
+    layout(
+      :_d, BLObjectDetail,
+    )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blImageEncoderInit(self)
+    def self.create()
+      instance = BLImageEncoderCore.new
+      blImageEncoderInit(instance)
+      instance
+    end
+    def initMove(other) = blImageEncoderInitMove(self, other)
+    def initWeak(other) = blImageEncoderInitWeak(self, other)
+    def destroy() = blImageEncoderDestroy(self)
+    def reset() = blImageEncoderReset(self)
+    def assignMove(other) = blImageEncoderAssignMove(self, other)
+    def assignWeak(other) = blImageEncoderAssignWeak(self, other)
+    def restart() = blImageEncoderRestart(self)
+    def writeFrame(dst, image) = blImageEncoderWriteFrame(self, dst, image)
+  end
+
   class BLImageEncoderVirt < FFI::Struct
     layout(
       :base, BLObjectVirtBase,
@@ -50,7 +72,7 @@ module Blend2D
       :lastResult, :uint,
       :handle, :pointer,
       :frameIndex, :ulong_long,
-      :bufferIndex, :ulong,
+      :bufferIndex, :ulong_long,
     )
     def virt = self[:virt]
     def virt=(v) self[:virt] = v end
@@ -74,28 +96,6 @@ module Blend2D
       instance[:bufferIndex] = _bufferIndex_
       instance
     end
-  end
-
-  class BLImageEncoderCore < FFI::Struct
-    layout(
-      :_d, BLObjectDetail,
-    )
-    def _d = self[:_d]
-    def _d=(v) self[:_d] = v end
-    def init() = blImageEncoderInit(self)
-    def self.create()
-      instance = BLImageEncoderCore.new
-      blImageEncoderInit(instance)
-      instance
-    end
-    def initMove(other) = blImageEncoderInitMove(self, other)
-    def initWeak(other) = blImageEncoderInitWeak(self, other)
-    def destroy() = blImageEncoderDestroy(self)
-    def reset() = blImageEncoderReset(self)
-    def assignMove(other) = blImageEncoderAssignMove(self, other)
-    def assignWeak(other) = blImageEncoderAssignWeak(self, other)
-    def restart() = blImageEncoderRestart(self)
-    def writeFrame(dst, image) = blImageEncoderWriteFrame(self, dst, image)
   end
 
 

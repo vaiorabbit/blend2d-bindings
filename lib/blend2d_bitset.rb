@@ -14,8 +14,8 @@ module Blend2D
 
   # Enum
 
-  BL_BIT_SET_INVALID_INDEX = 4294967295
-  BL_BIT_SET_RANGE_MASK = 2147483648
+  BL_BIT_SET_INVALID_INDEX = -1
+  BL_BIT_SET_RANGE_MASK = -2147483648
   BL_BIT_SET_SEGMENT_WORD_COUNT = 4
 
   # Typedef
@@ -273,18 +273,18 @@ module Blend2D
       :blBitSetAssignDeep => :uint,
       :blBitSetAssignRange => :uint,
       :blBitSetAssignWords => :uint,
-      :blBitSetIsEmpty => :int,
+      :blBitSetIsEmpty => :bool,
       :blBitSetGetData => :uint,
       :blBitSetGetSegmentCount => :uint,
       :blBitSetGetSegmentCapacity => :uint,
       :blBitSetGetCardinality => :uint,
       :blBitSetGetCardinalityInRange => :uint,
-      :blBitSetHasBit => :int,
-      :blBitSetHasBitsInRange => :int,
-      :blBitSetSubsumes => :int,
-      :blBitSetIntersects => :int,
-      :blBitSetGetRange => :int,
-      :blBitSetEquals => :int,
+      :blBitSetHasBit => :bool,
+      :blBitSetHasBitsInRange => :bool,
+      :blBitSetSubsumes => :bool,
+      :blBitSetIntersects => :bool,
+      :blBitSetGetRange => :bool,
+      :blBitSetEquals => :bool,
       :blBitSetCompare => :int,
       :blBitSetClear => :uint,
       :blBitSetShrink => :uint,

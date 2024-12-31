@@ -20,7 +20,7 @@ module Blend2D
   BL_PATTERN_QUALITY_NEAREST = 0
   BL_PATTERN_QUALITY_BILINEAR = 1
   BL_PATTERN_QUALITY_MAX_VALUE = 1
-  BL_PATTERN_QUALITY_FORCE_UINT = 4294967295
+  BL_PATTERN_QUALITY_FORCE_UINT = -1
 
   # Typedef
 
@@ -187,7 +187,7 @@ module Blend2D
       :blPatternGetTransform => :uint,
       :blPatternGetTransformType => :int,
       :blPatternApplyTransformOp => :uint,
-      :blPatternEquals => :int,
+      :blPatternEquals => :bool,
     }
     symbols.each do |sym|
       begin

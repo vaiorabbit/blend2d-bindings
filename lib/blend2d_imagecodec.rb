@@ -25,7 +25,7 @@ module Blend2D
   BL_IMAGE_CODEC_FEATURE_IPTC = 268435456
   BL_IMAGE_CODEC_FEATURE_EXIF = 536870912
   BL_IMAGE_CODEC_FEATURE_XMP = 1073741824
-  BL_IMAGE_CODEC_FEATURE_FORCE_UINT = 4294967295
+  BL_IMAGE_CODEC_FEATURE_FORCE_UINT = -1
 
   # Typedef
 
@@ -170,15 +170,15 @@ module Blend2D
       :blImageCodecInit => [:pointer],
       :blImageCodecInitMove => [:pointer, :pointer],
       :blImageCodecInitWeak => [:pointer, :pointer],
-      :blImageCodecInitByName => [:pointer, :pointer, :ulong, :pointer],
+      :blImageCodecInitByName => [:pointer, :pointer, :ulong_long, :pointer],
       :blImageCodecDestroy => [:pointer],
       :blImageCodecReset => [:pointer],
       :blImageCodecAssignMove => [:pointer, :pointer],
       :blImageCodecAssignWeak => [:pointer, :pointer],
-      :blImageCodecFindByName => [:pointer, :pointer, :ulong, :pointer],
-      :blImageCodecFindByExtension => [:pointer, :pointer, :ulong, :pointer],
-      :blImageCodecFindByData => [:pointer, :pointer, :ulong, :pointer],
-      :blImageCodecInspectData => [:pointer, :pointer, :ulong],
+      :blImageCodecFindByName => [:pointer, :pointer, :ulong_long, :pointer],
+      :blImageCodecFindByExtension => [:pointer, :pointer, :ulong_long, :pointer],
+      :blImageCodecFindByData => [:pointer, :pointer, :ulong_long, :pointer],
+      :blImageCodecInspectData => [:pointer, :pointer, :ulong_long],
       :blImageCodecCreateDecoder => [:pointer, :pointer],
       :blImageCodecCreateEncoder => [:pointer, :pointer],
       :blImageCodecArrayInitBuiltInCodecs => [:pointer],

@@ -98,29 +98,29 @@ module Blend2D
   BL_ERROR_FONT_PROGRAM_TERMINATED = 65616
   BL_ERROR_GLYPH_SUBSTITUTION_TOO_LARGE = 65617
   BL_ERROR_INVALID_GLYPH = 65618
-  BL_ERROR_FORCE_UINT = 4294967295
+  BL_ERROR_FORCE_UINT = -1
   BL_BYTE_ORDER_LE = 0
   BL_BYTE_ORDER_BE = 1
   BL_BYTE_ORDER_NATIVE = 0
   BL_BYTE_ORDER_SWAPPED = 1
-  BL_BYTE_ORDER_FORCE_UINT = 4294967295
+  BL_BYTE_ORDER_FORCE_UINT = -1
   BL_DATA_ACCESS_NO_FLAGS = 0
   BL_DATA_ACCESS_READ = 1
   BL_DATA_ACCESS_WRITE = 2
   BL_DATA_ACCESS_RW = 3
-  BL_DATA_ACCESS_FORCE_UINT = 4294967295
+  BL_DATA_ACCESS_FORCE_UINT = -1
   BL_DATA_SOURCE_TYPE_NONE = 0
   BL_DATA_SOURCE_TYPE_MEMORY = 1
   BL_DATA_SOURCE_TYPE_FILE = 2
   BL_DATA_SOURCE_TYPE_CUSTOM = 3
   BL_DATA_SOURCE_TYPE_MAX_VALUE = 3
-  BL_DATA_SOURCE_TYPE_FORCE_UINT = 4294967295
+  BL_DATA_SOURCE_TYPE_FORCE_UINT = -1
   BL_MODIFY_OP_ASSIGN_FIT = 0
   BL_MODIFY_OP_ASSIGN_GROW = 1
   BL_MODIFY_OP_APPEND_FIT = 2
   BL_MODIFY_OP_APPEND_GROW = 3
   BL_MODIFY_OP_MAX_VALUE = 3
-  BL_MODIFY_OP_FORCE_UINT = 4294967295
+  BL_MODIFY_OP_FORCE_UINT = -1
   BL_BOOLEAN_OP_COPY = 0
   BL_BOOLEAN_OP_AND = 1
   BL_BOOLEAN_OP_OR = 2
@@ -128,7 +128,7 @@ module Blend2D
   BL_BOOLEAN_OP_AND_NOT = 4
   BL_BOOLEAN_OP_NOT_AND = 5
   BL_BOOLEAN_OP_MAX_VALUE = 5
-  BL_BOOLEAN_OP_FORCE_UINT = 4294967295
+  BL_BOOLEAN_OP_FORCE_UINT = -1
   BL_EXTEND_MODE_PAD = 0
   BL_EXTEND_MODE_REPEAT = 1
   BL_EXTEND_MODE_REFLECT = 2
@@ -144,14 +144,14 @@ module Blend2D
   BL_EXTEND_MODE_SIMPLE_MAX_VALUE = 2
   BL_EXTEND_MODE_COMPLEX_MAX_VALUE = 8
   BL_EXTEND_MODE_MAX_VALUE = 8
-  BL_EXTEND_MODE_FORCE_UINT = 4294967295
+  BL_EXTEND_MODE_FORCE_UINT = -1
   BL_TEXT_ENCODING_UTF8 = 0
   BL_TEXT_ENCODING_UTF16 = 1
   BL_TEXT_ENCODING_UTF32 = 2
   BL_TEXT_ENCODING_LATIN1 = 3
-  BL_TEXT_ENCODING_WCHAR = 2
+  BL_TEXT_ENCODING_WCHAR = 1
   BL_TEXT_ENCODING_MAX_VALUE = 3
-  BL_TEXT_ENCODING_FORCE_UINT = 4294967295
+  BL_TEXT_ENCODING_FORCE_UINT = -1
 
   # Typedef
 
@@ -159,7 +159,7 @@ module Blend2D
   typedef :uint, :BLTag
   typedef :ulong_long, :BLUniqueId
   typedef :void, :BLUnknown
-  callback :BLDebugMessageSinkFunc, [:pointer, :ulong, :pointer], :void
+  callback :BLDebugMessageSinkFunc, [:pointer, :ulong_long, :pointer], :void
   typedef :int, :BLResultCode
   typedef :int, :BLByteOrder
   typedef :int, :BLDataAccessFlags
@@ -173,8 +173,8 @@ module Blend2D
 
   class BLRange < FFI::Struct
     layout(
-      :start, :ulong,
-      :end, :ulong,
+      :start, :ulong_long,
+      :end, :ulong_long,
     )
     def start = self[:start]
     def start=(v) self[:start] = v end
@@ -191,7 +191,7 @@ module Blend2D
   class BLArrayView < FFI::Struct
     layout(
       :data, :pointer,
-      :size, :ulong,
+      :size, :ulong_long,
     )
     def data = self[:data]
     def data=(v) self[:data] = v end
@@ -208,7 +208,7 @@ module Blend2D
   class BLStringView < FFI::Struct
     layout(
       :data, :pointer,
-      :size, :ulong,
+      :size, :ulong_long,
     )
     def data = self[:data]
     def data=(v) self[:data] = v end

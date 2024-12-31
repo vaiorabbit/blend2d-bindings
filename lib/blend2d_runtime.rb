@@ -19,15 +19,15 @@ module Blend2D
   BL_RUNTIME_INFO_TYPE_SYSTEM = 1
   BL_RUNTIME_INFO_TYPE_RESOURCE = 2
   BL_RUNTIME_INFO_TYPE_MAX_VALUE = 2
-  BL_RUNTIME_INFO_TYPE_FORCE_UINT = 4294967295
+  BL_RUNTIME_INFO_TYPE_FORCE_UINT = -1
   BL_RUNTIME_BUILD_TYPE_DEBUG = 0
   BL_RUNTIME_BUILD_TYPE_RELEASE = 1
-  BL_RUNTIME_BUILD_TYPE_FORCE_UINT = 4294967295
+  BL_RUNTIME_BUILD_TYPE_FORCE_UINT = -1
   BL_RUNTIME_CPU_ARCH_UNKNOWN = 0
   BL_RUNTIME_CPU_ARCH_X86 = 1
   BL_RUNTIME_CPU_ARCH_ARM = 2
   BL_RUNTIME_CPU_ARCH_MIPS = 3
-  BL_RUNTIME_CPU_ARCH_FORCE_UINT = 4294967295
+  BL_RUNTIME_CPU_ARCH_FORCE_UINT = -1
   BL_RUNTIME_CPU_FEATURE_X86_SSE2 = 1
   BL_RUNTIME_CPU_FEATURE_X86_SSE3 = 2
   BL_RUNTIME_CPU_FEATURE_X86_SSSE3 = 4
@@ -36,13 +36,13 @@ module Blend2D
   BL_RUNTIME_CPU_FEATURE_X86_AVX = 32
   BL_RUNTIME_CPU_FEATURE_X86_AVX2 = 64
   BL_RUNTIME_CPU_FEATURE_X86_AVX512 = 128
-  BL_RUNTIME_CPU_FEATURE_FORCE_UINT = 4294967295
+  BL_RUNTIME_CPU_FEATURE_FORCE_UINT = -1
   BL_RUNTIME_CLEANUP_NO_FLAGS = 0
   BL_RUNTIME_CLEANUP_OBJECT_POOL = 1
   BL_RUNTIME_CLEANUP_ZEROED_POOL = 2
   BL_RUNTIME_CLEANUP_THREAD_POOL = 16
-  BL_RUNTIME_CLEANUP_EVERYTHING = 4294967295
-  BL_RUNTIME_CLEANUP_FLAG_FORCE_UINT = 4294967295
+  BL_RUNTIME_CLEANUP_EVERYTHING = -1
+  BL_RUNTIME_CLEANUP_FLAG_FORCE_UINT = -1
 
   # Typedef
 
@@ -114,6 +114,8 @@ module Blend2D
       :removed, :uint,
       :allocationGranularity, :uint,
       :reserved, [:uint, 5],
+      :cpuVendor, [:char, 16],
+      :cpuBrand, [:char, 64],
     )
     def cpuArch = self[:cpuArch]
     def cpuArch=(v) self[:cpuArch] = v end
@@ -131,7 +133,11 @@ module Blend2D
     def allocationGranularity=(v) self[:allocationGranularity] = v end
     def reserved = self[:reserved]
     def reserved=(v) self[:reserved] = v end
-    def self.create_as(_cpuArch_, _cpuFeatures_, _coreCount_, _threadCount_, _threadStackSize_, _removed_, _allocationGranularity_, _reserved_)
+    def cpuVendor = self[:cpuVendor]
+    def cpuVendor=(v) self[:cpuVendor] = v end
+    def cpuBrand = self[:cpuBrand]
+    def cpuBrand=(v) self[:cpuBrand] = v end
+    def self.create_as(_cpuArch_, _cpuFeatures_, _coreCount_, _threadCount_, _threadStackSize_, _removed_, _allocationGranularity_, _reserved_, _cpuVendor_, _cpuBrand_)
       instance = BLRuntimeSystemInfo.new
       instance[:cpuArch] = _cpuArch_
       instance[:cpuFeatures] = _cpuFeatures_
@@ -141,22 +147,24 @@ module Blend2D
       instance[:removed] = _removed_
       instance[:allocationGranularity] = _allocationGranularity_
       instance[:reserved] = _reserved_
+      instance[:cpuVendor] = _cpuVendor_
+      instance[:cpuBrand] = _cpuBrand_
       instance
     end
   end
 
   class BLRuntimeResourceInfo < FFI::Struct
     layout(
-      :vmUsed, :ulong,
-      :vmReserved, :ulong,
-      :vmOverhead, :ulong,
-      :vmBlockCount, :ulong,
-      :zmUsed, :ulong,
-      :zmReserved, :ulong,
-      :zmOverhead, :ulong,
-      :zmBlockCount, :ulong,
-      :dynamicPipelineCount, :ulong,
-      :reserved, [:ulong, 7],
+      :vmUsed, :ulong_long,
+      :vmReserved, :ulong_long,
+      :vmOverhead, :ulong_long,
+      :vmBlockCount, :ulong_long,
+      :zmUsed, :ulong_long,
+      :zmReserved, :ulong_long,
+      :zmOverhead, :ulong_long,
+      :zmBlockCount, :ulong_long,
+      :dynamicPipelineCount, :ulong_long,
+      :reserved, [:ulong_long, 7],
     )
     def vmUsed = self[:vmUsed]
     def vmUsed=(v) self[:vmUsed] = v end
@@ -206,7 +214,7 @@ module Blend2D
       :blRuntimeMessageOut,
       :blRuntimeMessageFmt,
       :blRuntimeMessageVFmt,
-      :blResultFromPosixError,
+      :blResultFromWinError,
     ]
     apis = {
       :blRuntimeInit => :blRuntimeInit,
@@ -216,7 +224,7 @@ module Blend2D
       :blRuntimeMessageOut => :blRuntimeMessageOut,
       :blRuntimeMessageFmt => :blRuntimeMessageFmt,
       :blRuntimeMessageVFmt => :blRuntimeMessageVFmt,
-      :blResultFromPosixError => :blResultFromPosixError,
+      :blResultFromWinError => :blResultFromWinError,
     }
     args = {
       :blRuntimeInit => [],
@@ -225,8 +233,8 @@ module Blend2D
       :blRuntimeQueryInfo => [:int, :pointer],
       :blRuntimeMessageOut => [:pointer],
       :blRuntimeMessageFmt => [:pointer],
-      :blRuntimeMessageVFmt => [:pointer, :int],
-      :blResultFromPosixError => [:int],
+      :blRuntimeMessageVFmt => [:pointer, :pointer],
+      :blResultFromWinError => [:uint],
     }
     retvals = {
       :blRuntimeInit => :uint,
@@ -236,7 +244,7 @@ module Blend2D
       :blRuntimeMessageOut => :uint,
       :blRuntimeMessageFmt => :uint,
       :blRuntimeMessageVFmt => :uint,
-      :blResultFromPosixError => :uint,
+      :blResultFromWinError => :uint,
     }
     symbols.each do |sym|
       begin

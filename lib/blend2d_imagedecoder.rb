@@ -22,6 +22,29 @@ module Blend2D
 
   # Struct
 
+  class BLImageDecoderCore < FFI::Struct
+    layout(
+      :_d, BLObjectDetail,
+    )
+    def _d = self[:_d]
+    def _d=(v) self[:_d] = v end
+    def init() = blImageDecoderInit(self)
+    def self.create()
+      instance = BLImageDecoderCore.new
+      blImageDecoderInit(instance)
+      instance
+    end
+    def initMove(other) = blImageDecoderInitMove(self, other)
+    def initWeak(other) = blImageDecoderInitWeak(self, other)
+    def destroy() = blImageDecoderDestroy(self)
+    def reset() = blImageDecoderReset(self)
+    def assignMove(other) = blImageDecoderAssignMove(self, other)
+    def assignWeak(other) = blImageDecoderAssignWeak(self, other)
+    def restart() = blImageDecoderRestart(self)
+    def readInfo(infoOut, data, size) = blImageDecoderReadInfo(self, infoOut, data, size)
+    def readFrame(imageOut, data, size) = blImageDecoderReadFrame(self, imageOut, data, size)
+  end
+
   class BLImageDecoderVirt < FFI::Struct
     layout(
       :base, BLObjectVirtBase,
@@ -54,7 +77,7 @@ module Blend2D
       :lastResult, :uint,
       :handle, :pointer,
       :frameIndex, :ulong_long,
-      :bufferIndex, :ulong,
+      :bufferIndex, :ulong_long,
     )
     def virt = self[:virt]
     def virt=(v) self[:virt] = v end
@@ -78,29 +101,6 @@ module Blend2D
       instance[:bufferIndex] = _bufferIndex_
       instance
     end
-  end
-
-  class BLImageDecoderCore < FFI::Struct
-    layout(
-      :_d, BLObjectDetail,
-    )
-    def _d = self[:_d]
-    def _d=(v) self[:_d] = v end
-    def init() = blImageDecoderInit(self)
-    def self.create()
-      instance = BLImageDecoderCore.new
-      blImageDecoderInit(instance)
-      instance
-    end
-    def initMove(other) = blImageDecoderInitMove(self, other)
-    def initWeak(other) = blImageDecoderInitWeak(self, other)
-    def destroy() = blImageDecoderDestroy(self)
-    def reset() = blImageDecoderReset(self)
-    def assignMove(other) = blImageDecoderAssignMove(self, other)
-    def assignWeak(other) = blImageDecoderAssignWeak(self, other)
-    def restart() = blImageDecoderRestart(self)
-    def readInfo(infoOut, data, size) = blImageDecoderReadInfo(self, infoOut, data, size)
-    def readFrame(imageOut, data, size) = blImageDecoderReadFrame(self, imageOut, data, size)
   end
 
 
@@ -140,8 +140,8 @@ module Blend2D
       :blImageDecoderAssignMove => [:pointer, :pointer],
       :blImageDecoderAssignWeak => [:pointer, :pointer],
       :blImageDecoderRestart => [:pointer],
-      :blImageDecoderReadInfo => [:pointer, :pointer, :pointer, :ulong],
-      :blImageDecoderReadFrame => [:pointer, :pointer, :pointer, :ulong],
+      :blImageDecoderReadInfo => [:pointer, :pointer, :pointer, :ulong_long],
+      :blImageDecoderReadFrame => [:pointer, :pointer, :pointer, :ulong_long],
     }
     retvals = {
       :blImageDecoderInit => :uint,

@@ -24,8 +24,8 @@ module Blend2D
   BL_PATH_CMD_CLOSE = 5
   BL_PATH_CMD_WEIGHT = 6
   BL_PATH_CMD_MAX_VALUE = 6
-  BL_PATH_CMD_FORCE_UINT = 4294967295
-  BL_PATH_CMD_PRESERVE = 4294967295
+  BL_PATH_CMD_FORCE_UINT = -1
+  BL_PATH_CMD_PRESERVE = -1
   BL_PATH_NO_FLAGS = 0
   BL_PATH_FLAG_EMPTY = 1
   BL_PATH_FLAG_MULTIPLE = 2
@@ -33,23 +33,23 @@ module Blend2D
   BL_PATH_FLAG_CONICS = 8
   BL_PATH_FLAG_CUBICS = 16
   BL_PATH_FLAG_INVALID = 1073741824
-  BL_PATH_FLAG_DIRTY = 2147483648
-  BL_PATH_FLAG_FORCE_UINT = 4294967295
+  BL_PATH_FLAG_DIRTY = -2147483648
+  BL_PATH_FLAG_FORCE_UINT = -1
   BL_PATH_REVERSE_MODE_COMPLETE = 0
   BL_PATH_REVERSE_MODE_SEPARATE = 1
   BL_PATH_REVERSE_MODE_MAX_VALUE = 1
-  BL_PATH_REVERSE_MODE_FORCE_UINT = 4294967295
+  BL_PATH_REVERSE_MODE_FORCE_UINT = -1
   BL_STROKE_JOIN_MITER_CLIP = 0
   BL_STROKE_JOIN_MITER_BEVEL = 1
   BL_STROKE_JOIN_MITER_ROUND = 2
   BL_STROKE_JOIN_BEVEL = 3
   BL_STROKE_JOIN_ROUND = 4
   BL_STROKE_JOIN_MAX_VALUE = 4
-  BL_STROKE_JOIN_FORCE_UINT = 4294967295
+  BL_STROKE_JOIN_FORCE_UINT = -1
   BL_STROKE_CAP_POSITION_START = 0
   BL_STROKE_CAP_POSITION_END = 1
   BL_STROKE_CAP_POSITION_MAX_VALUE = 1
-  BL_STROKE_CAP_POSITION_FORCE_UINT = 4294967295
+  BL_STROKE_CAP_POSITION_FORCE_UINT = -1
   BL_STROKE_CAP_BUTT = 0
   BL_STROKE_CAP_SQUARE = 1
   BL_STROKE_CAP_ROUND = 2
@@ -57,19 +57,19 @@ module Blend2D
   BL_STROKE_CAP_TRIANGLE = 4
   BL_STROKE_CAP_TRIANGLE_REV = 5
   BL_STROKE_CAP_MAX_VALUE = 5
-  BL_STROKE_CAP_FORCE_UINT = 4294967295
+  BL_STROKE_CAP_FORCE_UINT = -1
   BL_STROKE_TRANSFORM_ORDER_AFTER = 0
   BL_STROKE_TRANSFORM_ORDER_BEFORE = 1
   BL_STROKE_TRANSFORM_ORDER_MAX_VALUE = 1
-  BL_STROKE_TRANSFORM_ORDER_FORCE_UINT = 4294967295
+  BL_STROKE_TRANSFORM_ORDER_FORCE_UINT = -1
   BL_FLATTEN_MODE_DEFAULT = 0
   BL_FLATTEN_MODE_RECURSIVE = 1
   BL_FLATTEN_MODE_MAX_VALUE = 1
-  BL_FLATTEN_MODE_FORCE_UINT = 4294967295
+  BL_FLATTEN_MODE_FORCE_UINT = -1
   BL_OFFSET_MODE_DEFAULT = 0
   BL_OFFSET_MODE_ITERATIVE = 1
   BL_OFFSET_MODE_MAX_VALUE = 1
-  BL_OFFSET_MODE_FORCE_UINT = 4294967295
+  BL_OFFSET_MODE_FORCE_UINT = -1
 
   # Typedef
 
@@ -144,7 +144,7 @@ module Blend2D
   typedef :int, :BLFlattenMode
   typedef :int, :BLOffsetMode
   callback :BLPathSinkFunc, [:pointer, :pointer, :pointer], :uint
-  callback :BLPathStrokeSinkFunc, [:pointer, :pointer, :pointer, :ulong, :ulong, :pointer], :uint
+  callback :BLPathStrokeSinkFunc, [:pointer, :pointer, :pointer, :ulong_long, :ulong_long, :pointer], :uint
 
   # Struct
 
@@ -386,23 +386,23 @@ module Blend2D
       :blPathGetVertexData => [:pointer],
       :blPathClear => [:pointer],
       :blPathShrink => [:pointer],
-      :blPathReserve => [:pointer, :ulong],
-      :blPathModifyOp => [:pointer, :int, :ulong, :pointer, :pointer],
+      :blPathReserve => [:pointer, :ulong_long],
+      :blPathModifyOp => [:pointer, :int, :ulong_long, :pointer, :pointer],
       :blPathAssignMove => [:pointer, :pointer],
       :blPathAssignWeak => [:pointer, :pointer],
       :blPathAssignDeep => [:pointer, :pointer],
-      :blPathSetVertexAt => [:pointer, :ulong, :uint, :double, :double],
+      :blPathSetVertexAt => [:pointer, :ulong_long, :uint, :double, :double],
       :blPathMoveTo => [:pointer, :double, :double],
       :blPathLineTo => [:pointer, :double, :double],
-      :blPathPolyTo => [:pointer, :pointer, :ulong],
+      :blPathPolyTo => [:pointer, :pointer, :ulong_long],
       :blPathQuadTo => [:pointer, :double, :double, :double, :double],
       :blPathConicTo => [:pointer, :double, :double, :double, :double, :double],
       :blPathCubicTo => [:pointer, :double, :double, :double, :double, :double, :double],
       :blPathSmoothQuadTo => [:pointer, :double, :double],
       :blPathSmoothCubicTo => [:pointer, :double, :double, :double, :double],
-      :blPathArcTo => [:pointer, :double, :double, :double, :double, :double, :double, :int],
+      :blPathArcTo => [:pointer, :double, :double, :double, :double, :double, :double, :bool],
       :blPathArcQuadrantTo => [:pointer, :double, :double, :double, :double],
-      :blPathEllipticArcTo => [:pointer, :double, :double, :double, :int, :int, :double, :double],
+      :blPathEllipticArcTo => [:pointer, :double, :double, :double, :bool, :bool, :double, :double],
       :blPathClose => [:pointer],
       :blPathAddGeometry => [:pointer, :int, :pointer, :pointer, :int],
       :blPathAddBoxI => [:pointer, :pointer, :int],
@@ -422,7 +422,7 @@ module Blend2D
       :blPathGetInfoFlags => [:pointer, :pointer],
       :blPathGetControlBox => [:pointer, :pointer],
       :blPathGetBoundingBox => [:pointer, :pointer],
-      :blPathGetFigureRange => [:pointer, :ulong, :pointer],
+      :blPathGetFigureRange => [:pointer, :ulong_long, :pointer],
       :blPathGetLastVertex => [:pointer, :pointer],
       :blPathGetClosestVertex => [:pointer, :pointer, :double, :pointer, :pointer],
       :blPathHitTest => [:pointer, :pointer, :int],
@@ -442,8 +442,8 @@ module Blend2D
       :blPathInitWeak => :uint,
       :blPathDestroy => :uint,
       :blPathReset => :uint,
-      :blPathGetSize => :ulong,
-      :blPathGetCapacity => :ulong,
+      :blPathGetSize => :ulong_long,
+      :blPathGetCapacity => :ulong_long,
       :blPathGetCommandData => :pointer,
       :blPathGetVertexData => :pointer,
       :blPathClear => :uint,
@@ -480,7 +480,7 @@ module Blend2D
       :blPathTranslate => :uint,
       :blPathTransform => :uint,
       :blPathFitTo => :uint,
-      :blPathEquals => :int,
+      :blPathEquals => :bool,
       :blPathGetInfoFlags => :uint,
       :blPathGetControlBox => :uint,
       :blPathGetBoundingBox => :uint,
@@ -493,7 +493,7 @@ module Blend2D
       :blStrokeOptionsInitWeak => :uint,
       :blStrokeOptionsDestroy => :uint,
       :blStrokeOptionsReset => :uint,
-      :blStrokeOptionsEquals => :int,
+      :blStrokeOptionsEquals => :bool,
       :blStrokeOptionsAssignMove => :uint,
       :blStrokeOptionsAssignWeak => :uint,
       :blPathStrokeToSink => :uint,

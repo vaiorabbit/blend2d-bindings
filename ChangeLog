@@ -1,3 +1,8 @@
+2024-12-31  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Updated with latest Blend2D ( https://github.com/blend2d/blend2d/commit/16088c4ffb41813d9f0511fb2a6896f5608a4706 )
+	* Added AsmJit support
+
 2024-04-13  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Updated with latest Blend2D ( https://github.com/blend2d/blend2d/commit/235997a8f829f54b56925c7332b8f0bc5b49bcf6 )

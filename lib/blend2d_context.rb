@@ -28,27 +28,27 @@ module Blend2D
   BL_CONTEXT_TYPE_DUMMY = 1
   BL_CONTEXT_TYPE_RASTER = 3
   BL_CONTEXT_TYPE_MAX_VALUE = 3
-  BL_CONTEXT_TYPE_FORCE_UINT = 4294967295
+  BL_CONTEXT_TYPE_FORCE_UINT = -1
   BL_CONTEXT_HINT_RENDERING_QUALITY = 0
   BL_CONTEXT_HINT_GRADIENT_QUALITY = 1
   BL_CONTEXT_HINT_PATTERN_QUALITY = 2
   BL_CONTEXT_HINT_MAX_VALUE = 7
-  BL_CONTEXT_HINT_FORCE_UINT = 4294967295
+  BL_CONTEXT_HINT_FORCE_UINT = -1
   BL_CONTEXT_STYLE_SLOT_FILL = 0
   BL_CONTEXT_STYLE_SLOT_STROKE = 1
   BL_CONTEXT_STYLE_SLOT_MAX_VALUE = 1
-  BL_CONTEXT_STYLE_SLOT_FORCE_UINT = 4294967295
+  BL_CONTEXT_STYLE_SLOT_FORCE_UINT = -1
   BL_CONTEXT_RENDER_TEXT_OP_UTF8 = 0
   BL_CONTEXT_RENDER_TEXT_OP_UTF16 = 1
   BL_CONTEXT_RENDER_TEXT_OP_UTF32 = 2
   BL_CONTEXT_RENDER_TEXT_OP_LATIN1 = 3
-  BL_CONTEXT_RENDER_TEXT_OP_WCHAR = 2
+  BL_CONTEXT_RENDER_TEXT_OP_WCHAR = 1
   BL_CONTEXT_RENDER_TEXT_OP_GLYPH_RUN = 4
   BL_CONTEXT_RENDER_TEXT_OP_MAX_VALUE = 4
-  BL_CONTEXT_RENDER_TEXT_OP_TYPE_FORCE_UINT = 4294967295
+  BL_CONTEXT_RENDER_TEXT_OP_TYPE_FORCE_UINT = -1
   BL_CONTEXT_FLUSH_NO_FLAGS = 0
-  BL_CONTEXT_FLUSH_SYNC = 2147483648
-  BL_CONTEXT_FLUSH_FORCE_UINT = 4294967295
+  BL_CONTEXT_FLUSH_SYNC = -2147483648
+  BL_CONTEXT_FLUSH_FORCE_UINT = -1
   BL_CONTEXT_CREATE_NO_FLAGS = 0
   BL_CONTEXT_CREATE_FLAG_DISABLE_JIT = 1
   BL_CONTEXT_CREATE_FLAG_FALLBACK_TO_SYNC = 1048576
@@ -56,7 +56,7 @@ module Blend2D
   BL_CONTEXT_CREATE_FLAG_ISOLATED_JIT_RUNTIME = 33554432
   BL_CONTEXT_CREATE_FLAG_ISOLATED_JIT_LOGGING = 67108864
   BL_CONTEXT_CREATE_FLAG_OVERRIDE_CPU_FEATURES = 134217728
-  BL_CONTEXT_CREATE_FLAG_FORCE_UINT = 4294967295
+  BL_CONTEXT_CREATE_FLAG_FORCE_UINT = -1
   BL_CONTEXT_ERROR_NO_FLAGS = 0
   BL_CONTEXT_ERROR_FLAG_INVALID_VALUE = 1
   BL_CONTEXT_ERROR_FLAG_INVALID_STATE = 2
@@ -65,22 +65,22 @@ module Blend2D
   BL_CONTEXT_ERROR_FLAG_INVALID_FONT = 16
   BL_CONTEXT_ERROR_FLAG_THREAD_POOL_EXHAUSTED = 536870912
   BL_CONTEXT_ERROR_FLAG_OUT_OF_MEMORY = 1073741824
-  BL_CONTEXT_ERROR_FLAG_UNKNOWN_ERROR = 2147483648
-  BL_CONTEXT_ERROR_FLAG_FORCE_UINT = 4294967295
+  BL_CONTEXT_ERROR_FLAG_UNKNOWN_ERROR = -2147483648
+  BL_CONTEXT_ERROR_FLAG_FORCE_UINT = -1
   BL_CONTEXT_STYLE_SWAP_MODE_STYLES = 0
   BL_CONTEXT_STYLE_SWAP_MODE_STYLES_WITH_ALPHA = 1
   BL_CONTEXT_STYLE_SWAP_MODE_MAX_VALUE = 1
-  BL_CONTEXT_STYLE_SWAP_MODE_FORCE_UINT = 4294967295
+  BL_CONTEXT_STYLE_SWAP_MODE_FORCE_UINT = -1
   BL_CONTEXT_STYLE_TRANSFORM_MODE_USER = 0
   BL_CONTEXT_STYLE_TRANSFORM_MODE_META = 1
   BL_CONTEXT_STYLE_TRANSFORM_MODE_NONE = 2
   BL_CONTEXT_STYLE_TRANSFORM_MODE_MAX_VALUE = 2
-  BL_CONTEXT_STYLE_TRANSFORM_MODE_FORCE_UINT = 4294967295
+  BL_CONTEXT_STYLE_TRANSFORM_MODE_FORCE_UINT = -1
   BL_CLIP_MODE_ALIGNED_RECT = 0
   BL_CLIP_MODE_UNALIGNED_RECT = 1
   BL_CLIP_MODE_MASK = 2
   BL_CLIP_MODE_COUNT = 3
-  BL_CLIP_MODE_FORCE_UINT = 4294967295
+  BL_CLIP_MODE_FORCE_UINT = -1
   BL_COMP_OP_SRC_OVER = 0
   BL_COMP_OP_SRC_COPY = 1
   BL_COMP_OP_SRC_IN = 2
@@ -111,10 +111,10 @@ module Blend2D
   BL_COMP_OP_DIFFERENCE = 27
   BL_COMP_OP_EXCLUSION = 28
   BL_COMP_OP_MAX_VALUE = 28
-  BL_COMP_OP_FORCE_UINT = 4294967295
+  BL_COMP_OP_FORCE_UINT = -1
   BL_RENDERING_QUALITY_ANTIALIAS = 0
   BL_RENDERING_QUALITY_MAX_VALUE = 0
-  BL_RENDERING_QUALITY_FORCE_UINT = 4294967295
+  BL_RENDERING_QUALITY_FORCE_UINT = -1
 
   # Typedef
 
@@ -411,71 +411,6 @@ module Blend2D
     def blitImageD(origin, img, imgArea) = blContextBlitImageD(self, origin, img, imgArea)
     def blitScaledImageI(rect, img, imgArea) = blContextBlitScaledImageI(self, rect, img, imgArea)
     def blitScaledImageD(rect, img, imgArea) = blContextBlitScaledImageD(self, rect, img, imgArea)
-  end
-
-  class BLContextState < FFI::Struct
-    layout(
-      :targetImage, :pointer,
-      :targetSize, BLSize,
-      :hints, BLContextHints,
-      :compOp, :uchar,
-      :fillRule, :uchar,
-      :styleType, [:uchar, 2],
-      :savedStateCount, :uint,
-      :globalAlpha, :double,
-      :styleAlpha, [:double, 2],
-      :strokeOptions, BLStrokeOptionsCore,
-      :approximationOptions, BLApproximationOptions,
-      :metaTransform, BLMatrix2D,
-      :userTransform, BLMatrix2D,
-      :finalTransform, BLMatrix2D,
-    )
-    def targetImage = self[:targetImage]
-    def targetImage=(v) self[:targetImage] = v end
-    def targetSize = self[:targetSize]
-    def targetSize=(v) self[:targetSize] = v end
-    def hints = self[:hints]
-    def hints=(v) self[:hints] = v end
-    def compOp = self[:compOp]
-    def compOp=(v) self[:compOp] = v end
-    def fillRule = self[:fillRule]
-    def fillRule=(v) self[:fillRule] = v end
-    def styleType = self[:styleType]
-    def styleType=(v) self[:styleType] = v end
-    def savedStateCount = self[:savedStateCount]
-    def savedStateCount=(v) self[:savedStateCount] = v end
-    def globalAlpha = self[:globalAlpha]
-    def globalAlpha=(v) self[:globalAlpha] = v end
-    def styleAlpha = self[:styleAlpha]
-    def styleAlpha=(v) self[:styleAlpha] = v end
-    def strokeOptions = self[:strokeOptions]
-    def strokeOptions=(v) self[:strokeOptions] = v end
-    def approximationOptions = self[:approximationOptions]
-    def approximationOptions=(v) self[:approximationOptions] = v end
-    def metaTransform = self[:metaTransform]
-    def metaTransform=(v) self[:metaTransform] = v end
-    def userTransform = self[:userTransform]
-    def userTransform=(v) self[:userTransform] = v end
-    def finalTransform = self[:finalTransform]
-    def finalTransform=(v) self[:finalTransform] = v end
-    def self.create_as(_targetImage_, _targetSize_, _hints_, _compOp_, _fillRule_, _styleType_, _savedStateCount_, _globalAlpha_, _styleAlpha_, _strokeOptions_, _approximationOptions_, _metaTransform_, _userTransform_, _finalTransform_)
-      instance = BLContextState.new
-      instance[:targetImage] = _targetImage_
-      instance[:targetSize] = _targetSize_
-      instance[:hints] = _hints_
-      instance[:compOp] = _compOp_
-      instance[:fillRule] = _fillRule_
-      instance[:styleType] = _styleType_
-      instance[:savedStateCount] = _savedStateCount_
-      instance[:globalAlpha] = _globalAlpha_
-      instance[:styleAlpha] = _styleAlpha_
-      instance[:strokeOptions] = _strokeOptions_
-      instance[:approximationOptions] = _approximationOptions_
-      instance[:metaTransform] = _metaTransform_
-      instance[:userTransform] = _userTransform_
-      instance[:finalTransform] = _finalTransform_
-      instance
-    end
   end
 
   class BLContextVirt < FFI::Struct
@@ -803,6 +738,71 @@ module Blend2D
       instance[:strokeTextOpDExt] = _strokeTextOpDExt_
       instance[:blitImageD] = _blitImageD_
       instance[:blitScaledImageD] = _blitScaledImageD_
+      instance
+    end
+  end
+
+  class BLContextState < FFI::Struct
+    layout(
+      :targetImage, :pointer,
+      :targetSize, BLSize,
+      :hints, BLContextHints,
+      :compOp, :uchar,
+      :fillRule, :uchar,
+      :styleType, [:uchar, 2],
+      :savedStateCount, :uint,
+      :globalAlpha, :double,
+      :styleAlpha, [:double, 2],
+      :strokeOptions, BLStrokeOptionsCore,
+      :approximationOptions, BLApproximationOptions,
+      :metaTransform, BLMatrix2D,
+      :userTransform, BLMatrix2D,
+      :finalTransform, BLMatrix2D,
+    )
+    def targetImage = self[:targetImage]
+    def targetImage=(v) self[:targetImage] = v end
+    def targetSize = self[:targetSize]
+    def targetSize=(v) self[:targetSize] = v end
+    def hints = self[:hints]
+    def hints=(v) self[:hints] = v end
+    def compOp = self[:compOp]
+    def compOp=(v) self[:compOp] = v end
+    def fillRule = self[:fillRule]
+    def fillRule=(v) self[:fillRule] = v end
+    def styleType = self[:styleType]
+    def styleType=(v) self[:styleType] = v end
+    def savedStateCount = self[:savedStateCount]
+    def savedStateCount=(v) self[:savedStateCount] = v end
+    def globalAlpha = self[:globalAlpha]
+    def globalAlpha=(v) self[:globalAlpha] = v end
+    def styleAlpha = self[:styleAlpha]
+    def styleAlpha=(v) self[:styleAlpha] = v end
+    def strokeOptions = self[:strokeOptions]
+    def strokeOptions=(v) self[:strokeOptions] = v end
+    def approximationOptions = self[:approximationOptions]
+    def approximationOptions=(v) self[:approximationOptions] = v end
+    def metaTransform = self[:metaTransform]
+    def metaTransform=(v) self[:metaTransform] = v end
+    def userTransform = self[:userTransform]
+    def userTransform=(v) self[:userTransform] = v end
+    def finalTransform = self[:finalTransform]
+    def finalTransform=(v) self[:finalTransform] = v end
+    def self.create_as(_targetImage_, _targetSize_, _hints_, _compOp_, _fillRule_, _styleType_, _savedStateCount_, _globalAlpha_, _styleAlpha_, _strokeOptions_, _approximationOptions_, _metaTransform_, _userTransform_, _finalTransform_)
+      instance = BLContextState.new
+      instance[:targetImage] = _targetImage_
+      instance[:targetSize] = _targetSize_
+      instance[:hints] = _hints_
+      instance[:compOp] = _compOp_
+      instance[:fillRule] = _fillRule_
+      instance[:styleType] = _styleType_
+      instance[:savedStateCount] = _savedStateCount_
+      instance[:globalAlpha] = _globalAlpha_
+      instance[:styleAlpha] = _styleAlpha_
+      instance[:strokeOptions] = _strokeOptions_
+      instance[:approximationOptions] = _approximationOptions_
+      instance[:metaTransform] = _metaTransform_
+      instance[:userTransform] = _userTransform_
+      instance[:finalTransform] = _finalTransform_
       instance
     end
   end
@@ -1315,30 +1315,30 @@ module Blend2D
       :blContextFillGeometryRgba32 => [:pointer, :int, :pointer, :uint],
       :blContextFillGeometryRgba64 => [:pointer, :int, :pointer, :ulong_long],
       :blContextFillGeometryExt => [:pointer, :int, :pointer, :pointer],
-      :blContextFillUtf8TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf8TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf8TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf8TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextFillUtf8TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf8TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf8TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf8TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextFillUtf16TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf16TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf16TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf16TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextFillUtf16TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf16TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf16TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf16TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextFillUtf32TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf32TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf32TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf32TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextFillUtf32TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextFillUtf32TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextFillUtf32TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextFillUtf32TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
+      :blContextFillUtf8TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf8TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf8TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf8TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextFillUtf8TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf8TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf8TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf8TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextFillUtf16TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf16TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf16TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf16TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextFillUtf16TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf16TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf16TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf16TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextFillUtf32TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf32TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf32TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf32TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextFillUtf32TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextFillUtf32TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextFillUtf32TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextFillUtf32TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
       :blContextFillGlyphRunI => [:pointer, :pointer, :pointer, :pointer],
       :blContextFillGlyphRunIRgba32 => [:pointer, :pointer, :pointer, :pointer, :uint],
       :blContextFillGlyphRunIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
@@ -1371,30 +1371,30 @@ module Blend2D
       :blContextStrokeGeometryRgba32 => [:pointer, :int, :pointer, :uint],
       :blContextStrokeGeometryRgba64 => [:pointer, :int, :pointer, :ulong_long],
       :blContextStrokeGeometryExt => [:pointer, :int, :pointer, :pointer],
-      :blContextStrokeUtf8TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf8TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf8TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf8TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextStrokeUtf8TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf8TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf8TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf8TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextStrokeUtf16TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf16TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf16TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf16TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextStrokeUtf16TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf16TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf16TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf16TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextStrokeUtf32TextI => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf32TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf32TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf32TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
-      :blContextStrokeUtf32TextD => [:pointer, :pointer, :pointer, :pointer, :ulong],
-      :blContextStrokeUtf32TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong, :uint],
-      :blContextStrokeUtf32TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong, :ulong_long],
-      :blContextStrokeUtf32TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong, :pointer],
+      :blContextStrokeUtf8TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf8TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf8TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf8TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextStrokeUtf8TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf8TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf8TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf8TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextStrokeUtf16TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf16TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf16TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf16TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextStrokeUtf16TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf16TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf16TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf16TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextStrokeUtf32TextI => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf32TextIRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf32TextIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf32TextIExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
+      :blContextStrokeUtf32TextD => [:pointer, :pointer, :pointer, :pointer, :ulong_long],
+      :blContextStrokeUtf32TextDRgba32 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :uint],
+      :blContextStrokeUtf32TextDRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :ulong_long],
+      :blContextStrokeUtf32TextDExt => [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer],
       :blContextStrokeGlyphRunI => [:pointer, :pointer, :pointer, :pointer],
       :blContextStrokeGlyphRunIRgba32 => [:pointer, :pointer, :pointer, :pointer, :uint],
       :blContextStrokeGlyphRunIRgba64 => [:pointer, :pointer, :pointer, :pointer, :ulong_long],

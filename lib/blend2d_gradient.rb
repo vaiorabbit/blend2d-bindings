@@ -21,20 +21,22 @@ module Blend2D
   BL_GRADIENT_TYPE_RADIAL = 1
   BL_GRADIENT_TYPE_CONIC = 2
   BL_GRADIENT_TYPE_MAX_VALUE = 2
-  BL_GRADIENT_TYPE_FORCE_UINT = 4294967295
+  BL_GRADIENT_TYPE_FORCE_UINT = -1
   BL_GRADIENT_VALUE_COMMON_X0 = 0
   BL_GRADIENT_VALUE_COMMON_Y0 = 1
   BL_GRADIENT_VALUE_COMMON_X1 = 2
   BL_GRADIENT_VALUE_COMMON_Y1 = 3
   BL_GRADIENT_VALUE_RADIAL_R0 = 4
+  BL_GRADIENT_VALUE_RADIAL_R1 = 5
   BL_GRADIENT_VALUE_CONIC_ANGLE = 2
+  BL_GRADIENT_VALUE_CONIC_REPEAT = 3
   BL_GRADIENT_VALUE_MAX_VALUE = 5
-  BL_GRADIENT_VALUE_FORCE_UINT = 4294967295
+  BL_GRADIENT_VALUE_FORCE_UINT = -1
   BL_GRADIENT_QUALITY_NEAREST = 0
   BL_GRADIENT_QUALITY_SMOOTH = 1
   BL_GRADIENT_QUALITY_DITHER = 2
   BL_GRADIENT_QUALITY_MAX_VALUE = 2
-  BL_GRADIENT_QUALITY_FORCE_UINT = 4294967295
+  BL_GRADIENT_QUALITY_FORCE_UINT = -1
 
   # Typedef
 
@@ -93,6 +95,7 @@ module Blend2D
       :x1, :double,
       :y1, :double,
       :r0, :double,
+      :r1, :double,
     )
     def x0 = self[:x0]
     def x0=(v) self[:x0] = v end
@@ -104,13 +107,16 @@ module Blend2D
     def y1=(v) self[:y1] = v end
     def r0 = self[:r0]
     def r0=(v) self[:r0] = v end
-    def self.create_as(_x0_, _y0_, _x1_, _y1_, _r0_)
+    def r1 = self[:r1]
+    def r1=(v) self[:r1] = v end
+    def self.create_as(_x0_, _y0_, _x1_, _y1_, _r0_, _r1_)
       instance = BLRadialGradientValues.new
       instance[:x0] = _x0_
       instance[:y0] = _y0_
       instance[:x1] = _x1_
       instance[:y1] = _y1_
       instance[:r0] = _r0_
+      instance[:r1] = _r1_
       instance
     end
   end
@@ -120,6 +126,7 @@ module Blend2D
       :x0, :double,
       :y0, :double,
       :angle, :double,
+      :repeat, :double,
     )
     def x0 = self[:x0]
     def x0=(v) self[:x0] = v end
@@ -127,11 +134,14 @@ module Blend2D
     def y0=(v) self[:y0] = v end
     def angle = self[:angle]
     def angle=(v) self[:angle] = v end
-    def self.create_as(_x0_, _y0_, _angle_)
+    def repeat = self[:repeat]
+    def repeat=(v) self[:repeat] = v end
+    def self.create_as(_x0_, _y0_, _angle_, _repeat_)
       instance = BLConicGradientValues.new
       instance[:x0] = _x0_
       instance[:y0] = _y0_
       instance[:angle] = _angle_
+      instance[:repeat] = _repeat_
       instance
     end
   end
@@ -334,34 +344,34 @@ module Blend2D
       :blGradientInit => [:pointer],
       :blGradientInitMove => [:pointer, :pointer],
       :blGradientInitWeak => [:pointer, :pointer],
-      :blGradientInitAs => [:pointer, :int, :pointer, :int, :pointer, :ulong, :pointer],
+      :blGradientInitAs => [:pointer, :int, :pointer, :int, :pointer, :ulong_long, :pointer],
       :blGradientDestroy => [:pointer],
       :blGradientReset => [:pointer],
       :blGradientAssignMove => [:pointer, :pointer],
       :blGradientAssignWeak => [:pointer, :pointer],
-      :blGradientCreate => [:pointer, :int, :pointer, :int, :pointer, :ulong, :pointer],
+      :blGradientCreate => [:pointer, :int, :pointer, :int, :pointer, :ulong_long, :pointer],
       :blGradientShrink => [:pointer],
-      :blGradientReserve => [:pointer, :ulong],
+      :blGradientReserve => [:pointer, :ulong_long],
       :blGradientGetType => [:pointer],
       :blGradientSetType => [:pointer, :int],
       :blGradientGetExtendMode => [:pointer],
       :blGradientSetExtendMode => [:pointer, :int],
-      :blGradientGetValue => [:pointer, :ulong],
-      :blGradientSetValue => [:pointer, :ulong, :double],
-      :blGradientSetValues => [:pointer, :ulong, :pointer, :ulong],
+      :blGradientGetValue => [:pointer, :ulong_long],
+      :blGradientSetValue => [:pointer, :ulong_long, :double],
+      :blGradientSetValues => [:pointer, :ulong_long, :pointer, :ulong_long],
       :blGradientGetSize => [:pointer],
       :blGradientGetCapacity => [:pointer],
       :blGradientGetStops => [:pointer],
       :blGradientResetStops => [:pointer],
-      :blGradientAssignStops => [:pointer, :pointer, :ulong],
+      :blGradientAssignStops => [:pointer, :pointer, :ulong_long],
       :blGradientAddStopRgba32 => [:pointer, :double, :uint],
       :blGradientAddStopRgba64 => [:pointer, :double, :ulong_long],
-      :blGradientRemoveStop => [:pointer, :ulong],
+      :blGradientRemoveStop => [:pointer, :ulong_long],
       :blGradientRemoveStopByOffset => [:pointer, :double, :uint],
-      :blGradientRemoveStopsByIndex => [:pointer, :ulong, :ulong],
+      :blGradientRemoveStopsByIndex => [:pointer, :ulong_long, :ulong_long],
       :blGradientRemoveStopsByOffset => [:pointer, :double, :double],
-      :blGradientReplaceStopRgba32 => [:pointer, :ulong, :double, :uint],
-      :blGradientReplaceStopRgba64 => [:pointer, :ulong, :double, :ulong_long],
+      :blGradientReplaceStopRgba32 => [:pointer, :ulong_long, :double, :uint],
+      :blGradientReplaceStopRgba64 => [:pointer, :ulong_long, :double, :ulong_long],
       :blGradientIndexOfStop => [:pointer, :double],
       :blGradientGetTransform => [:pointer, :pointer],
       :blGradientGetTransformType => [:pointer],
@@ -387,8 +397,8 @@ module Blend2D
       :blGradientGetValue => :double,
       :blGradientSetValue => :uint,
       :blGradientSetValues => :uint,
-      :blGradientGetSize => :ulong,
-      :blGradientGetCapacity => :ulong,
+      :blGradientGetSize => :ulong_long,
+      :blGradientGetCapacity => :ulong_long,
       :blGradientGetStops => :pointer,
       :blGradientResetStops => :uint,
       :blGradientAssignStops => :uint,
@@ -400,11 +410,11 @@ module Blend2D
       :blGradientRemoveStopsByOffset => :uint,
       :blGradientReplaceStopRgba32 => :uint,
       :blGradientReplaceStopRgba64 => :uint,
-      :blGradientIndexOfStop => :ulong,
+      :blGradientIndexOfStop => :ulong_long,
       :blGradientGetTransform => :uint,
       :blGradientGetTransformType => :int,
       :blGradientApplyTransformOp => :uint,
-      :blGradientEquals => :int,
+      :blGradientEquals => :bool,
     }
     symbols.each do |sym|
       begin

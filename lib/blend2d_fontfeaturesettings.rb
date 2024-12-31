@@ -28,44 +28,6 @@ module Blend2D
 
   # Struct
 
-  class BLFontFeatureItem < FFI::Struct
-    layout(
-      :tag, :uint,
-      :value, :uint,
-    )
-    def tag = self[:tag]
-    def tag=(v) self[:tag] = v end
-    def value = self[:value]
-    def value=(v) self[:value] = v end
-    def self.create_as(_tag_, _value_)
-      instance = BLFontFeatureItem.new
-      instance[:tag] = _tag_
-      instance[:value] = _value_
-      instance
-    end
-  end
-
-  class BLFontFeatureSettingsView < FFI::Struct
-    layout(
-      :data, :pointer,
-      :size, :ulong,
-      :ssoData, [BLFontFeatureItem, 36],
-    )
-    def data = self[:data]
-    def data=(v) self[:data] = v end
-    def size = self[:size]
-    def size=(v) self[:size] = v end
-    def ssoData = self[:ssoData]
-    def ssoData=(v) self[:ssoData] = v end
-    def self.create_as(_data_, _size_, _ssoData_)
-      instance = BLFontFeatureSettingsView.new
-      instance[:data] = _data_
-      instance[:size] = _size_
-      instance[:ssoData] = _ssoData_
-      instance
-    end
-  end
-
   class BLFontFeatureSettingsCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
@@ -99,8 +61,8 @@ module Blend2D
   class BLFontFeatureSettingsImpl < FFI::Struct
     layout(
       :data, :pointer,
-      :size, :ulong,
-      :capacity, :ulong,
+      :size, :ulong_long,
+      :capacity, :ulong_long,
     )
     def data = self[:data]
     def data=(v) self[:data] = v end
@@ -113,6 +75,44 @@ module Blend2D
       instance[:data] = _data_
       instance[:size] = _size_
       instance[:capacity] = _capacity_
+      instance
+    end
+  end
+
+  class BLFontFeatureItem < FFI::Struct
+    layout(
+      :tag, :uint,
+      :value, :uint,
+    )
+    def tag = self[:tag]
+    def tag=(v) self[:tag] = v end
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_tag_, _value_)
+      instance = BLFontFeatureItem.new
+      instance[:tag] = _tag_
+      instance[:value] = _value_
+      instance
+    end
+  end
+
+  class BLFontFeatureSettingsView < FFI::Struct
+    layout(
+      :data, :pointer,
+      :size, :ulong_long,
+      :ssoData, [BLFontFeatureItem, 36],
+    )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def ssoData = self[:ssoData]
+    def ssoData=(v) self[:ssoData] = v end
+    def self.create_as(_data_, _size_, _ssoData_)
+      instance = BLFontFeatureSettingsView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:ssoData] = _ssoData_
       instance
     end
   end
@@ -188,14 +188,14 @@ module Blend2D
       :blFontFeatureSettingsShrink => :uint,
       :blFontFeatureSettingsAssignMove => :uint,
       :blFontFeatureSettingsAssignWeak => :uint,
-      :blFontFeatureSettingsGetSize => :ulong,
-      :blFontFeatureSettingsGetCapacity => :ulong,
+      :blFontFeatureSettingsGetSize => :ulong_long,
+      :blFontFeatureSettingsGetCapacity => :ulong_long,
       :blFontFeatureSettingsGetView => :uint,
-      :blFontFeatureSettingsHasValue => :int,
+      :blFontFeatureSettingsHasValue => :bool,
       :blFontFeatureSettingsGetValue => :uint,
       :blFontFeatureSettingsSetValue => :uint,
       :blFontFeatureSettingsRemoveValue => :uint,
-      :blFontFeatureSettingsEquals => :int,
+      :blFontFeatureSettingsEquals => :bool,
     }
     symbols.each do |sym|
       begin

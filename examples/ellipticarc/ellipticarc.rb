@@ -39,13 +39,13 @@ def renderBlend2DImage(ctx, xRadiusValue, yRadiusValue, angleValue, largeArcFlag
   p = BLPathCore.create
 
   p.moveTo(pts[0].x, pts[0].y)
-  p.ellipticArcTo(radius.x, radius.y, angle, 0, 0, pts[1].x, pts[1].y)
+  p.ellipticArcTo(radius.x, radius.y, angle, false, false, pts[1].x, pts[1].y)
   p.moveTo(pts[0].x, pts[0].y)
-  p.ellipticArcTo(radius.x, radius.y, angle, 0, 1, pts[1].x, pts[1].y)
+  p.ellipticArcTo(radius.x, radius.y, angle, false, true, pts[1].x, pts[1].y)
   p.moveTo(pts[0].x, pts[0].y)
-  p.ellipticArcTo(radius.x, radius.y, angle, 1, 0, pts[1].x, pts[1].y)
+  p.ellipticArcTo(radius.x, radius.y, angle, true, false, pts[1].x, pts[1].y)
   p.moveTo(pts[0].x, pts[0].y)
-  p.ellipticArcTo(radius.x, radius.y, angle, 1, 1, pts[1].x, pts[1].y)
+  p.ellipticArcTo(radius.x, radius.y, angle, true, true, pts[1].x, pts[1].y)
 
   ctx.setStrokeStyleRgba32(BLRgba32.create_as(0x40FFFFFF).value)
   ctx.strokeGeometry(BL_GEOMETRY_TYPE_PATH, p)
@@ -53,7 +53,7 @@ def renderBlend2DImage(ctx, xRadiusValue, yRadiusValue, angleValue, largeArcFlag
   # Render elliptic arc based on the given parameters.
   p.clear()
   p.moveTo(pts[0].x, pts[0].y)
-  p.ellipticArcTo(radius.x, radius.y, angle, largeArcFlag ? 1 : 0, sweepArcFlag ? 1 : 0, pts[1].x, pts[1].y)
+  p.ellipticArcTo(radius.x, radius.y, angle, largeArcFlag, sweepArcFlag, pts[1].x, pts[1].y)
 
   # renderPathPoints : Render all points of the path (as the arc was split into segments).
   count = p.getSize()

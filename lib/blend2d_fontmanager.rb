@@ -22,27 +22,6 @@ module Blend2D
 
   # Struct
 
-  class BLFontQueryProperties < FFI::Struct
-    layout(
-      :style, :uint,
-      :weight, :uint,
-      :stretch, :uint,
-    )
-    def style = self[:style]
-    def style=(v) self[:style] = v end
-    def weight = self[:weight]
-    def weight=(v) self[:weight] = v end
-    def stretch = self[:stretch]
-    def stretch=(v) self[:stretch] = v end
-    def self.create_as(_style_, _weight_, _stretch_)
-      instance = BLFontQueryProperties.new
-      instance[:style] = _style_
-      instance[:weight] = _weight_
-      instance[:stretch] = _stretch_
-      instance
-    end
-  end
-
   class BLFontManagerCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
@@ -94,6 +73,27 @@ module Blend2D
     def self.create_as(_virt_)
       instance = BLFontManagerImpl.new
       instance[:virt] = _virt_
+      instance
+    end
+  end
+
+  class BLFontQueryProperties < FFI::Struct
+    layout(
+      :style, :uint,
+      :weight, :uint,
+      :stretch, :uint,
+    )
+    def style = self[:style]
+    def style=(v) self[:style] = v end
+    def weight = self[:weight]
+    def weight=(v) self[:weight] = v end
+    def stretch = self[:stretch]
+    def stretch=(v) self[:stretch] = v end
+    def self.create_as(_style_, _weight_, _stretch_)
+      instance = BLFontQueryProperties.new
+      instance[:style] = _style_
+      instance[:weight] = _weight_
+      instance[:stretch] = _stretch_
       instance
     end
   end
@@ -152,8 +152,8 @@ module Blend2D
       :blFontManagerGetFamilyCount => [:pointer],
       :blFontManagerHasFace => [:pointer, :pointer],
       :blFontManagerAddFace => [:pointer, :pointer],
-      :blFontManagerQueryFace => [:pointer, :pointer, :ulong, :pointer, :pointer],
-      :blFontManagerQueryFacesByFamilyName => [:pointer, :pointer, :ulong, :pointer],
+      :blFontManagerQueryFace => [:pointer, :pointer, :ulong_long, :pointer, :pointer],
+      :blFontManagerQueryFacesByFamilyName => [:pointer, :pointer, :ulong_long, :pointer],
       :blFontManagerEquals => [:pointer, :pointer],
     }
     retvals = {
@@ -166,13 +166,13 @@ module Blend2D
       :blFontManagerAssignMove => :uint,
       :blFontManagerAssignWeak => :uint,
       :blFontManagerCreate => :uint,
-      :blFontManagerGetFaceCount => :ulong,
-      :blFontManagerGetFamilyCount => :ulong,
-      :blFontManagerHasFace => :int,
+      :blFontManagerGetFaceCount => :ulong_long,
+      :blFontManagerGetFamilyCount => :ulong_long,
+      :blFontManagerHasFace => :bool,
       :blFontManagerAddFace => :uint,
       :blFontManagerQueryFace => :uint,
       :blFontManagerQueryFacesByFamilyName => :uint,
-      :blFontManagerEquals => :int,
+      :blFontManagerEquals => :bool,
     }
     symbols.each do |sym|
       begin

@@ -28,44 +28,6 @@ module Blend2D
 
   # Struct
 
-  class BLFontVariationItem < FFI::Struct
-    layout(
-      :tag, :uint,
-      :value, :float,
-    )
-    def tag = self[:tag]
-    def tag=(v) self[:tag] = v end
-    def value = self[:value]
-    def value=(v) self[:value] = v end
-    def self.create_as(_tag_, _value_)
-      instance = BLFontVariationItem.new
-      instance[:tag] = _tag_
-      instance[:value] = _value_
-      instance
-    end
-  end
-
-  class BLFontVariationSettingsView < FFI::Struct
-    layout(
-      :data, :pointer,
-      :size, :ulong,
-      :ssoData, [BLFontVariationItem, 3],
-    )
-    def data = self[:data]
-    def data=(v) self[:data] = v end
-    def size = self[:size]
-    def size=(v) self[:size] = v end
-    def ssoData = self[:ssoData]
-    def ssoData=(v) self[:ssoData] = v end
-    def self.create_as(_data_, _size_, _ssoData_)
-      instance = BLFontVariationSettingsView.new
-      instance[:data] = _data_
-      instance[:size] = _size_
-      instance[:ssoData] = _ssoData_
-      instance
-    end
-  end
-
   class BLFontVariationSettingsCore < FFI::Struct
     layout(
       :_d, BLObjectDetail,
@@ -99,8 +61,8 @@ module Blend2D
   class BLFontVariationSettingsImpl < FFI::Struct
     layout(
       :data, :pointer,
-      :size, :ulong,
-      :capacity, :ulong,
+      :size, :ulong_long,
+      :capacity, :ulong_long,
     )
     def data = self[:data]
     def data=(v) self[:data] = v end
@@ -113,6 +75,44 @@ module Blend2D
       instance[:data] = _data_
       instance[:size] = _size_
       instance[:capacity] = _capacity_
+      instance
+    end
+  end
+
+  class BLFontVariationItem < FFI::Struct
+    layout(
+      :tag, :uint,
+      :value, :float,
+    )
+    def tag = self[:tag]
+    def tag=(v) self[:tag] = v end
+    def value = self[:value]
+    def value=(v) self[:value] = v end
+    def self.create_as(_tag_, _value_)
+      instance = BLFontVariationItem.new
+      instance[:tag] = _tag_
+      instance[:value] = _value_
+      instance
+    end
+  end
+
+  class BLFontVariationSettingsView < FFI::Struct
+    layout(
+      :data, :pointer,
+      :size, :ulong_long,
+      :ssoData, [BLFontVariationItem, 3],
+    )
+    def data = self[:data]
+    def data=(v) self[:data] = v end
+    def size = self[:size]
+    def size=(v) self[:size] = v end
+    def ssoData = self[:ssoData]
+    def ssoData=(v) self[:ssoData] = v end
+    def self.create_as(_data_, _size_, _ssoData_)
+      instance = BLFontVariationSettingsView.new
+      instance[:data] = _data_
+      instance[:size] = _size_
+      instance[:ssoData] = _ssoData_
       instance
     end
   end
@@ -188,14 +188,14 @@ module Blend2D
       :blFontVariationSettingsShrink => :uint,
       :blFontVariationSettingsAssignMove => :uint,
       :blFontVariationSettingsAssignWeak => :uint,
-      :blFontVariationSettingsGetSize => :ulong,
-      :blFontVariationSettingsGetCapacity => :ulong,
+      :blFontVariationSettingsGetSize => :ulong_long,
+      :blFontVariationSettingsGetCapacity => :ulong_long,
       :blFontVariationSettingsGetView => :uint,
-      :blFontVariationSettingsHasValue => :int,
+      :blFontVariationSettingsHasValue => :bool,
       :blFontVariationSettingsGetValue => :float,
       :blFontVariationSettingsSetValue => :uint,
       :blFontVariationSettingsRemoveValue => :uint,
-      :blFontVariationSettingsEquals => :int,
+      :blFontVariationSettingsEquals => :bool,
     }
     symbols.each do |sym|
       begin
