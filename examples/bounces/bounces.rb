@@ -122,7 +122,7 @@ if __FILE__ == $PROGRAM_NAME
 
   # Raylib starts here
 
-  redrawEveryFrame = true
+  redrawEveryFrame = false
 
   SetTraceLogLevel(LOG_ERROR)
   screen_width = blImgData.size.w + sidebar_width
@@ -157,9 +157,7 @@ if __FILE__ == $PROGRAM_NAME
   Raylib.UnloadImage(font_image)
 
   # Store our identifier
-  font_texture_ptr = FFI::MemoryPointer.new(:uint32)
-  font_texture_ptr.write(:uint32, font_texture[:id])
-  io[:Fonts].SetTexID(font_texture_ptr)
+  io[:Fonts].SetTexID(font_texture[:id])
 
   show_ui = true
   quit_mainloop = false
@@ -202,7 +200,9 @@ if __FILE__ == $PROGRAM_NAME
           if ImGui::MenuItem_Bool("Quit")
             quit_mainloop = true
           end
+          ImGui::EndMenu()
         end
+        ImGui::EndMainMenuBar()
       end
 
       exec_redraw = redrawEveryFrame
