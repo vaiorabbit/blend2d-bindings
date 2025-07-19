@@ -27,13 +27,13 @@ module Blend2D
   BL_FONT_FACE_FLAG_TYPOGRAPHIC_NAMES = 1
   BL_FONT_FACE_FLAG_TYPOGRAPHIC_METRICS = 2
   BL_FONT_FACE_FLAG_CHAR_TO_GLYPH_MAPPING = 4
-  BL_FONT_FACE_FLAG_HORIZONTAL_METIRCS = 16
+  BL_FONT_FACE_FLAG_HORIZONTAL_METRICS = 16
   BL_FONT_FACE_FLAG_VERTICAL_METRICS = 32
   BL_FONT_FACE_FLAG_HORIZONTAL_KERNING = 64
   BL_FONT_FACE_FLAG_VERTICAL_KERNING = 128
   BL_FONT_FACE_FLAG_OPENTYPE_FEATURES = 256
-  BL_FONT_FACE_FLAG_PANOSE_DATA = 512
-  BL_FONT_FACE_FLAG_UNICODE_COVERAGE = 1024
+  BL_FONT_FACE_FLAG_PANOSE_INFO = 512
+  BL_FONT_FACE_FLAG_COVERAGE_INFO = 1024
   BL_FONT_FACE_FLAG_BASELINE_Y_EQUALS_0 = 4096
   BL_FONT_FACE_FLAG_LSB_POINT_X_EQUALS_0 = 8192
   BL_FONT_FACE_FLAG_VARIATION_SEQUENCES = 268435456
@@ -136,7 +136,8 @@ module Blend2D
     def getPostScriptName(out) = blFontFaceGetPostScriptName(self, out)
     def getFaceInfo(out) = blFontFaceGetFaceInfo(self, out)
     def getDesignMetrics(out) = blFontFaceGetDesignMetrics(self, out)
-    def getUnicodeCoverage(out) = blFontFaceGetUnicodeCoverage(self, out)
+    def getCoverageInfo(out) = blFontFaceGetCoverageInfo(self, out)
+    def getPanoseInfo(out) = blFontFaceGetPanoseInfo(self, out)
     def getCharacterCoverage(out) = blFontFaceGetCharacterCoverage(self, out)
     def hasScriptTag(scriptTag) = blFontFaceHasScriptTag(self, scriptTag)
     def hasFeatureTag(featureTag) = blFontFaceHasFeatureTag(self, featureTag)
@@ -173,8 +174,8 @@ module Blend2D
       :subfamilyName, BLStringCore,
       :postScriptName, BLStringCore,
       :designMetrics, BLFontDesignMetrics,
-      :unicodeCoverage, BLFontUnicodeCoverage,
-      :panose, BLFontPanose,
+      :coverageInfo, BLFontCoverageInfo,
+      :panoseInfo, BLFontPanoseInfo,
     )
     def virt = self[:virt]
     def virt=(v) self[:virt] = v end
@@ -200,11 +201,11 @@ module Blend2D
     def postScriptName=(v) self[:postScriptName] = v end
     def designMetrics = self[:designMetrics]
     def designMetrics=(v) self[:designMetrics] = v end
-    def unicodeCoverage = self[:unicodeCoverage]
-    def unicodeCoverage=(v) self[:unicodeCoverage] = v end
-    def panose = self[:panose]
-    def panose=(v) self[:panose] = v end
-    def self.create_as(_virt_, _weight_, _stretch_, _style_, _faceInfo_, _uniqueId_, _data_, _fullName_, _familyName_, _subfamilyName_, _postScriptName_, _designMetrics_, _unicodeCoverage_, _panose_)
+    def coverageInfo = self[:coverageInfo]
+    def coverageInfo=(v) self[:coverageInfo] = v end
+    def panoseInfo = self[:panoseInfo]
+    def panoseInfo=(v) self[:panoseInfo] = v end
+    def self.create_as(_virt_, _weight_, _stretch_, _style_, _faceInfo_, _uniqueId_, _data_, _fullName_, _familyName_, _subfamilyName_, _postScriptName_, _designMetrics_, _coverageInfo_, _panoseInfo_)
       instance = BLFontFaceImpl.new
       instance[:virt] = _virt_
       instance[:weight] = _weight_
@@ -218,8 +219,8 @@ module Blend2D
       instance[:subfamilyName] = _subfamilyName_
       instance[:postScriptName] = _postScriptName_
       instance[:designMetrics] = _designMetrics_
-      instance[:unicodeCoverage] = _unicodeCoverage_
-      instance[:panose] = _panose_
+      instance[:coverageInfo] = _coverageInfo_
+      instance[:panoseInfo] = _panoseInfo_
       instance
     end
   end
@@ -245,7 +246,8 @@ module Blend2D
       :blFontFaceGetPostScriptName,
       :blFontFaceGetFaceInfo,
       :blFontFaceGetDesignMetrics,
-      :blFontFaceGetUnicodeCoverage,
+      :blFontFaceGetCoverageInfo,
+      :blFontFaceGetPanoseInfo,
       :blFontFaceGetCharacterCoverage,
       :blFontFaceHasScriptTag,
       :blFontFaceHasFeatureTag,
@@ -271,7 +273,8 @@ module Blend2D
       :blFontFaceGetPostScriptName => :blFontFaceGetPostScriptName,
       :blFontFaceGetFaceInfo => :blFontFaceGetFaceInfo,
       :blFontFaceGetDesignMetrics => :blFontFaceGetDesignMetrics,
-      :blFontFaceGetUnicodeCoverage => :blFontFaceGetUnicodeCoverage,
+      :blFontFaceGetCoverageInfo => :blFontFaceGetCoverageInfo,
+      :blFontFaceGetPanoseInfo => :blFontFaceGetPanoseInfo,
       :blFontFaceGetCharacterCoverage => :blFontFaceGetCharacterCoverage,
       :blFontFaceHasScriptTag => :blFontFaceHasScriptTag,
       :blFontFaceHasFeatureTag => :blFontFaceHasFeatureTag,
@@ -297,7 +300,8 @@ module Blend2D
       :blFontFaceGetPostScriptName => [:pointer, :pointer],
       :blFontFaceGetFaceInfo => [:pointer, :pointer],
       :blFontFaceGetDesignMetrics => [:pointer, :pointer],
-      :blFontFaceGetUnicodeCoverage => [:pointer, :pointer],
+      :blFontFaceGetCoverageInfo => [:pointer, :pointer],
+      :blFontFaceGetPanoseInfo => [:pointer, :pointer],
       :blFontFaceGetCharacterCoverage => [:pointer, :pointer],
       :blFontFaceHasScriptTag => [:pointer, :uint],
       :blFontFaceHasFeatureTag => [:pointer, :uint],
@@ -323,7 +327,8 @@ module Blend2D
       :blFontFaceGetPostScriptName => :uint,
       :blFontFaceGetFaceInfo => :uint,
       :blFontFaceGetDesignMetrics => :uint,
-      :blFontFaceGetUnicodeCoverage => :uint,
+      :blFontFaceGetCoverageInfo => :uint,
+      :blFontFaceGetPanoseInfo => :uint,
       :blFontFaceGetCharacterCoverage => :uint,
       :blFontFaceHasScriptTag => :bool,
       :blFontFaceHasFeatureTag => :bool,

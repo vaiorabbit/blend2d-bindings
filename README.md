@@ -3,7 +3,7 @@
 # Blend2D bindings for Ruby #
 
 *   Created : 2024-01-05
-*   Last modified : 2025-01-01
+*   Last modified : 2025-07-19
 
 Provides Ruby bindings for Blend2D
 *   https://blend2d.com

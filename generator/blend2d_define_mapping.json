@@ -12,10 +12,8 @@
     , "BL_CDECL" : null
     , "BL_INLINE" : null
     , "BL_INLINE_NODEBUG" : null
+    , "BL_INLINE_CONSTEXPR" : null
     , "BL_NORETURN" : null
-    , "BL_NODISCARD" : null
-    , "BL_NOEXCEPT" : null
-    , "BL_CONSTEXPR" : null
     , "BL_NOEXCEPT_C" : null
     , "BL_PURE" : null
     , "BL_ALIGN_TYPE" : null
@@ -32,7 +30,6 @@
     , "BL_END_C_DECLS" : null
     , "BL_DIAGNOSTIC_PUSH" : null
     , "BL_DIAGNOSTIC_POP" : null
-    , "BL_DIAGNOSTIC_NO_UNUSED_FUNCTIONS" : null
     , "BL_DIAGNOSTIC_NO_UNUSED_PARAMETERS" : null
     , "BL_DIAGNOSTIC_NO_EXTRA_WARNINGS" : null
     , "BL_FORWARD_DECLARE_STRUCT" : null

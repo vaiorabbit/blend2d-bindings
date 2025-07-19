@@ -73,6 +73,8 @@ module Blend2D
       :depth, :ushort,
       :planeCount, :ushort,
       :frameCount, :ulong_long,
+      :repeatCount, :uint,
+      :reserved, [:uint, 3],
       :format, [:char, 16],
       :compression, [:char, 16],
     )
@@ -88,11 +90,15 @@ module Blend2D
     def planeCount=(v) self[:planeCount] = v end
     def frameCount = self[:frameCount]
     def frameCount=(v) self[:frameCount] = v end
+    def repeatCount = self[:repeatCount]
+    def repeatCount=(v) self[:repeatCount] = v end
+    def reserved = self[:reserved]
+    def reserved=(v) self[:reserved] = v end
     def format = self[:format]
     def format=(v) self[:format] = v end
     def compression = self[:compression]
     def compression=(v) self[:compression] = v end
-    def self.create_as(_size_, _density_, _flags_, _depth_, _planeCount_, _frameCount_, _format_, _compression_)
+    def self.create_as(_size_, _density_, _flags_, _depth_, _planeCount_, _frameCount_, _repeatCount_, _reserved_, _format_, _compression_)
       instance = BLImageInfo.new
       instance[:size] = _size_
       instance[:density] = _density_
@@ -100,6 +106,8 @@ module Blend2D
       instance[:depth] = _depth_
       instance[:planeCount] = _planeCount_
       instance[:frameCount] = _frameCount_
+      instance[:repeatCount] = _repeatCount_
+      instance[:reserved] = _reserved_
       instance[:format] = _format_
       instance[:compression] = _compression_
       instance

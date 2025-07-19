@@ -1,7 +1,7 @@
 import blend2d_parser, blend2d_generator
 
 TYPEDEF_PREFIX_FORMAT = """
-  class BLFontPanose_text < FFI::Struct
+  class BLFontPanoseInfo_text < FFI::Struct
     layout(
       :familyKind, :uchar,
       :serifStyle, :uchar,
@@ -16,7 +16,7 @@ TYPEDEF_PREFIX_FORMAT = """
     )
   end
 
-  class BLFontPanose_script < FFI::Struct
+  class BLFontPanoseInfo_script < FFI::Struct
     layout(
       :familyKind, :uchar,
       :toolKind, :uchar,
@@ -31,7 +31,7 @@ TYPEDEF_PREFIX_FORMAT = """
     )
   end
 
-  class BLFontPanose_decorative < FFI::Struct
+  class BLFontPanoseInfo_decorative < FFI::Struct
     layout(
       :familyKind, :uchar,
       :decorativeClass, :uchar,
@@ -46,7 +46,7 @@ TYPEDEF_PREFIX_FORMAT = """
     )
   end
 
-  class BLFontPanose_symbol < FFI::Struct
+  class BLFontPanoseInfo_symbol < FFI::Struct
     layout(
       :familyKind, :uchar,
       :symbolKind, :uchar,
@@ -61,20 +61,20 @@ TYPEDEF_PREFIX_FORMAT = """
     )
   end
 
-  class BLFontPanose_union < FFI::Union
+  class BLFontPanoseInfo_union < FFI::Union
     layout(
       :data, [:uchar, 10],
       :familyKind, :uchar,
-      :text, BLFontPanose_text,
-      :script, BLFontPanose_script,
-      :decorative, BLFontPanose_decorative,
-      :symbol, BLFontPanose_symbol,
+      :text, BLFontPanoseInfo_text,
+      :script, BLFontPanoseInfo_script,
+      :decorative, BLFontPanoseInfo_decorative,
+      :symbol, BLFontPanoseInfo_symbol,
     )
   end
 
-  class BLFontPanose < FFI::Struct
+  class BLFontPanoseInfo < FFI::Struct
     layout(
-      :_union, BLFontPanose_union,
+      :_union, BLFontPanoseInfo_union,
     )
   end
 
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     ctx = blend2d_parser.ParseContext('fontdefs.h')
     blend2d_parser.execute(ctx)
 
-    ctx.decl_structs['BLFontPanose'] = None
+    ctx.decl_structs['BLFontPanoseInfo'] = None
     ctx.decl_structs['BLFontMatrix'] = None
     ctx.decl_structs['BLFontMetrics'] = None
     ctx.decl_structs['BLFontDesignMetrics'] = None
