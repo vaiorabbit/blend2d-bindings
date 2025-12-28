@@ -90,6 +90,15 @@ def sanitize(ctx):
 
 ####################################################################################################
 
+def pascal_to_snake(name):
+    if not name:
+        return ""
+    first_pass = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", name)
+    snake = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", first_pass)
+    return snake.lower()
+
+####################################################################################################
+
 def generate_macrodefine(ctx, indent = ""):
     for macro_name, macro_value in ctx.decl_macros.items():
         if macro_value != None:

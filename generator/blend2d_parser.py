@@ -12,7 +12,7 @@ else:
 
 ####################################################################################################
 
-def generate_type_mapping(headers_list_filename = './blend2d_headers_list.json', headers_dir = '../blend2d_dll/blend2d/src/blend2d/'):
+def generate_type_mapping(headers_list_filename = './blend2d_headers_list.json', headers_dir = '../blend2d_dll/blend2d/blend2d/core'):
     headers_list_file = Path(headers_list_filename)
 
     if not headers_list_file.exists():
@@ -46,7 +46,7 @@ def generate_type_mapping(headers_list_filename = './blend2d_headers_list.json',
     print("}", file = sys.stdout)
 
 
-def generate_define_list(headers_list_filename = './blend2d_headers_list.json', headers_dir = '../blend2d_dll/blend2d/src/blend2d/', concatinate = True):
+def generate_define_list(headers_list_filename = './blend2d_headers_list.json', headers_dir = '../blend2d_dll/blend2d/blend2d/core', concatinate = True):
     headers_list_file = Path(headers_list_filename)
 
     if not headers_list_file.exists():
@@ -338,7 +338,7 @@ class ParseContext(object):
     Decl_Struct   = 4
     Decl_Function = 5
 
-    def __init__(self, filename = "", headers_dir = '../blend2d_dll/blend2d/src/blend2d/'):
+    def __init__(self, filename = "", headers_dir = '../blend2d_dll/blend2d/blend2d/core'):
         self.collection_mode = ParseContext.Decl_Unknown
         self.depth = 0
         self.decl_enums = {}
@@ -346,7 +346,7 @@ class ParseContext(object):
         self.decl_structs = {}
         self.decl_typedefs = {}
         self.decl_functions = {}
-        self.parse_file = headers_dir + filename
+        self.parse_file = headers_dir + '/' + filename
 
     def push(self):
         self.depth += 1
@@ -678,6 +678,8 @@ parser_arg = [
     # "-DDECLSPEC=",
     # "-DSDLCALL=",
     # "-I./",
+    "-DBL_DEFINE_ENUM(NAME)=typedef enum NAME NAME; enum NAME",
+    "-DBL_CDECL=__attribute__((__cdecl__))",
 ]
 
 parser_opt = TranslationUnit.PARSE_SKIP_FUNCTION_BODIES | TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD | TranslationUnit.PARSE_INCOMPLETE
